@@ -1,0 +1,1206 @@
+<title>VAULT Arch Enclosure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --panel:#FBFBF9; --sunk:#E8EAE3;
+  --ink:#171B14; --ink-2:#4A5147; --muted:#787F74;
+  --rule:#CBCFC3; --rule-soft:#E0E3D9;
+  --signal:#B0401B; --air:#2A6857; --air-soft:#DEE9E4;
+  --tube:#E4E7DE;
+  --shadow:0 1px 0 rgba(23,27,20,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+    --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+    --rule:#2E342B; --rule-soft:#242A22;
+    --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28;
+    --tube:#232A21;
+    --shadow:0 1px 0 rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+  --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+  --rule:#2E342B; --rule-soft:#242A22;
+  --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28;
+  --tube:#232A21;
+  --shadow:0 1px 0 rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:17.5px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:0 28px 120px}
+h1,h2,h3,h4,.mono,.lbl,th{font-family:"Archivo",-apple-system,"Segoe UI",sans-serif}
+.mono,code,.num{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+p{margin:0 0 1em; max-width:66ch}
+a{color:var(--signal)}
+
+/* ---- title block ---- */
+.masthead{padding:64px 0 0}
+.stamp{
+  display:inline-flex; gap:10px; align-items:center;
+  font:600 11px/1 "Archivo"; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--signal); border:1px solid var(--signal); border-radius:2px;
+  padding:7px 10px;
+}
+h1{
+  font-size:clamp(42px,7.2vw,78px); font-weight:700; letter-spacing:-.028em;
+  line-height:.96; margin:22px 0 0; text-wrap:balance;
+}
+h1 .sub{display:block; font-weight:500; color:var(--muted); letter-spacing:-.02em; font-size:.44em; margin-top:14px; line-height:1.2}
+.deck{font-size:20px; color:var(--ink-2); max-width:60ch; margin:26px 0 0}
+
+.tb{
+  margin:44px 0 0; border:1px solid var(--rule); background:var(--panel);
+  display:grid; grid-template-columns:repeat(4,1fr);
+}
+.tb > div{padding:14px 16px; border-right:1px solid var(--rule-soft)}
+.tb > div:last-child{border-right:0}
+.tb dt{font:600 10px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin:0 0 7px}
+.tb dd{margin:0; font-family:"IBM Plex Mono",monospace; font-size:13.5px; font-weight:500; color:var(--ink)}
+@media(max-width:720px){.tb{grid-template-columns:repeat(2,1fr)} .tb>div{border-bottom:1px solid var(--rule-soft)}}
+
+/* ---- sheets ---- */
+.sheet{margin:78px 0 0; scroll-margin-top:20px}
+.sheet-head{
+  display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
+  border-top:2px solid var(--ink); padding-top:12px; margin-bottom:26px;
+}
+.sheet-no{
+  font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:13px;
+  color:var(--signal); letter-spacing:.06em; padding-top:5px;
+}
+.sheet-head h2{
+  margin:0; font-size:clamp(24px,3.4vw,33px); font-weight:700; letter-spacing:-.022em; flex:1 1 260px;
+}
+.sheet-head .note{font:500 12px/1.4 "Archivo"; color:var(--muted); letter-spacing:.02em; text-align:right}
+
+h3{font-size:15px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); margin:38px 0 14px}
+h4{font-size:17px; font-weight:600; letter-spacing:-.01em; margin:26px 0 8px}
+
+/* ---- drawing frames ---- */
+figure{margin:26px 0 0; border:1px solid var(--rule); background:var(--panel)}
+.dwg{overflow-x:auto; padding:20px 18px 8px}
+.dwg svg{display:block; width:100%; height:auto; min-width:520px}
+figcaption{
+  border-top:1px solid var(--rule-soft); padding:11px 16px;
+  display:flex; gap:16px; justify-content:space-between; align-items:baseline; flex-wrap:wrap;
+  font:500 12px/1.5 "Archivo"; color:var(--muted); letter-spacing:.01em;
+}
+figcaption b{font-weight:600; color:var(--ink-2); letter-spacing:.06em; text-transform:uppercase; font-size:11px}
+.dwgkey{display:grid; grid-template-columns:repeat(3,1fr); gap:6px 22px; padding:14px 16px; border-top:1px solid var(--rule-soft)}
+.dwgkey div{display:flex; gap:9px; align-items:baseline; font:500 12.5px/1.45 "Archivo"; color:var(--ink-2)}
+.dwgkey b{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--signal); font-size:11.5px; min-width:16px}
+@media(max-width:820px){.dwgkey{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.dwgkey{grid-template-columns:1fr}}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+
+/* ---- svg drawing language ---- */
+svg .tube{fill:var(--tube); stroke:var(--ink); stroke-width:5; stroke-linejoin:round}
+svg .tubeline{fill:none; stroke:var(--ink); stroke-linecap:round; stroke-linejoin:round}
+svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejoin:round}
+svg .obj{fill:none; stroke:var(--ink); stroke-width:6}
+svg .thin{fill:none; stroke:var(--ink-2); stroke-width:4}
+svg .hid{fill:none; stroke:var(--ink-2); stroke-width:4; stroke-dasharray:26 18}
+svg .cl{fill:none; stroke:var(--air); stroke-width:3.5; stroke-dasharray:70 14 10 14}
+svg .dim{fill:none; stroke:var(--signal); stroke-width:3.5}
+svg .ext{fill:none; stroke:var(--signal); stroke-width:2.5; opacity:.65}
+svg .lead{fill:none; stroke:var(--ink-2); stroke-width:3}
+svg .env{fill:var(--air); opacity:.11}
+svg .envline{fill:none; stroke:var(--air); stroke-width:4; stroke-dasharray:30 16}
+svg .grd{fill:none; stroke:var(--ink); stroke-width:7}
+svg text{font-family:"IBM Plex Mono",monospace; fill:var(--ink-2)}
+svg .dt{fill:var(--signal); font-weight:500}
+svg .lb{font-family:"Archivo",sans-serif; font-weight:600; letter-spacing:.05em; fill:var(--ink-2)}
+svg .lbk{font-family:"Archivo",sans-serif; font-weight:700; letter-spacing:.06em; fill:var(--ink)}
+svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
+svg .balt{font-family:"Archivo",sans-serif; font-weight:700; fill:var(--ink); text-anchor:middle}
+svg .airfill{fill:var(--air-soft); stroke:var(--air); stroke-width:4}
+
+/* ---- tables ---- */
+.tblwrap{overflow-x:auto; margin:22px 0 0; border:1px solid var(--rule); background:var(--panel)}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:14.5px}
+th{
+  text-align:left; font:600 10.5px/1.3 "Archivo"; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); padding:13px 14px; border-bottom:1px solid var(--rule); vertical-align:bottom; white-space:nowrap;
+}
+td{padding:11px 14px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.n, th.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+td.k{font-weight:500; color:var(--ink); font-family:"Archivo",sans-serif; font-size:14px}
+tbody tr:hover{background:var(--sunk)}
+.hi td{background:var(--air-soft)}
+.hi:hover td{background:var(--air-soft)}
+
+/* ---- callouts ---- */
+.key{
+  border-left:3px solid var(--signal); background:var(--panel); border-top:1px solid var(--rule-soft);
+  border-right:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft);
+  padding:16px 20px; margin:26px 0; 
+}
+.key p:last-child{margin-bottom:0}
+.key .tag{font:600 10.5px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--signal); display:block; margin-bottom:9px}
+.caution{border-left-color:var(--air)}
+.caution .tag{color:var(--air)}
+
+ul,ol{max-width:66ch; padding-left:1.25em; margin:0 0 1em}
+li{margin:0 0 .5em}
+li::marker{color:var(--muted)}
+.tight li{margin:0 0 .28em}
+strong{font-weight:500; color:var(--ink); font-family:"Archivo",sans-serif; font-size:.95em}
+em{font-style:italic}
+.spec{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink); background:var(--sunk); padding:1px 5px; border-radius:2px}
+hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
+.foot{margin-top:80px; border-top:1px solid var(--rule); padding-top:20px; font:500 12.5px/1.7 "Archivo"; color:var(--muted)}
+:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){tbody tr{transition:background .12s ease}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="aE" markerUnits="userSpaceOnUse" markerWidth="72" markerHeight="42" refX="70" refY="21" orient="auto"><path d="M0 3 L72 21 L0 39 Z" fill="var(--signal)"/></marker>
+  <marker id="aS" markerUnits="userSpaceOnUse" markerWidth="72" markerHeight="42" refX="2" refY="21" orient="auto"><path d="M72 3 L0 21 L72 39 Z" fill="var(--signal)"/></marker>
+  <marker id="bE" markerUnits="userSpaceOnUse" markerWidth="34" markerHeight="20" refX="33" refY="10" orient="auto"><path d="M0 1.5 L34 10 L0 18.5 Z" fill="var(--signal)"/></marker>
+  <marker id="bS" markerUnits="userSpaceOnUse" markerWidth="34" markerHeight="20" refX="1" refY="10" orient="auto"><path d="M34 1.5 L0 10 L34 18.5 Z" fill="var(--signal)"/></marker>
+  <marker id="fE" markerUnits="userSpaceOnUse" markerWidth="34" markerHeight="20" refX="33" refY="10" orient="auto"><path d="M0 1.5 L34 10 L0 18.5 Z" fill="var(--air)"/></marker>
+  <marker id="kE" markerUnits="userSpaceOnUse" markerWidth="60" markerHeight="36" refX="58" refY="18" orient="auto"><path d="M0 2 L60 18 L0 34 Z" fill="var(--air)"/></marker>
+</defs></svg>
+
+<div class="wrap">
+
+<header class="masthead">
+  <span class="stamp">Design record &middot; Rev A &middot; Not yet filed</span>
+  <h1>VAULT Arch Enclosure
+    <span class="sub">A pneumatic barrel-vault golf cage in which the net is the bracing, not the cargo</span>
+  </h1>
+  <p class="deck">Three models &mdash; garage, studio, academy &mdash; built on one structural idea: replace the inflated portal box with a three-centred pneumatic arch, and make the ball net a pre-tensioned structural diaphragm that braces it. Every load in the system closes on itself.</p>
+  <p class="deck" style="margin-top:14px">Written to be built from. Sheets 00&ndash;07 set the architecture and the numbers behind it; Sheets 08&ndash;10 are the handoff package &mdash; named materials, a full bill of materials, and a stage-by-stage prototype build with patterning, weld spec, budget and schedule. Sheets 11&ndash;12 are for patent counsel and for the test rig.</p>
+
+  <dl class="tb">
+    <div><dt>Architecture</dt><dd>3-centred pneumatic arch<br>+ tensioned net diaphragm</dd></div>
+    <div><dt>Models</dt><dd>V-9 / V-10 / V-12<br>9&prime; &middot; 10&prime; &middot; 12&prime; ceilings</dd></div>
+    <div><dt>Design impact</dt><dd>183.5 J @ 200 mph<br>734 N peak, 11 ms</dd></div>
+    <div><dt>Benchmark</dt><dd>InMotion Air GX-6<br>10&times;6&times;10&prime;, 60 lb, $3,500</dd></div>
+  </dl>
+</header>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 00</span>
+    <h2>Design basis</h2>
+    <span class="note">Hand calculation &middot; SI primary, imperial in brackets</span>
+  </div>
+
+  <p>Everything downstream is sized from one event: a driver strike arrested by a fabric membrane. Fix that, and the frame, the net, and the standoff distance all fall out of it.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Parameter</th><th class="n">Value</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Design ball speed</td><td class="n">89.4 m/s &nbsp;[200 mph]</td><td>Above 99th-percentile amateur; covers tour driver with margin</td></tr>
+      <tr><td class="k">Ball mass</td><td class="n">45.93 g</td><td>R&amp;A / USGA maximum</td></tr>
+      <tr class="hi"><td class="k">Kinetic energy</td><td class="n">183.5 J &nbsp;[135 ft&middot;lbf]</td><td>&frac12;mv&sup2; &mdash; the governing input</td></tr>
+      <tr><td class="k">Momentum</td><td class="n">4.11 N&middot;s</td><td>mv</td></tr>
+      <tr><td class="k">Design arrest travel</td><td class="n">500 mm &nbsp;[19.7 in]</td><td>Field-adjustable 250&ndash;650 mm at the tensioners &mdash; see Sheet 05</td></tr>
+      <tr class="hi"><td class="k">Peak arrest force</td><td class="n">734 N &nbsp;[165 lbf]</td><td>Linear-spring model, F&nbsp;=&nbsp;2E/&delta;</td></tr>
+      <tr><td class="k">Contact duration</td><td class="n">~11 ms</td><td>&Delta;p / F<sub>avg</sub></td></tr>
+      <tr><td class="k">Working pressure</td><td class="n">82.7 kPa &nbsp;[12 psi]</td><td>All chambers, cold, at sea level</td></tr>
+      <tr><td class="k">Relief setting</td><td class="n">110 kPa &nbsp;[16 psi]</td><td>Sized for 20&nbsp;&rarr;&nbsp;50&nbsp;&deg;C solar gain in a closed garage (see below)</td></tr>
+      <tr><td class="k">Minimum burst</td><td class="n">414 kPa &nbsp;[60 psi]</td><td>5:1 on working pressure</td></tr>
+      <tr><td class="k">Service life</td><td class="n">100,000 impacts</td><td>200 balls/hr &times; 500 hr/yr &times; ~1 yr to first net service</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The three numbers that set the frame</h3>
+  <p><strong>Thermal drift.</strong> A sealed chamber at 12 psi gauge and 20&nbsp;&deg;C, left in a garage that reaches 50&nbsp;&deg;C, rises to (12&nbsp;+&nbsp;14.7)&nbsp;&times;&nbsp;323/293&nbsp;&minus;&nbsp;14.7&nbsp;=&nbsp;<span class="spec">14.7 psi</span>. The relief valve is set at 16 psi so normal solar gain does not vent the structure &mdash; venting on a hot afternoon means re-pumping before every session, which is how sealed-air products earn a reputation for leaking.</p>
+  <p><strong>Fabric utilisation.</strong> Hoop tension in a 203&nbsp;mm tube at 12 psi is <em>pR</em>&nbsp;=&nbsp;8.41&nbsp;kN/m. A 1100&nbsp;dtex PVC-coated polyester rated 60&nbsp;kN/m at 80&nbsp;% weld efficiency gives <span class="spec">SF 5.7</span> on the fabric &mdash; the fabric is not the limit. The limit is the beam going slack in bending.</p>
+  <p><strong>Wrinkling, not rupture.</strong> A pressure-stabilised tube fails by losing pre-tension on its compression side long before the fabric breaks. Onset is <em>M<sub>w</sub></em>&nbsp;=&nbsp;&pi;<em>pR</em>&sup3;; for the V-10 arch that is <span class="spec">272.7 N&middot;m</span>, with axial capacity <em>p</em>&pi;<em>R</em>&sup2;&nbsp;=&nbsp;<span class="spec">2,683 N</span>. Every structural decision in this document is an attempt to keep demand well inside those two numbers &mdash; which is the entire argument for the arch.</p>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 01</span>
+    <h2>General arrangement &mdash; V-10 Studio</h2>
+    <span class="note">All dimensions mm unless noted<br>Arch centreline geometry shown</span>
+  </div>
+
+  <p>The vault runs front-to-back: three transverse arches in a row, tied by two crown purlins and closed at the ground by a continuous base rail. Critically, <strong>the plane of each arch is the plane of the golf swing</strong> &mdash; so the structure&rsquo;s height profile and the swing&rsquo;s height profile are the same curve, and the frame stops carrying material into corners the club never reaches.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="-350 -150 5100 3800" role="img" aria-label="Front elevation of the V-10 arch enclosure showing the three-centred arch profile, base rail, net diaphragm, and the golfer's club-head sweep envelope">
+        <defs>
+          <clipPath id="a-in"><path d="M574 3028 L574 1883 C574 1200, 860 530, 1330 462 C1690 440, 1910 437, 2200 437 C2490 437, 2710 440, 3070 462 C3540 530, 3826 1200, 3826 1883 L3826 3028 Z"/></clipPath>
+          <clipPath id="a-abv"><rect x="-350" y="-150" width="5100" height="3330"/></clipPath>
+        </defs>
+
+        <!-- net diaphragm, clipped to arch interior -->
+        <g clip-path="url(#a-in)" opacity=".5">
+          <g stroke="var(--ink-2)" stroke-width="3" fill="none">
+            <path d="M-1400 4400 L3400 -400 M-800 4400 L4000 -400 M-200 4400 L4600 -400 M400 4400 L5200 -400 M1000 4400 L5800 -400 M1600 4400 L6400 -400 M2200 4400 L7000 -400 M-2000 4400 L2800 -400 M-2600 4400 L2200 -400 M-3200 4400 L1600 -400"/>
+            <path d="M3400 4400 L-1400 -400 M4000 4400 L-800 -400 M4600 4400 L-200 -400 M5200 4400 L400 -400 M2800 4400 L-2000 -400 M2200 4400 L-2600 -400 M1600 4400 L-3200 -400 M5800 4400 L1000 -400 M6400 4400 L1600 -400"/>
+          </g>
+        </g>
+
+        <!-- swing envelope -->
+        <g clip-path="url(#a-abv)">
+          <ellipse class="env" cx="2650" cy="2180" rx="1050" ry="1350"/>
+          <ellipse class="envline" cx="2650" cy="2180" rx="1050" ry="1350"/>
+        </g>
+
+        <!-- golfer -->
+        <g class="thin" opacity=".85">
+          <circle cx="2650" cy="1480" r="92" fill="none"/>
+          <path d="M2650 1572 L2650 2360 M2470 1760 L2830 1760 M2650 2360 L2510 3180 M2650 2360 L2820 3180 M2650 1780 L2320 2560 L2222 3110"/>
+        </g>
+        <circle cx="2200" cy="3142" r="34" fill="var(--ink)"/>
+
+        <!-- structure -->
+        <path class="tubeline" stroke-width="203" d="M472.5 3028 L472.5 1883 C472.5 1010, 740 470, 1420 372 C1760 340, 1960 335, 2200 335 C2440 335, 2640 340, 2980 372 C3660 470, 3927.5 1010, 3927.5 1883 L3927.5 3028"/>
+        <path class="tubecore" stroke-width="192" d="M472.5 3028 L472.5 1883 C472.5 1010, 740 470, 1420 372 C1760 340, 1960 335, 2200 335 C2440 335, 2640 340, 2980 372 C3660 470, 3927.5 1010, 3927.5 1883 L3927.5 3028"/>
+        <rect class="tube" x="371" y="3028" width="3658" height="152" rx="76"/>
+        <!-- ballast sleeves -->
+        <g class="hid"><rect x="820" y="3040" width="620" height="128" rx="30"/><rect x="2960" y="3040" width="620" height="128" rx="30"/></g>
+        <!-- tensioners -->
+        <g fill="var(--signal)" opacity=".8"><rect x="1180" y="2960" width="70" height="70" rx="10"/><rect x="2165" y="2960" width="70" height="70" rx="10"/><rect x="3150" y="2960" width="70" height="70" rx="10"/></g>
+
+        <!-- ground -->
+        <path class="grd" d="M-250 3180 L4650 3180"/>
+        <g stroke="var(--ink-2)" stroke-width="3" opacity=".6"><path d="M-250 3180 L-330 3260 M-70 3180 L-150 3260 M110 3180 L30 3260 M290 3180 L210 3260 M470 3180 L390 3260 M650 3180 L570 3260 M830 3180 L750 3260 M1010 3180 L930 3260 M1190 3180 L1110 3260 M1370 3180 L1290 3260 M1550 3180 L1470 3260 M1730 3180 L1650 3260 M1910 3180 L1830 3260 M2090 3180 L2010 3260 M2270 3180 L2190 3260 M2450 3180 L2370 3260 M2630 3180 L2550 3260 M2810 3180 L2730 3260 M2990 3180 L2910 3260 M3170 3180 L3090 3260 M3350 3180 L3270 3260 M3530 3180 L3450 3260 M3710 3180 L3630 3260 M3890 3180 L3810 3260 M4070 3180 L3990 3260 M4250 3180 L4170 3260 M4430 3180 L4350 3260 M4610 3180 L4530 3260"/></g>
+
+        <!-- centreline -->
+        <path class="cl" d="M2200 120 L2200 3300"/>
+
+        <!-- min clear reference -->
+        <path class="hid" d="M1000 589 L3400 589" style="stroke:var(--air)"/>
+        <text class="lb" x="2200" y="686" font-size="76" text-anchor="middle" style="fill:var(--air)">8&prime;-6&Prime; MIN. RECOMMENDED CLEAR (2591)</text>
+
+        <!-- dimensions -->
+        <path class="ext" d="M371 3200 L371 3460 M4029 3200 L4029 3460"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M371 3420 L4029 3420"/>
+        <text class="dt" x="2200" y="3378" font-size="88" text-anchor="middle">3658&nbsp;&nbsp;[12&prime;-0&Prime;]&nbsp;&nbsp;OVERALL WIDTH</text>
+
+        <path class="ext" d="M-40 3180 L360 3180 M-40 233 L2190 233"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M-60 3180 L-60 233"/>
+        <text class="dt" x="-130" y="1706" font-size="88" text-anchor="middle" transform="rotate(-90 -130 1706)">2946&nbsp;&nbsp;[9&prime;-8&Prime;]&nbsp;&nbsp;OVERALL HEIGHT</text>
+
+        <path class="ext" d="M2210 437 L4300 437 M4040 3180 L4300 3180"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M4280 437 L4280 3180"/>
+        <text class="dt" x="4360" y="1810" font-size="88" text-anchor="middle" transform="rotate(-90 4360 1810)">2743&nbsp;&nbsp;[9&prime;-0&Prime;]&nbsp;&nbsp;CLEAR AT CROWN</text>
+
+        <path class="ext" d="M1302 300 L1302 100 M3098 300 L3098 100"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M1302 140 L3098 140"/>
+        <text class="dt" x="2200" y="80" font-size="82" text-anchor="middle">CROWN BAND &plusmn;898 &mdash; HEIGHT DROP &le; 50</text>
+
+        <!-- balloons -->
+        <g>
+          <path class="lead" d="M1030 260 L1255 393"/><circle class="bal" cx="960" cy="215" r="88"/><text class="balt" x="960" y="248" font-size="96">1</text>
+          <path class="lead" d="M330 2810 L640 3086"/><circle class="bal" cx="262" cy="2760" r="88"/><text class="balt" x="262" y="2793" font-size="96">2</text>
+          <path class="lead" d="M3560 1000 L3200 1290"/><circle class="bal" cx="3640" cy="952" r="88"/><text class="balt" x="3640" y="985" font-size="96">3</text>
+          <path class="lead" d="M985 1560 L1420 1980"/><circle class="bal" cx="915" cy="1518" r="88"/><text class="balt" x="915" y="1551" font-size="96">4</text>
+          <path class="lead" d="M3762 2870 L3230 2985"/><circle class="bal" cx="3846" cy="2852" r="88"/><text class="balt" x="3846" y="2885" font-size="96">5</text>
+          <path class="lead" d="M1215 2830 L1130 3060"/><circle class="bal" cx="1240" cy="2778" r="88"/><text class="balt" x="1240" y="2811" font-size="96">6</text>
+          <path class="lead" d="M2900 2130 L2790 2300"/><circle class="bal" cx="2960" cy="2085" r="88"/><text class="balt" x="2960" y="2118" font-size="96">7</text>
+        </g>
+      </svg>
+    </div>
+    <div class="dwgkey">
+      <div><b>1</b><span>Three-centred pneumatic arch, &Oslash;203 @ 12&nbsp;psi</span></div>
+      <div><b>2</b><span>Base-rail plenum, &Oslash;152 &mdash; manifold + anchor</span></div>
+      <div><b>3</b><span>Structural diagrid, 25&nbsp;mm PET web, 45&deg; bias @ 600</span></div>
+      <div><b>4</b><span>Arrest net, #42 knotless, 22&nbsp;mm mesh, 150 slack</span></div>
+      <div><b>5</b><span>Ratchet tensioner &mdash; 6 per face</span></div>
+      <div><b>6</b><span>Ballast sleeve, 5&nbsp;gal &mdash; outdoor use only</span></div>
+      <div><b>7</b><span>Club-head sweep envelope, 6&prime;-0&Prime; golfer, driver</span></div>
+    </div>
+    <figcaption><b>Fig. 1 &middot; Front elevation</b><span>Looking down the target line. Note the arch loses height only outboard of &plusmn;1050, where the club is near vertical.</span></figcaption>
+  </figure>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="-150 -150 3950 3800" role="img" aria-label="Longitudinal section of the V-10 showing three arch stations, crown purlin, net arrest travel and the required wall standoff">
+        <defs><clipPath id="b-in"><rect x="800" y="400" width="2338" height="2628"/></clipPath></defs>
+
+        <!-- wall -->
+        <rect x="40" y="-100" width="60" height="3280" fill="var(--ink-2)" opacity=".22"/>
+        <g stroke="var(--ink-2)" stroke-width="3" opacity=".55"><path d="M100 -100 L20 -20 M100 60 L20 140 M100 220 L20 300 M100 380 L20 460 M100 540 L20 620 M100 700 L20 780 M100 860 L20 940 M100 1020 L20 1100 M100 1180 L20 1260 M100 1340 L20 1420 M100 1500 L20 1580 M100 1660 L20 1740 M100 1820 L20 1900 M100 1980 L20 2060 M100 2140 L20 2220 M100 2300 L20 2380 M100 2460 L20 2540 M100 2620 L20 2700 M100 2780 L20 2860 M100 2940 L20 3020 M100 3100 L20 3180"/></g>
+        <text class="lb" x="150" y="1150" font-size="70" transform="rotate(-90 150 1150)">GARAGE WALL / BAY END</text>
+
+        <!-- net fill -->
+        <g clip-path="url(#b-in)" opacity=".38"><g stroke="var(--ink-2)" stroke-width="3" fill="none"><path d="M0 3600 L3600 0 M400 3600 L4000 0 M800 3600 L4400 0 M1200 3600 L4800 0 M-400 3600 L3200 0 M-800 3600 L2800 0 M1600 3600 L5200 0 M2000 3600 L5600 0"/><path d="M3600 3600 L0 0 M3200 3600 L-400 0 M2800 3600 L-800 0 M4000 3600 L400 0 M4400 3600 L800 0 M4800 3600 L1200 0 M2400 3600 L-1200 0"/></g></g>
+
+        <!-- arrest travel -->
+        <path class="envline" d="M800 500 C400 900, 260 1900, 300 2400 C330 2760, 560 2960, 800 3010" style="stroke:var(--signal)"/>
+        <text class="lb" x="240" y="1420" font-size="68" style="fill:var(--signal)">MAX ARREST BULGE</text>
+
+        <!-- structure: arches as edge-on bars -->
+        <g>
+          <rect class="tube" x="798.5" y="234" width="203" height="2946" rx="30"/>
+          <rect class="tube" x="1817.5" y="234" width="203" height="2946" rx="30"/>
+          <rect class="tube" x="2836.5" y="234" width="203" height="2946" rx="30"/>
+        </g>
+        <!-- crown purlin -->
+        <rect class="tube" x="900" y="284" width="2038" height="102" rx="51"/>
+        <!-- base rail -->
+        <rect class="tube" x="700" y="3028" width="2438" height="152" rx="76"/>
+        <!-- screen module -->
+        <path d="M700 460 L700 3020" stroke="var(--air)" stroke-width="16" stroke-linecap="round" fill="none"/>
+        <text class="lb" x="640" y="1900" font-size="70" transform="rotate(-90 640 1900)" style="fill:var(--air)">SCREEN MODULE (OPT.)</text>
+        <!-- front diaphragm plane -->
+        <path d="M820 440 L820 3020" stroke="var(--ink)" stroke-width="10" fill="none"/>
+
+        <!-- rear opening -->
+        <path class="hid" d="M3138 440 L3138 3020"/>
+        <text class="lb" x="3210" y="1700" font-size="70" transform="rotate(-90 3210 1700)">REAR OPEN &mdash; ENTRY / OPT. CURTAIN</text>
+
+        <!-- ground -->
+        <path class="grd" d="M-60 3180 L3800 3180"/>
+        <g stroke="var(--ink-2)" stroke-width="3" opacity=".6"><path d="M-60 3180 L-140 3260 M120 3180 L40 3260 M300 3180 L220 3260 M480 3180 L400 3260 M660 3180 L580 3260 M840 3180 L760 3260 M1020 3180 L940 3260 M1200 3180 L1120 3260 M1380 3180 L1300 3260 M1560 3180 L1480 3260 M1740 3180 L1660 3260 M1920 3180 L1840 3260 M2100 3180 L2020 3260 M2280 3180 L2200 3260 M2460 3180 L2380 3260 M2640 3180 L2560 3260 M2820 3180 L2740 3260 M3000 3180 L2920 3260 M3180 3180 L3100 3260 M3360 3180 L3280 3260 M3540 3180 L3460 3260 M3720 3180 L3640 3260"/></g>
+
+        <!-- golfer + tee -->
+        <g class="thin" opacity=".85">
+          <circle cx="2860" cy="1480" r="92" fill="none"/>
+          <path d="M2860 1572 L2860 2360 M2860 2360 L2740 3180 M2860 2360 L3000 3180 M2860 1760 L2660 2540"/>
+        </g>
+        <circle cx="2660" cy="2560" r="30" fill="var(--ink)"/>
+        <path class="cl" d="M2660 2660 L2660 3220"/>
+        <text class="lb" x="2660" y="3300" font-size="72" text-anchor="middle">TEE</text>
+        <!-- ball flight -->
+        <path class="dim" marker-end="url(#kE)" d="M2600 2960 C2000 2760, 1300 2560, 900 2470" style="stroke:var(--air)"/>
+        <text class="lb" x="1760" y="2660" font-size="72" style="fill:var(--air)">89.4 m/s &middot; 183.5 J</text>
+
+        <!-- dimensions -->
+        <path class="ext" d="M700 3200 L700 3480 M3138 3200 L3138 3480 M900 3200 L900 3350 M1919 3200 L1919 3350 M2938 3200 L2938 3350"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M700 3440 L3138 3440"/>
+        <text class="dt" x="1919" y="3400" font-size="88" text-anchor="middle">2438&nbsp;&nbsp;[8&prime;-0&Prime;]&nbsp;&nbsp;OVERALL DEPTH</text>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M900 3310 L1919 3310"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M1919 3310 L2938 3310"/>
+        <text class="dt" x="1410" y="3272" font-size="78" text-anchor="middle">1019</text>
+        <text class="dt" x="2428" y="3272" font-size="78" text-anchor="middle">1019</text>
+
+        <path class="ext" d="M100 2700 L100 2560 M820 2700 L820 2560"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M100 2600 L820 2600"/>
+        <text class="dt" x="460" y="2520" font-size="80" text-anchor="middle">700 MIN. STANDOFF</text>
+
+        <path class="ext" d="M480 3180 L690 3180 M480 234 L790 234"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M500 3180 L500 234"/>
+        <text class="dt" x="430" y="1706" font-size="86" text-anchor="middle" transform="rotate(-90 430 1706)">2946&nbsp;&nbsp;[9&prime;-8&Prime;]</text>
+
+        <text class="lbk" x="900" y="180" font-size="76" text-anchor="middle">A1</text>
+        <text class="lbk" x="1919" y="180" font-size="76" text-anchor="middle">A2</text>
+        <text class="lbk" x="2938" y="180" font-size="76" text-anchor="middle">A3</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 2 &middot; Longitudinal section</b><span>Arches shown edge-on at stations A1&ndash;A3. The 700&nbsp;mm standoff is the number most owners get wrong &mdash; it is arrest travel plus clearance, not a courtesy gap.</span></figcaption>
+  </figure>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="-350 -320 5100 3450" role="img" aria-label="Plan view of the V-10 showing base rail loop, arch foot positions, tee and stance zone, screen line and ganging points">
+        <defs><clipPath id="c-in"><rect x="523" y="452" width="3354" height="2134"/></clipPath></defs>
+
+        <g clip-path="url(#c-in)" opacity=".33"><g stroke="var(--ink-2)" stroke-width="3" fill="none"><path d="M-1000 3200 L2400 -200 M-400 3200 L3000 -200 M200 3200 L3600 -200 M800 3200 L4200 -200 M1400 3200 L4800 -200 M2000 3200 L5400 -200 M2600 3200 L6000 -200"/><path d="M2400 3200 L-1000 -200 M3000 3200 L-400 -200 M3600 3200 L200 -200 M4200 3200 L800 -200 M4800 3200 L1400 -200 M5400 3200 L2000 -200 M6000 3200 L2600 -200"/></g></g>
+
+        <!-- arrest bulge in plan -->
+        <path class="envline" d="M523 420 C1200 -180, 3200 -180, 3877 420" style="stroke:var(--signal)"/>
+        <text class="lb" x="2200" y="-200" font-size="80" text-anchor="middle" style="fill:var(--signal)">ARREST BULGE ENVELOPE &mdash; 500 FORWARD</text>
+
+        <!-- base rail -->
+        <rect class="tubeline" stroke-width="152" x="447" y="376" width="3506" height="2286" rx="76" fill="none"/>
+        <rect class="tubecore" stroke-width="142" x="447" y="376" width="3506" height="2286" rx="76" fill="none"/>
+
+        <!-- screen / front diaphragm -->
+        <path d="M447 400 L3953 400" stroke="var(--air)" stroke-width="18"/>
+        <text class="lb" x="2200" y="238" font-size="76" text-anchor="middle" style="fill:var(--air)">SCREEN + DIAGRID PLANE</text>
+
+        <!-- arch feet -->
+        <g>
+          <circle class="tube" cx="472.5" cy="500" r="101.5"/><circle class="tube" cx="3927.5" cy="500" r="101.5"/>
+          <circle class="tube" cx="472.5" cy="1519" r="101.5"/><circle class="tube" cx="3927.5" cy="1519" r="101.5"/>
+          <circle class="tube" cx="472.5" cy="2538" r="101.5"/><circle class="tube" cx="3927.5" cy="2538" r="101.5"/>
+        </g>
+        <text class="lbk" x="300" y="525" font-size="70" text-anchor="end">A1</text>
+        <text class="lbk" x="300" y="1544" font-size="70" text-anchor="end">A2</text>
+        <text class="lbk" x="300" y="2563" font-size="70" text-anchor="end">A3</text>
+
+        <!-- tee + stance -->
+        <path class="cl" d="M2200 240 L2200 2900 M300 2350 L4100 2350"/>
+        <circle cx="2200" cy="2350" r="46" fill="var(--ink)"/>
+        <text class="lb" x="2120" y="2300" font-size="72" text-anchor="end">TEE</text>
+        <rect class="hid" x="2320" y="2090" width="740" height="520" rx="40" style="stroke:var(--air)"/>
+        <text class="lb" x="2690" y="2380" font-size="70" text-anchor="middle" style="fill:var(--air)">RH STANCE</text>
+
+        <!-- gang points -->
+        <g fill="var(--signal)" opacity=".85">
+          <rect x="437" y="820" width="46" height="150" rx="12"/><rect x="437" y="1900" width="46" height="150" rx="12"/>
+          <rect x="3917" y="820" width="46" height="150" rx="12"/><rect x="3917" y="1900" width="46" height="150" rx="12"/>
+        </g>
+        <path class="hid" d="M4100 376 L4560 376 L4560 2662 L4100 2662"/>
+        <text class="lb" x="4330" y="1540" font-size="70" text-anchor="middle" transform="rotate(-90 4330 1540)">GANGED UNIT</text>
+
+        <!-- dimensions -->
+        <path class="ext" d="M371 2700 L371 2990 M4029 2700 L4029 2990"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M371 2950 L4029 2950"/>
+        <text class="dt" x="2200" y="2908" font-size="88" text-anchor="middle">3658&nbsp;&nbsp;[12&prime;-0&Prime;]</text>
+
+        <path class="ext" d="M340 300 L120 300 M340 2738 L120 2738"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M180 300 L180 2738"/>
+        <text class="dt" x="110" y="1520" font-size="88" text-anchor="middle" transform="rotate(-90 110 1520)">2438&nbsp;&nbsp;[8&prime;-0&Prime;]</text>
+
+        <path class="ext" d="M1900 400 L1660 400 M2140 2350 L1660 2350"/>
+        <path class="dim" marker-start="url(#aS)" marker-end="url(#aE)" d="M1700 400 L1700 2350"/>
+        <text class="dt" x="1620" y="1375" font-size="82" text-anchor="middle" transform="rotate(-90 1620 1375)">1950 TEE TO FACE</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 3 &middot; Plan</b><span>Stance box is shown for a right-handed player; the unit is symmetric and the tee slides to the mirrored offset for a left-hander.</span></figcaption>
+  </figure>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 02</span>
+    <h2>Why an arch</h2>
+    <span class="note">Comparative load path &middot; equal pressure, equal load</span>
+  </div>
+
+  <p>An inflated tube is a bad beam and an excellent strut. It has no material stiffness of its own &mdash; all of it is borrowed from internal pressure, and it evaporates the moment bending drives the compression fibre to zero. So the question is not &ldquo;how big a beam?&rdquo; but <em>how do we stop asking the fabric to bend at all.</em></p>
+  <p>A funicular arch answers that. Under its design load an arch carries almost pure axial thrust, which is precisely the action a pressurised tube is good at. The comparison below applies the same net pre-tension and the same impact share to a portal and to an arch at the same 12&nbsp;psi.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1480" role="img" aria-label="Comparison of bending in an inflated portal frame versus a three-centred pneumatic arch under identical net tension and impact load">
+        <path d="M1200 60 L1200 1300" stroke="var(--rule)" stroke-width="4"/>
+
+        <!-- PANEL A -->
+        <text class="lbk" x="90" y="100" font-size="46">A &nbsp;INFLATED PORTAL FRAME</text>
+        <text class="lb" x="90" y="152" font-size="38">reference architecture</text>
+        <g stroke="var(--air)" stroke-width="9" fill="none" marker-end="url(#kE)">
+          <path d="M340 245 L340 340"/><path d="M540 245 L540 340"/><path d="M740 245 L740 340"/><path d="M940 245 L940 340"/>
+        </g>
+        <text class="lb" x="670" y="218" font-size="36" text-anchor="middle" style="fill:var(--air)">NET PRE-TENSION + IMPACT SHARE</text>
+        <path class="tubeline" stroke-width="90" d="M240 1050 L240 400 L1100 400 L1100 1050"/>
+        <path class="tubecore" stroke-width="80" d="M240 1050 L240 400 L1100 400 L1100 1050"/>
+        <!-- moment diagram -->
+        <path d="M240 445 C400 760, 940 760, 1100 445 Z" fill="var(--signal)" opacity=".2"/>
+        <path d="M240 445 C400 760, 940 760, 1100 445" fill="none" stroke="var(--signal)" stroke-width="6"/>
+        <path d="M195 400 L195 640 L285 470 Z" fill="var(--signal)" opacity=".2"/>
+        <path d="M1145 400 L1145 640 L1055 470 Z" fill="var(--signal)" opacity=".2"/>
+        <text class="dt" x="670" y="720" font-size="46" text-anchor="middle">M</text>
+        <path class="grd" d="M150 1050 L1160 1050"/>
+        <text class="dt" x="670" y="880" font-size="42" text-anchor="middle">M&#8202;<tspan font-size="32">max</tspan> &asymp; 477 N&middot;m</text>
+        <text class="dt" x="670" y="940" font-size="42" text-anchor="middle">requires &Oslash;332 [13.1&Prime;] @ SF 2.5</text>
+        <text class="lb" x="670" y="1150" font-size="38" text-anchor="middle">Top member spans in bending. Corner joints</text>
+        <text class="lb" x="670" y="1198" font-size="38" text-anchor="middle">carry the full knee moment and need gussets.</text>
+
+        <!-- PANEL B -->
+        <text class="lbk" x="1290" y="100" font-size="46">B &nbsp;THREE-CENTRED PNEUMATIC ARCH</text>
+        <text class="lb" x="1290" y="152" font-size="38">this design</text>
+        <g stroke="var(--air)" stroke-width="9" fill="none" marker-end="url(#kE)">
+          <path d="M1620 250 L1620 335"/><path d="M1810 250 L1810 290"/><path d="M1990 250 L1990 290"/><path d="M2180 250 L2180 335"/>
+        </g>
+        <text class="lb" x="1900" y="218" font-size="36" text-anchor="middle" style="fill:var(--air)">IDENTICAL LOAD</text>
+        <path class="tubeline" stroke-width="55" d="M1470 1050 L1470 720 C1470 500, 1580 400, 1720 384 C1800 375, 1850 373, 1900 373 C1950 373, 2000 375, 2080 384 C2220 400, 2330 500, 2330 720 L2330 1050"/>
+        <path class="tubecore" stroke-width="45" d="M1470 1050 L1470 720 C1470 500, 1580 400, 1720 384 C1800 375, 1850 373, 1900 373 C1950 373, 2000 375, 2080 384 C2220 400, 2330 500, 2330 720 L2330 1050"/>
+        <path d="M1690 425 C1790 470, 2010 470, 2110 425 Z" fill="var(--signal)" opacity=".25"/>
+        <path d="M1690 425 C1790 470, 2010 470, 2110 425" fill="none" stroke="var(--signal)" stroke-width="6"/>
+        <!-- thrust -->
+        <g stroke="var(--air)" stroke-width="11" fill="none" marker-end="url(#kE)">
+          <path d="M1470 800 L1470 1000"/><path d="M2330 800 L2330 1000"/>
+        </g>
+        <text class="lb" x="1425" y="700" font-size="36" text-anchor="end" style="fill:var(--air)">AXIAL</text>
+        <text class="lb" x="1425" y="746" font-size="36" text-anchor="end" style="fill:var(--air)">THRUST</text>
+        <path class="grd" d="M1380 1050 L2380 1050"/>
+        <text class="dt" x="1900" y="880" font-size="42" text-anchor="middle">M&#8202;<tspan font-size="32">max</tspan> &asymp; 68 N&middot;m &nbsp;&middot;&nbsp; N &asymp; 300 N</text>
+        <text class="dt" x="1900" y="940" font-size="42" text-anchor="middle">&Oslash;203 [8.0&Prime;] &mdash; combined SF 2.76</text>
+        <text class="lb" x="1900" y="1150" font-size="38" text-anchor="middle">Load resolves into thrust along the tube axis.</text>
+        <text class="lb" x="1900" y="1198" font-size="38" text-anchor="middle">No corners, no knee moment, no gussets.</text>
+
+        <rect x="90" y="1275" width="2220" height="130" rx="4" fill="var(--air-soft)" stroke="var(--air)" stroke-width="4"/>
+        <text class="lbk" x="1200" y="1330" font-size="44" text-anchor="middle" style="fill:var(--air)">SAME PRESSURE, SAME LOAD, SAME SPAN &nbsp;&rarr;&nbsp; 38&#8202;% LESS FRAME FABRIC BY AREA</text>
+        <text class="lb" x="1200" y="1380" font-size="34" text-anchor="middle" style="fill:var(--air)">and the top member no longer sets the tube size</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 4 &middot; Load path</b><span>Moment diagrams to scale with each other. Hand calculation by wrinkling-moment theory &mdash; confirm by FEA and physical test before filing claims that depend on the ratio.</span></figcaption>
+  </figure>
+
+  <div class="key">
+    <span class="tag">Read this comparison honestly</span>
+    <p>Panel A is <em>not</em> a claim that the GX-6 is oversized. Its net appears to hang as a liner rather than being pre-tensioned, so its frame is not asked to carry membrane tension &mdash; a legitimate design choice with its own logic. The comparison is between two frames <em>both carrying a pre-tensioned net</em>. That is the fair test, because pre-tensioning the net is what buys the diaphragm bracing and the flat screen plane on Sheet 03. The arch is what makes pre-tensioning affordable.</p>
+  </div>
+
+  <h3>Profile selection &mdash; why three-centred and not parabolic</h3>
+  <p>A parabolic or semicircular arch peaks at a point. A golf swing does not: the club-head apex wanders across roughly &plusmn;750&nbsp;mm depending on the player&rsquo;s height, plane and handedness. A single-radius arch that clears the apex at centreline will clip it 600&nbsp;mm off centre.</p>
+  <p>The profile here is <strong>three-centred</strong> (basket-handle): a long crown radius <em>R</em><sub>1</sub>&nbsp;=&nbsp;1.25<em>W</em> flanked by short haunch radii <em>R</em><sub>2</sub>&nbsp;=&nbsp;0.31<em>W</em>. On the V-10 that holds the crown within 50&nbsp;mm of full height across a <span class="spec">&plusmn;898&nbsp;mm</span> band &mdash; a nearly flat ceiling exactly where the club needs one &mdash; then drops away steeply at the haunches, where the club is near vertical and the height is wasted. The result matches a portal frame&rsquo;s usable clear height across the whole swing band while shedding the bending demand that sized the portal&rsquo;s top member.</p>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 03</span>
+    <h2>The net as structure</h2>
+    <span class="note">Two-layer membrane &middot; structural + arrest</span>
+  </div>
+
+  <p>The second half of the architecture. In a conventional cage the net is cargo: dead weight the frame carries. Here it is a pre-tensioned diaphragm that braces the arches out of plane, distributes a point impact across all three of them, and provides a flat planar reference for the screen module.</p>
+
+  <p>That creates a conflict, and resolving it is the whole design. A membrane stiff enough to brace is far too stiff to catch a ball gently &mdash; at zero travel the arrest force goes to infinity. So the two jobs are split across two layers that share one frame:</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Layer</th><th>Job</th><th>Spec</th><th class="n">Tension</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Structural diagrid</td><td>Braces arches, distributes impact, carries screen</td><td>25 mm PET webbing, MBS 11 kN, 600 mm pitch, laid on 45&deg; bias</td><td class="n">800 N pre-tension</td></tr>
+      <tr><td class="k">Arrest net</td><td>Stops the ball over 500 mm of travel</td><td>#42 knotless nylon, 22 mm mesh, hung with 150 mm controlled slack</td><td class="n">slack &mdash; near zero</td></tr>
+      <tr><td class="k">Screen module <em>(opt.)</em></td><td>Projection surface only</td><td>4-ply knit polyester, laced on 6 mm shock cord @ 300 mm</td><td class="n">light &mdash; optical only</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="margin-top:1.2em">The <strong>45&deg; bias</strong> matters more than it looks. A square mesh loaded in its own plane is a mechanism &mdash; it racks into parallelograms and carries nothing until it locks up. Rotate the grid 45&deg; to the principal tension and the load runs axially down the webs instead. The diagrid is what turns a net from cargo into a shear panel.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1060" role="img" aria-label="Enlarged detail of the net attachment stack at an arch, and a diagram of the 45 degree bias diagrid">
+        <text class="lbk" x="60" y="80" font-size="44">DETAIL X &nbsp;&mdash;&nbsp; MEMBRANE STACK AT ARCH</text>
+
+        <!-- arch tube in section -->
+        <circle class="tube" cx="290" cy="500" r="195"/>
+        <text class="lb" x="290" y="515" font-size="40" text-anchor="middle">&Oslash;203</text>
+        <text class="lb" x="290" y="770" font-size="36" text-anchor="middle">ARCH TUBE</text>
+        <!-- land strip -->
+        <path d="M395 340 A195 195 0 0 1 395 660" fill="none" stroke="var(--signal)" stroke-width="26" stroke-linecap="round"/>
+        <path d="M470 470 L640 470 L640 530 L470 530 Z" fill="var(--signal)" opacity=".85"/>
+        <text class="lb" x="524" y="388" font-size="34" style="fill:var(--signal)">HF-WELDED LAND STRIP</text>
+
+        <!-- tensioner -->
+        <rect class="airfill" x="650" y="452" width="185" height="96" rx="14"/>
+        <text class="lb" x="742" y="512" font-size="34" text-anchor="middle" style="fill:var(--air)">RATCHET</text>
+        <text class="lb" x="742" y="608" font-size="32" text-anchor="middle" style="fill:var(--air)">field-adjustable</text>
+
+        <!-- diagrid taut line -->
+        <path d="M835 500 L1440 500" stroke="var(--ink)" stroke-width="22" stroke-linecap="round"/>
+
+        <!-- arrest net with slack -->
+        <path d="M880 500 Q 960 660 1040 500 Q 1120 660 1200 500 Q 1280 660 1360 500 Q 1400 580 1440 500" fill="none" stroke="var(--ink-2)" stroke-width="10"/>
+        <path class="lead" d="M1010 742 L1120 512"/><text class="lb" x="990" y="762" font-size="34" text-anchor="end">DIAGRID &mdash; POLYESTER, 800 N</text>
+        <path class="lead" d="M1230 868 L1300 624"/><text class="lb" x="1210" y="888" font-size="34" text-anchor="end">ARREST NET &mdash; #42 KNOTLESS NYLON</text>
+        <path class="ext" d="M1470 500 L1530 500 M1470 632 L1530 632"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M1510 500 L1510 632"/>
+        <text class="dt" x="1548" y="580" font-size="34">150 SLACK</text>
+
+        <!-- screen -->
+        <path d="M880 240 L1440 240" stroke="var(--air)" stroke-width="16" stroke-dasharray="34 20"/>
+        <path d="M900 500 L940 240 L980 500 L1020 240 L1060 500 L1100 240 L1140 500 L1180 240 L1220 500 L1260 240 L1300 500 L1340 240 L1380 500 L1420 240 L1440 500" fill="none" stroke="var(--air)" stroke-width="5"/>
+        <text class="lb" x="1160" y="200" font-size="34" text-anchor="middle" style="fill:var(--air)">SCREEN MODULE &mdash; 6 mm SHOCK CORD @ 300</text>
+        <path class="ext" d="M1470 240 L1530 240"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M1510 240 L1510 494"/>
+        <text class="dt" x="1548" y="372" font-size="34">150 GAP</text>
+
+
+        <!-- BIAS PANEL -->
+        <path d="M1810 60 L1810 1000" stroke="var(--rule)" stroke-width="4"/>
+        <text class="lbk" x="1870" y="80" font-size="44">BIAS ORIENTATION</text>
+        <rect x="1870" y="150" width="460" height="460" fill="none" stroke="var(--ink)" stroke-width="6"/>
+        <g stroke="var(--ink-2)" stroke-width="9" fill="none">
+          <path d="M1870 380 L2100 150 M1870 610 L2330 150 M2100 610 L2330 380"/>
+          <path d="M1870 380 L2100 610 M1870 150 L2330 610 M2100 150 L2330 380"/>
+        </g>
+        <g stroke="var(--air)" stroke-width="10" fill="none" marker-end="url(#kE)">
+          <path d="M2100 700 L2100 630"/>
+        </g>
+        <text class="lb" x="2100" y="758" font-size="36" text-anchor="middle" style="fill:var(--air)">PRINCIPAL TENSION</text>
+        <path class="ext" d="M2100 150 L2100 120 M2215 150 L2215 120"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M2100 132 L2215 132"/>
+        <text class="dt" x="2158" y="112" font-size="34" text-anchor="middle">600</text>
+        <text class="lb" x="2100" y="850" font-size="34" text-anchor="middle">Load runs axially down the webs.</text>
+        <text class="lb" x="2100" y="896" font-size="34" text-anchor="middle">A square grid would rack instead.</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 5 &middot; Detail X + bias diagram</b><span>Arrest net and screen are field-replaceable modules; the diagrid is permanent and is the only layer bonded to the frame.</span></figcaption>
+  </figure>
+
+  <h3>What the diaphragm buys, quantified</h3>
+  <ul>
+    <li><strong>Impact sharing.</strong> A point strike delivers 734&nbsp;N. Through the diagrid it reaches the frame as roughly 30&nbsp;% on the worst arch instead of 100&nbsp;% &mdash; the difference between <span class="spec">SF 1.3</span> and <span class="spec">SF 2.8</span> at &Oslash;203, i.e. the difference between a design that works and one that does not.</li>
+    <li><strong>Out-of-plane bracing.</strong> The arches are slender in their weak direction. The diaphragm ties all three together and to the base rail, so no guy lines, no outriggers, no extra footprint.</li>
+    <li><strong>A flat plane for free.</strong> The screen laces to a surface that is already planar and pre-tensioned, so it needs no frame of its own &mdash; and, having no rigid frame edge, no abrasion line where screens normally fail first.</li>
+    <li><strong>Two fibres that want opposite things.</strong> The structural layer must not stretch, so it is polyester. The arrest layer must stretch &mdash; nylon&rsquo;s ~20&nbsp;% elongation is doing real work absorbing the strike. No single fibre is right for both jobs, which is an independent reason the layers cannot be combined into one. See Sheet 08.</li>
+    <li><strong>A self-closing load loop.</strong> Pre-tension runs arch&nbsp;&rarr;&nbsp;diagrid&nbsp;&rarr;&nbsp;base rail&nbsp;&rarr;&nbsp;arch. It never reaches the ground, so <em>indoors the unit needs no ballast or anchorage at all.</em> Ballast is required only for outdoor wind (Sheet 06).</li>
+  </ul>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 04</span>
+    <h2>Pneumatic system</h2>
+    <span class="note">7 chambers &middot; 1 fill port &middot; sealed, no continuous blower</span>
+  </div>
+
+  <p>Sealed-air, like the reference product: pump it, unplug it, walk away. Two things are done differently, and both come from the same idea &mdash; <strong>route the manifold inside the base rail rather than making the base rail the manifold.</strong></p>
+  <p>A 25&nbsp;mm hose runs the length of the base-rail tube, feeding every arch and purlin through a one-way check valve at its foot, and teeing off to inflate the base rail itself. One port fills seven chambers in one pump cycle; but because each limb is check-valved, a puncture anywhere &mdash; including in the base rail, the member most likely to meet a dropped wedge &mdash; drains only that chamber. The rest of the structure stays up.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1080" role="img" aria-label="Pneumatic schematic showing a single fill port feeding seven check-valved chambers through a manifold hose routed inside the base rail">
+        <!-- chambers -->
+        <g>
+          <g><rect class="tube" x="605" y="170" width="190" height="150" rx="10"/><text class="lbk" x="700" y="265" font-size="48" text-anchor="middle">A1</text></g>
+          <g><rect class="tube" x="865" y="170" width="190" height="150" rx="10"/><text class="lbk" x="960" y="265" font-size="48" text-anchor="middle">A2</text></g>
+          <g><rect class="tube" x="1125" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1220" y="265" font-size="48" text-anchor="middle">A3</text></g>
+          <g><rect class="tube" x="1385" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1480" y="265" font-size="48" text-anchor="middle">P1</text></g>
+          <g><rect class="tube" x="1645" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1740" y="265" font-size="48" text-anchor="middle">P2</text></g>
+          <g><rect class="tube" x="1905" y="170" width="190" height="150" rx="10"/><text class="lbk" x="2000" y="265" font-size="48" text-anchor="middle">BR</text></g>
+          <g><rect class="tube" x="2165" y="170" width="190" height="150" rx="10" stroke-dasharray="20 14"/><text class="lbk" x="2260" y="265" font-size="48" text-anchor="middle">GL</text></g>
+        </g>
+        <text class="lb" x="700" y="140" font-size="32" text-anchor="middle">ARCH 1</text>
+        <text class="lb" x="960" y="140" font-size="32" text-anchor="middle">ARCH 2</text>
+        <text class="lb" x="1220" y="140" font-size="32" text-anchor="middle">ARCH 3</text>
+        <text class="lb" x="1480" y="140" font-size="32" text-anchor="middle">PURLIN</text>
+        <text class="lb" x="1740" y="140" font-size="32" text-anchor="middle">PURLIN</text>
+        <text class="lb" x="2000" y="140" font-size="32" text-anchor="middle">BASE RAIL</text>
+        <text class="lb" x="2260" y="140" font-size="32" text-anchor="middle">GANG LINK</text>
+        <text class="lb" x="2260" y="98" font-size="30" text-anchor="middle" style="fill:var(--muted)">(V-12 only)</text>
+
+        <!-- branches + check valves -->
+        <g stroke="var(--ink)" stroke-width="10" fill="none">
+          <path d="M700 320 L700 720"/><path d="M960 320 L960 720"/><path d="M1220 320 L1220 720"/>
+          <path d="M1480 320 L1480 720"/><path d="M1740 320 L1740 720"/><path d="M2000 320 L2000 720"/>
+        </g>
+        <path d="M2260 320 L2260 720" stroke="var(--ink-2)" stroke-width="10" fill="none" stroke-dasharray="20 14"/>
+        <g>
+          <circle class="bal" cx="700" cy="470" r="46"/><path d="M682 490 L718 490 L700 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="960" cy="470" r="46"/><path d="M942 490 L978 490 L960 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="1220" cy="470" r="46"/><path d="M1202 490 L1238 490 L1220 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="1480" cy="470" r="46"/><path d="M1462 490 L1498 490 L1480 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="1740" cy="470" r="46"/><path d="M1722 490 L1758 490 L1740 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="2000" cy="470" r="46"/><path d="M1982 490 L2018 490 L2000 452 Z" fill="var(--signal)"/>
+          <circle class="bal" cx="2260" cy="470" r="46"/><path d="M2242 490 L2278 490 L2260 452 Z" fill="var(--signal)"/>
+        </g>
+        <path class="lead" d="M618 642 L668 512"/><text class="dt" x="602" y="664" font-size="34" text-anchor="end">CHECK VALVE, TYP 7</text>
+
+        <!-- base rail with internal manifold -->
+        <rect class="tube" x="470" y="640" width="1930" height="180" rx="90"/>
+        <path d="M540 730 L2330 730" stroke="var(--air)" stroke-width="16" stroke-dasharray="36 20" fill="none"/>
+        <text class="lb" x="1420" y="900" font-size="36" text-anchor="middle">BASE RAIL &Oslash;152 &mdash; 25 mm MANIFOLD HOSE ROUTED INSIDE</text>
+
+        <!-- pump / port / gauge / relief -->
+        <rect class="airfill" x="90" y="655" width="180" height="150" rx="12"/>
+        <text class="lb" x="180" y="722" font-size="32" text-anchor="middle" style="fill:var(--air)">12 V</text>
+        <text class="lb" x="180" y="762" font-size="32" text-anchor="middle" style="fill:var(--air)">2-STAGE</text>
+        <text class="lb" x="180" y="866" font-size="32" text-anchor="middle" style="fill:var(--air)">PUMP</text>
+        <path d="M270 730 L400 730" stroke="var(--ink)" stroke-width="10"/>
+        <circle class="bal" cx="450" cy="730" r="56"/><path d="M424 758 L476 758 L450 700 Z" fill="var(--ink-2)"/>
+        <text class="lb" x="450" y="960" font-size="32" text-anchor="middle">FILL PORT</text>
+        <text class="lb" x="450" y="1000" font-size="32" text-anchor="middle">HR 1.5&Prime;</text>
+
+        <path d="M450 674 L450 560" stroke="var(--ink)" stroke-width="8"/>
+        <circle class="bal" cx="450" cy="500" r="60"/><path d="M450 500 L482 462" stroke="var(--signal)" stroke-width="8"/><circle cx="450" cy="500" r="8" fill="var(--signal)"/>
+        <text class="lb" x="524" y="512" font-size="32">GAUGE</text>
+
+        <path d="M310 730 L310 560" stroke="var(--ink)" stroke-width="8"/>
+        <path d="M262 560 L358 560 L310 470 Z" fill="none" stroke="var(--signal)" stroke-width="8"/>
+        <text class="dt" x="310" y="398" font-size="34" text-anchor="middle">RELIEF</text>
+        <text class="dt" x="310" y="356" font-size="34" text-anchor="middle">16 psi</text>
+
+        <!-- dump -->
+        <path d="M2400 730 L2340 730" stroke="var(--ink)" stroke-width="10"/>
+        <text class="lb" x="2380" y="990" font-size="32" text-anchor="end">3&Prime; DUMP VALVE, REAR CORNER</text>
+        <path d="M2200 820 L2200 950" stroke="var(--ink-2)" stroke-width="8"/>
+
+        <rect x="90" y="1010" width="2220" height="2" fill="var(--rule)"/>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 6 &middot; Pneumatic schematic</b><span>Working 12 psi, relief 16 psi, dump 3&Prime;. Inflation 7.2 min for the V-10 (1,663 L of free air at 12 psi through a 500/120 L&middot;min two-stage pump).</span></figcaption>
+  </figure>
+
+  <div class="key caution">
+    <span class="tag">Failure mode worth naming</span>
+    <p>Per-limb check valves change what a puncture <em>means</em>. In a single-plenum structure a leak is a collapse; here it is a limp member in a diaphragm-braced frame that still stands. Test T6 on Sheet 12 exists to prove this rather than assume it &mdash; specifically, that a fully deflated arch does not let the diagrid unload and drop the remaining arches.</p>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 05</span>
+    <h2>Impact, travel and standoff</h2>
+    <span class="note">The one number owners get wrong</span>
+  </div>
+
+  <p>Arrest travel is not a nuisance to be minimised &mdash; it is the design variable. Peak force falls as 1/&delta;, so every millimetre of travel you can afford buys frame margin, net life and quiet. What it costs is floor: the enclosure must stand off the wall by the travel <em>plus</em> a clearance margin, or the net simply hits the wall and the wall does the arresting.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1010" role="img" aria-label="Horizontal section through the front face showing screen, arrest net, diagrid, deflected shape and the required wall standoff">
+        <rect x="140" y="120" width="60" height="700" fill="var(--ink-2)" opacity=".22"/>
+        <g stroke="var(--ink-2)" stroke-width="3" opacity=".55"><path d="M200 120 L140 180 M200 200 L140 260 M200 280 L140 340 M200 360 L140 420 M200 440 L140 500 M200 520 L140 580 M200 600 L140 660 M200 680 L140 740 M200 760 L140 820"/></g>
+        <text class="lb" x="112" y="470" font-size="34" text-anchor="middle" transform="rotate(-90 112 470)">WALL</text>
+
+        <!-- at rest -->
+        <path d="M900 150 L900 800" stroke="var(--ink)" stroke-width="16"/>
+        <path d="M930 150 Q 962 215 930 280 Q 898 345 930 410 Q 962 475 930 540 Q 898 605 930 670 Q 962 735 930 800" fill="none" stroke="var(--ink-2)" stroke-width="8"/>
+        <path d="M1080 150 L1080 800" stroke="var(--air)" stroke-width="12" stroke-dasharray="30 18"/>
+        <path class="lead" d="M1232 206 L1090 240"/><text class="lb" x="1248" y="218" font-size="34" style="fill:var(--air)">SCREEN &mdash; optical duty only</text>
+        <path class="lead" d="M1232 298 L944 322"/><text class="lb" x="1248" y="310" font-size="34">ARREST NET &mdash; nylon, slack</text>
+        <path class="lead" d="M1232 390 L908 374"/><text class="lb" x="1248" y="402" font-size="34">DIAGRID &mdash; polyester, taut</text>
+
+        <!-- deflected -->
+        <path d="M900 160 C 430 330, 430 620, 900 790" fill="none" stroke="var(--signal)" stroke-width="7" stroke-dasharray="34 20"/>
+        <path d="M900 160 C 470 335, 470 615, 900 790" fill="none" stroke="var(--signal)" stroke-width="4" opacity=".55" stroke-dasharray="20 14"/>
+        <circle cx="452" cy="475" r="26" fill="var(--signal)"/>
+        <text class="dt" x="248" y="250" font-size="36">DEFLECTED</text>
+
+        <!-- ball path -->
+        <path class="dim" marker-end="url(#kE)" d="M2060 475 L1140 475" style="stroke:var(--air)"/>
+        <circle cx="2090" cy="475" r="28" fill="var(--ink)"/>
+        <text class="lb" x="1660" y="618" font-size="36" text-anchor="middle" style="fill:var(--air)">89.4 m/s &nbsp;&middot;&nbsp; 183.5 J</text>
+        <text class="lb" x="1660" y="678" font-size="36" text-anchor="middle">PEAK 734 N &nbsp;[165 lbf] &nbsp;OVER 11 ms</text>
+
+        <!-- dims -->
+        <path class="ext" d="M200 830 L200 920 M900 830 L900 920 M452 800 L452 880"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M200 900 L900 900"/>
+        <text class="dt" x="550" y="966" font-size="40" text-anchor="middle">700 MIN. STANDOFF TO WALL</text>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M452 858 L900 858"/>
+        <text class="dt" x="676" y="828" font-size="38" text-anchor="middle">500 TRAVEL</text>
+
+        <path class="ext" d="M900 150 L900 90 M1080 150 L1080 90"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M900 104 L1080 104"/>
+        <text class="dt" x="990" y="76" font-size="36" text-anchor="middle">180</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 7 &middot; Arrest section</b><span>Horizontal section at mid-height through the front face. Deflected shape shown at design travel.</span></figcaption>
+  </figure>
+
+  <p style="margin-top:1.3em">Because the diagrid runs through ratchet tensioners rather than fixed loops, the owner sets this trade themselves at setup &mdash; a garage with 600&nbsp;mm to spare tightens up and accepts a harder catch; an academy with room lets it out and gets a quieter cage that lasts longer.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Arrest travel</th><th class="n">Peak force</th><th class="n">Standoff req.</th><th class="n">Arch SF</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td class="k">250 mm</td><td class="n">1,468 N [330 lbf]</td><td class="n">450 mm</td><td class="n">1.55</td><td>Below recommended minimum &mdash; do not ship as a default</td></tr>
+      <tr><td class="k">350 mm</td><td class="n">1,049 N [236 lbf]</td><td class="n">550 mm</td><td class="n">2.09</td><td>V-9 default &mdash; tight garages</td></tr>
+      <tr class="hi"><td class="k">500 mm</td><td class="n">734 N [165 lbf]</td><td class="n">700 mm</td><td class="n">2.76</td><td>V-10 default &mdash; the design point</td></tr>
+      <tr><td class="k">650 mm</td><td class="n">565 N [127 lbf]</td><td class="n">850 mm</td><td class="n">3.53</td><td>V-12 default &mdash; quietest, longest net life</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key">
+    <span class="tag">Tipping, checked properly</span>
+    <p>A 734&nbsp;N peak at 1.5&nbsp;m looks alarming as a static overturning moment. It is not: the load is an <em>impulse</em>. The 4.11&nbsp;N&middot;s strike imparts about 0.05&nbsp;J of rotational energy to the unit, against roughly 450&nbsp;J needed to lift the centre of gravity over the front rail. Margin is four orders of magnitude &mdash; <strong>indoors, no ballast is needed to resist ball impact.</strong> Ballast on Sheet 06 is sized for wind and for someone leaning on it, not for golf.</p>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 06</span>
+    <h2>Model family</h2>
+    <span class="note">One architecture, three envelopes</span>
+  </div>
+
+  <p>The models differ in span, tube diameter and arch count &mdash; not in kind. The three-centred profile scales parametrically off the centreline span <em>W</em>: crown radius <em>R</em><sub>1</sub>&nbsp;=&nbsp;1.25<em>W</em>, haunch radius <em>R</em><sub>2</sub>&nbsp;=&nbsp;0.31<em>W</em>, springing at 0.43<em>H</em>. Tooling, valves, tensioners, net construction and the pump are common across the range.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th></th><th class="n">V-9 Garage</th><th class="n">V-10 Studio</th><th class="n">V-12 Academy</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Minimum ceiling</td><td class="n">9&prime;-0&Prime; &nbsp;2743</td><td class="n">10&prime;-0&Prime; &nbsp;3048</td><td class="n">12&prime;-0&Prime; &nbsp;3658</td></tr>
+      <tr><td class="k">Overall W &times; D &times; H</td><td class="n">10&prime;&times;7&prime;&times;8&prime;-9&Prime;</td><td class="n">12&prime;&times;8&prime;&times;9&prime;-8&Prime;</td><td class="n">14&prime;-6&Prime;&times;10&prime;&times;11&prime;-6&Prime;</td></tr>
+      <tr><td class="k"></td><td class="n">3048&times;2134&times;2667</td><td class="n">3658&times;2438&times;2946</td><td class="n">4420&times;3048&times;3505</td></tr>
+      <tr class="hi"><td class="k">Clear height at crown</td><td class="n">8&prime;-3&Prime; &nbsp;2515</td><td class="n">9&prime;-0&Prime; &nbsp;2743</td><td class="n">10&prime;-8&Prime; &nbsp;3251</td></tr>
+      <tr><td class="k">Crown band (&le;50 drop)</td><td class="n">&plusmn;753</td><td class="n">&plusmn;898</td><td class="n">&plusmn;1083</td></tr>
+      <tr><td class="k">Arch tube</td><td class="n">&Oslash;152 &nbsp;[6&Prime;] &times;2</td><td class="n">&Oslash;203 &nbsp;[8&Prime;] &times;3</td><td class="n">&Oslash;254 &nbsp;[10&Prime;] &times;3</td></tr>
+      <tr><td class="k">Base rail</td><td class="n">&Oslash;127 &nbsp;[5&Prime;]</td><td class="n">&Oslash;152 &nbsp;[6&Prime;]</td><td class="n">&Oslash;203 &nbsp;[8&Prime;]</td></tr>
+      <tr><td class="k">Chambers</td><td class="n">4</td><td class="n">6</td><td class="n">7 (incl. gang link)</td></tr>
+      <tr><td class="k">Fabric</td><td class="n">750 g/m&sup2;</td><td class="n">750 g/m&sup2;</td><td class="n">900 g/m&sup2;</td></tr>
+      <tr class="hi"><td class="k">Weight, erected</td><td class="n">36 lb &nbsp;16.3 kg</td><td class="n">62 lb &nbsp;28.1 kg</td><td class="n">92 lb &nbsp;41.7 kg</td></tr>
+      <tr><td class="k">Weight, packed</td><td class="n">44 lb</td><td class="n">74 lb</td><td class="n">108 lb</td></tr>
+      <tr><td class="k">Inflation / total setup</td><td class="n">4.5 / 9 min</td><td class="n">7.2 / 13 min</td><td class="n">16 / 21 min</td></tr>
+      <tr><td class="k">Crew</td><td class="n">1</td><td class="n">1</td><td class="n">2</td></tr>
+      <tr><td class="k">Default arrest travel</td><td class="n">350 mm</td><td class="n">500 mm</td><td class="n">650 mm</td></tr>
+      <tr><td class="k">Standoff required</td><td class="n">550 mm</td><td class="n">700 mm</td><td class="n">850 mm</td></tr>
+      <tr><td class="k">Swing rating</td><td class="n">irons full; driver &le;5&prime;10&Prime;</td><td class="n">driver, all players</td><td class="n">driver, all players</td></tr>
+      <tr><td class="k">Screen module</td><td class="n">&mdash;</td><td class="n">11&prime;&times;8&prime;</td><td class="n">13&prime;&times;9&prime;-6&Prime;</td></tr>
+      <tr><td class="k">Gangable</td><td class="n">no</td><td class="n">no</td><td class="n">yes, in rows</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Against the benchmark</h3>
+  <p>The GX-6 is 10&prime;&times;6&prime;&times;10&prime; at 60+&nbsp;lb and $3,500. The V-10 is the closest comparison: <strong>96&nbsp;ft&sup2; of floor against 60&nbsp;ft&sup2;, and roughly 36&nbsp;% more enclosed volume, at 62&nbsp;lb erected against 60&nbsp;lb.</strong> It gives up 4&nbsp;in of nominal height and gains a two-foot-deeper hitting bay, a pre-tensioned screen plane, and a model below it that actually fits a 9-foot garage. Volume figures are calculated from the vault section, not the bounding box, so they are conservative.</p>
+
+  <h3>Ballast &mdash; outdoor only</h3>
+  <p>Indoors, the pre-tension loop closes inside the structure and nothing is transmitted to the floor. Outdoors, wind governs. Frontal area of the arches on a V-10 is about 25&nbsp;ft&sup2; at <em>C</em><sub>d</sub>&nbsp;1.2; the net itself is ~70&nbsp;% open and contributes little.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Condition</th><th class="n">Wind force</th><th class="n">Ballast (V-10)</th><th>Additional</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Indoor</td><td class="n">&mdash;</td><td class="n">none</td><td>Self-equilibrating &mdash; no floor anchorage</td></tr>
+      <tr><td class="k">Outdoor &le; 15 mph</td><td class="n">17 lbf</td><td class="n">2 &times; 5 gal &nbsp;(83 lb)</td><td>Front sleeves only</td></tr>
+      <tr><td class="k">Outdoor &le; 25 mph</td><td class="n">48 lbf</td><td class="n">4 &times; 5 gal &nbsp;(167 lb)</td><td>All sleeves. V-12 limit.</td></tr>
+      <tr><td class="k">Outdoor &le; 40 mph</td><td class="n">123 lbf</td><td class="n">6 &times; 5 gal &nbsp;(250 lb)</td><td>Plus 8 ground stakes. Take down above this.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 07</span>
+    <h2>Screen module</h2>
+    <span class="note">Add-in &middot; V-10 and V-12</span>
+  </div>
+
+  <p>The screen is an accessory, not a variant. It laces to the front diagrid with 6&nbsp;mm shock cord at 300&nbsp;mm pitch through 30 grommets in a 40&nbsp;mm webbing border, and sits 180&nbsp;mm forward of the arrest net. Fitting takes about three minutes and adds 14&nbsp;lb.</p>
+
+  <p>The point of mounting to the diagrid rather than to a frame is that the diagrid is <em>already</em> a flat, pre-tensioned plane &mdash; the screen inherits its flatness instead of having to generate it. And because there is no rigid frame edge, there is no abrasion line, which is where conventional simulator screens fail first. Ball energy is taken by the arrest net behind, so the screen carries an optical duty only.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Item</th><th>Specification</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Screen</td><td>4-ply knit polyester, ~470 g/m&sup2;, matte white, 1.1 gain</td></tr>
+      <tr><td class="k">Size (V-10)</td><td>3.35 &times; 2.44 m [11&prime; &times; 8&prime;] &mdash; oversized for lacing take-up</td></tr>
+      <tr><td class="k">Attachment</td><td>30 &times; &Oslash;12 brass grommets @ 300 on 40 mm PET border; 6 mm shock cord to diagrid nodes</td></tr>
+      <tr><td class="k">Standoff to net</td><td>180 mm &mdash; sized so the screen decelerates the ball negligibly</td></tr>
+      <tr><td class="k">Projector</td><td>Short-throw 0.5:1 &rarr; 1.7 m throw for a 3.35 m image</td></tr>
+      <tr><td class="k">Launch monitor</td><td>Overhead: 2.6 m mount, clears the crown band. Behind-ball radar: needs 1.5&ndash;2.4 m behind the tee &mdash; fits V-10 and V-12 only</td></tr>
+      <tr><td class="k">Acoustic baffle</td><td>12 mm closed-cell foam pad behind the base rail</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key caution">
+    <span class="tag">Do not mount the projector to the frame</span>
+    <p>A sealed pneumatic structure moves. Thermal cycling alone shifts crown position by a few millimetres over an afternoon, which at 1.7&nbsp;m throw is visible image drift and a keystone that will not stay trimmed. The projector goes on a floor stand or on the building. Ship the unit with a bracket only if that bracket clamps to a floor stand &mdash; and say so in the manual, because customers will otherwise strap one to the purlin and blame the product.</p>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 08</span>
+    <h2>Material selection</h2>
+    <span class="note">Named material classes &middot; what to actually buy</span>
+  </div>
+
+  <p>Two material decisions carry this product: what the tubes are made of, and what the two net layers are made of. Both have a right answer that the industry already converged on, and both have a tempting cheaper answer that fails in a specific, predictable way. Those failures are named below, because a prototype built from the wrong material teaches you nothing except that it leaks.</p>
+
+  <h3>Inflatable fabric</h3>
+  <p>The binding requirements are: weldable (not sewn &mdash; stitch holes leak at 12&nbsp;psi), &ge;&nbsp;60&nbsp;kN/m tensile, low creep under sustained pressure, abrasion and UV resistance, and foldable at room temperature without the coating crazing.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Option</th><th>What it is</th><th>Numbers</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="k">PVC-coated polyester, 1100&nbsp;dtex</td><td>Woven polyester base cloth, PVC coating both faces, lacquered. The material the entire inflatable-boat and inflatable-tent industry runs on. Trade names to search: Mehler Valmex, Heytex, Sioen, Serge Ferrari, Endutex.</td><td>0.75&ndash;0.9&nbsp;mm &middot; 750&ndash;950&nbsp;g/m&sup2; &middot; 3,000&ndash;4,000&nbsp;N/50&nbsp;mm &middot; tear 350&ndash;500&nbsp;N &middot; ~$8&ndash;14/m&sup2;</td><td><strong>Use this.</strong> HF-weldable, so any inflatable fabricator can build it; field-repairable with a patch kit; cheapest path to a working article.</td></tr>
+      <tr><td class="k">TPU-coated polyester or nylon</td><td>Thermoplastic polyurethane coating. Higher strength-to-weight, better abrasion and cold flex, no plasticiser to migrate out over years.</td><td>0.6&ndash;0.9&nbsp;mm &middot; ~30&nbsp;% lighter for equal strength &middot; 2&ndash;3&times; the cost</td><td>Right answer for a later lightweight variant. Wrong answer for a prototype: only polar (ether-based) TPU takes HF welding, the rest needs hot-air or hot-wedge tooling, and far fewer job shops can do it.</td></tr>
+      <tr><td class="k">Drop-stitch panel</td><td>Two faces joined by thousands of internal threads, so the panel inflates flat instead of round. Holds 15&ndash;20&nbsp;psi.</td><td>15&ndash;20&nbsp;psi working &middot; heavier per unit area</td><td>Optional upgrade for the <em>base rail only</em> &mdash; a flat top resists a topped iron better and gives the tensioners a flat land. Not needed for the arches: a round tube is the more efficient pressure section (Sheet 00).</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key">
+    <span class="tag">The one that will waste your money</span>
+    <p><strong>Banner and billboard PVC tarpaulin.</strong> It is 1000&nbsp;dtex, it welds beautifully, it costs a third as much, and every sourcing search will surface it first. At 450&ndash;650&nbsp;g/m&sup2; the coating is far too light: it will hold 3&nbsp;psi and creep, and it will not hold 12. Specify the areal density and the tensile in the purchase order, not the fabric name. Likewise avoid TPU-coated ripstop from the packraft world &mdash; excellent fabric, an order of magnitude short on abrasion duty for a structure that gets folded, dragged and hit.</p>
+  </div>
+
+  <h3>Netting &mdash; and why the two layers are different fibres</h3>
+  <p>This is the part most easily got wrong, because the obvious move is to build both layers from the same net. They need opposite properties:</p>
+  <ul>
+    <li>The <strong>structural diagrid</strong> must hold 800&nbsp;N of pre-tension without moving. Stretch is failure &mdash; it lets the arch go slack and unloads the bracing. Wants <strong>polyester</strong>: 3&ndash;5&nbsp;% elongation, low creep, excellent UV.</li>
+    <li>The <strong>arrest net</strong> must absorb 183.5&nbsp;J. Stretch is the mechanism &mdash; the elongation <em>is</em> the energy absorption, and a stiffer fibre simply raises the peak force. Wants <strong>nylon</strong>: ~20&nbsp;% elongation at break.</li>
+  </ul>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Layer</th><th>Specify</th><th>Numbers</th><th>Why this fibre</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="k">Arrest net</td><td>#42 knotless nylon (polyamide), 22&nbsp;mm [7/8&Prime;] square mesh, braided knotless, UV-treated, dyed dark</td><td>2.3&nbsp;mm twine &middot; ~800&nbsp;N break &middot; ~210&nbsp;g/m&sup2; &middot; ~$5&ndash;7/m&sup2;</td><td>Nylon&rsquo;s elongation does the arresting. <strong>Knotless is not optional</strong> &mdash; knots abrade and cut the twine at the crossings under repeated impact, and 100,000 impacts is the design duty. Same product as commercial range barrier and batting-cage netting.</td></tr>
+      <tr class="hi"><td class="k">Structural diagrid</td><td>25&nbsp;mm flat-woven polyester webbing, MBS 11&nbsp;kN, UV-treated, black</td><td>3&ndash;5&nbsp;% elongation &middot; ~30&nbsp;g/m &middot; 62&nbsp;m per V-10</td><td>Holds tension without creeping. Must match the ratchets&rsquo; rated webbing type. Flat woven, not tubular.</td></tr>
+      <tr><td class="k">Perimeter</td><td>40&nbsp;mm polyester webbing, MBS 22&nbsp;kN</td><td>26&nbsp;m per V-10</td><td>Captures the diagrid ends and spreads load into the land strip.</td></tr>
+      <tr><td class="k">Thread</td><td>Bonded polyester, Tex 90 [V-92], UV-resistant</td><td>&mdash;</td><td>Not nylon thread: UV degrades it noticeably faster than polyester, and the thread is the exposed element at every bar tack.</td></tr>
+      <tr><td class="k">Screen</td><td>Commercial 4-ply knit polyester impact-screen blank</td><td>~470&nbsp;g/m&sup2; &middot; 1.1 gain</td><td>Buy it, do not make it. Knit construction and finish are what stop the moir&eacute; and the hot spot.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Alternatives considered and rejected</h4>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Material</th><th>Why not</th></tr></thead>
+    <tbody>
+      <tr><td class="k">#36 or #21 nylon net</td><td>#36 passes on tension (per-twine demand is only ~41&nbsp;N, SF&nbsp;15) but the real failure mode is abrasion over 100k cycles, and the saving is 1.5&nbsp;kg on a 62&nbsp;lb unit. #21 is what cheap home nets use and is under-specified for a 200&nbsp;mph design case.</td></tr>
+      <tr><td class="k">HDPE / polyethylene netting</td><td>Cheaper and better in UV, but stiff, low-elongation and it takes a permanent set. Lower elongation directly raises peak arrest force &mdash; it works against the whole Sheet 05 argument.</td></tr>
+      <tr><td class="k">Polyester netting for the arrest layer</td><td>Right fibre, wrong layer. Its low stretch is exactly what the diagrid wants and exactly what the arrest net must not have.</td></tr>
+      <tr><td class="k">Dyneema / UHMWPE</td><td>Vastly over-specified, expensive, and near-inextensible, which maximises peak force. Also hard to knot or bar-tack reliably.</td></tr>
+      <tr><td class="k">1&frac12;&Prime; mesh</td><td>Cheaper and lighter, and it will pass a ball through an already-loaded panel on a mishit. 22&nbsp;mm against a 42.7&nbsp;mm ball is the margin that makes that impossible.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 09</span>
+    <h2>Bill of materials</h2>
+    <span class="note">V-10 Studio &middot; quantities per unit</span>
+  </div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th class="n">#</th><th>Item</th><th>Specification</th><th class="n">Qty</th></tr></thead>
+    <tbody>
+      <tr><td class="n">01</td><td class="k">Arch tube fabric</td><td>1100 dtex PVC-coated polyester, 0.75 mm, 750 g/m&sup2;, 60 kN/m, both faces lacquered, HF-weldable &mdash; see Sheet 08 for sourcing</td><td class="n">13.1 m&sup2;</td></tr>
+      <tr><td class="n">02</td><td class="k">Base rail fabric</td><td>as 01</td><td class="n">5.9 m&sup2;</td></tr>
+      <tr><td class="n">03</td><td class="k">Purlin fabric</td><td>as 01</td><td class="n">1.6 m&sup2;</td></tr>
+      <tr><td class="n">04</td><td class="k">Seam cover strip</td><td>100 mm, matching compound, HF welded both sides of every lap</td><td class="n">42 m</td></tr>
+      <tr><td class="n">05</td><td class="k">Arch foot socket</td><td>Moulded TPU, bonded, integral check-valve seat and hose barb</td><td class="n">6</td></tr>
+      <tr><td class="n">06</td><td class="k">Land strip</td><td>60 mm PVC webbing, HF welded to arch inner face full length</td><td class="n">18 m</td></tr>
+      <tr><td class="n">07</td><td class="k">Manifold hose</td><td>25 mm reinforced PVC, 16 psi working, routed inside base rail</td><td class="n">12 m</td></tr>
+      <tr><td class="n">08</td><td class="k">Check valve</td><td>Umbrella, 25 mm, cracking pressure &le; 0.3 psi, reverse-seal &ge; 20 psi</td><td class="n">7</td></tr>
+      <tr><td class="n">09</td><td class="k">Fill valve</td><td>Halkey-Roberts 1.5&Prime; with integral 0&ndash;20 psi gauge</td><td class="n">1</td></tr>
+      <tr><td class="n">10</td><td class="k">Relief valve</td><td>Spring poppet, 16 &plusmn; 0.5 psi, 200 L/min discharge</td><td class="n">1</td></tr>
+      <tr><td class="n">11</td><td class="k">Dump valve</td><td>76 mm bayonet, rear corner of base rail</td><td class="n">1</td></tr>
+      <tr><td class="n">12</td><td class="k">Diagrid webbing</td><td>25 mm polyester, MBS 11 kN, 600 mm pitch on 45&deg; bias &mdash; polyester, not nylon (Sheet 08)</td><td class="n">62 m</td></tr>
+      <tr><td class="n">13</td><td class="k">Perimeter webbing</td><td>40 mm polyester, MBS 22 kN</td><td class="n">26 m</td></tr>
+      <tr><td class="n">14</td><td class="k">Ratchet tensioner</td><td>25 mm, 400 daN lashing capacity, captive on the webbing</td><td class="n">18</td></tr>
+      <tr><td class="n">15</td><td class="k">Arrest net</td><td>#42 knotless nylon, 22 mm square mesh, UV-stabilised, field-replaceable &mdash; nylon, not polyester (Sheet 08)</td><td class="n">33 m&sup2;</td></tr>
+      <tr><td class="n">16</td><td class="k">Net toggle</td><td>Nylon toggle, 150 mm tether &mdash; sets the controlled slack</td><td class="n">220</td></tr>
+      <tr><td class="n">17</td><td class="k">Ballast sleeve</td><td>210D nylon, 5 gal, on base rail; outdoor use</td><td class="n">4</td></tr>
+      <tr><td class="n">18</td><td class="k">Pump</td><td>12 V two-stage, 500 L/min to 1.5 psi then 120 L/min to 12 psi, auto shut-off, reversible for deflation</td><td class="n">1</td></tr>
+      <tr><td class="n">19</td><td class="k">Bags</td><td>600D, wheeled; frame bag 30&times;20&times;20&Prime;, net bag 20&times;16&times;16&Prime;</td><td class="n">2</td></tr>
+      <tr><td class="n">20</td><td class="k">Repair kit</td><td>Fabric patches, HF-compatible adhesive, spare check valve, 20 spare toggles</td><td class="n">1</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 10</span>
+    <h2>Prototype build</h2>
+    <span class="note">One V-10 &middot; what you do, what a shop does</span>
+  </div>
+
+  <p>You are not going to weld this yourself, and you should not try. Pressure-tight tube welding needs an HF (dielectric) welder &mdash; a job-shop machine. What you <em>can</em> do is everything either side of it: the patterns, the net assembly, the tensioning and the testing. This sheet splits the work on that line.</p>
+
+  <h3>Who does the welding</h3>
+  <p>Call fabricators who already run HF equipment on coated fabric: inflatable boat builders and repairers, inflatable advertising and event-structure manufacturers, truck-tarp and awning shops, marine canvas shops with welding capability. Useful search terms are <span class="spec">HF welding PVC fabric</span>, <span class="spec">dielectric welding fabricator</span>, <span class="spec">inflatable fabrication</span>. Hot-air welding with a Leister-type hand tool and a pressure roller is a possible fallback for a one-off, but a pressure article is a poor first hot-air project. <strong>Do not sew and tape the tubes.</strong> Needle holes leak at 12&nbsp;psi and no amount of sealant fixes it.</p>
+
+  <h3>Stage 0 &mdash; before anything is cut</h3>
+  <ol class="tight">
+    <li>Chalk the full-size arch profile on a garage floor or driveway. Stand inside it with a driver and take a slow swing. Every profile error is free to find at this stage and expensive later.</li>
+    <li>Build a 1:10 card model of the arch to sanity-check the crown band against the swing envelope in Fig.&nbsp;1.</li>
+    <li>Order fabric with <strong>40&nbsp;% overage</strong>. Some panels will be re-cut.</li>
+  </ol>
+
+  <h3>Stage 1 &mdash; patterning the arches</h3>
+  <p>A straight cylinder will not follow a curved axis; it kinks. The arch is built as <strong>mitred segments</strong>, the same way airbeam shelters are made. For the V-10: two straight legs of 1,267&nbsp;mm plus eight curved segments of 525&nbsp;mm, joined at nine mitred circumferential seams. The tangent turns 180&deg; in total, so each joint turns 20&deg; and each segment end is cut at 10&deg; off perpendicular.</p>
+  <p>The consequence catches people out: <strong>unrolled, a mitre cut is a sine wave, not a straight line.</strong> Amplitude is <em>R</em>&nbsp;&middot;&nbsp;tan&nbsp;10&deg;&nbsp;=&nbsp;101.5&nbsp;&times;&nbsp;0.176&nbsp;=&nbsp;<span class="spec">18&nbsp;mm</span>, one full period across the circumference. Cut it straight and the tube will not close.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1200" role="img" aria-label="Arch segmentation into mitred segments, and the flat pattern of one segment showing the sinusoidal mitre cut">
+        <path d="M1240 60 L1240 1120" stroke="var(--rule)" stroke-width="4"/>
+        <text class="lbk" x="70" y="82" font-size="44">ARCH SEGMENTATION &mdash; V-10</text>
+
+        <path class="tubeline" stroke-width="42" d="M250 1000 L250 670 C250 450, 360 350, 500 334 C580 325, 630 323, 680 323 C730 323, 780 325, 860 334 C1000 350, 1110 450, 1110 670 L1110 1000"/>
+        <path class="tubecore" stroke-width="33" d="M250 1000 L250 670 C250 450, 360 350, 500 334 C580 325, 630 323, 680 323 C730 323, 780 325, 860 334 C1000 350, 1110 450, 1110 670 L1110 1000"/>
+
+        <g stroke="var(--signal)" stroke-width="7" fill="none">
+          <path d="M214 670 L286 670"/><path d="M262 486 L330 462"/><path d="M380 390 L420 328"/>
+          <path d="M549 362 L561 290"/><path d="M680 359 L680 287"/><path d="M799 362 L811 290"/>
+          <path d="M940 390 L980 328"/><path d="M1030 486 L1098 462"/><path d="M1074 670 L1146 670"/>
+        </g>
+        <text class="dt" x="196" y="700" font-size="34" text-anchor="end">J1</text>
+        <text class="dt" x="680" y="262" font-size="34" text-anchor="middle">J5</text>
+        <text class="dt" x="1164" y="700" font-size="34">J9</text>
+        <path class="lead" d="M470 232 L406 316"/>
+        <text class="lb" x="484" y="222" font-size="34">20&deg; TURN AT EVERY JOINT, TYP 9</text>
+
+        <path class="grd" d="M180 1000 L1180 1000"/>
+        <text class="lb" x="640" y="1074" font-size="34" text-anchor="middle">2 STRAIGHT LEGS @ 1267 &nbsp;+&nbsp; 8 MITRED ARC SEGMENTS @ 525</text>
+        <text class="lb" x="640" y="1120" font-size="34" text-anchor="middle">9 JOINTS &times; 20&deg; = 180&deg; TOTAL TURN</text>
+
+        <text class="lbk" x="1300" y="82" font-size="44">SEGMENT FLAT PATTERN &mdash; TYP. OF 8</text>
+        <path d="M1400 420 C1550 355, 1700 355, 1850 420 C2000 485, 2150 485, 2300 420 L2300 820 C2150 885, 2000 885, 1850 820 C1700 755, 1550 755, 1400 820 Z" fill="var(--tube)" stroke="var(--ink)" stroke-width="6"/>
+        <g stroke="var(--signal)" stroke-width="4" stroke-dasharray="22 14" fill="none">
+          <path d="M1440 372 L1440 868"/><path d="M2260 372 L2260 868"/>
+        </g>
+        <text class="dt" x="1452" y="640" font-size="30" transform="rotate(-90 1452 640)">30 LAP</text>
+        <text class="dt" x="2272" y="640" font-size="30" transform="rotate(-90 2272 640)">30 LAP</text>
+
+        <path class="hid" d="M1400 420 L2300 420"/>
+        <path class="ext" d="M1400 355 L1330 355 M1400 420 L1330 420"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M1352 355 L1352 420"/>
+        <text class="dt" x="1316" y="400" font-size="34" text-anchor="end">&plusmn;18</text>
+
+        <path class="ext" d="M1400 890 L1400 960 M2300 890 L2300 960"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M1400 940 L2300 940"/>
+        <text class="dt" x="1850" y="1010" font-size="36" text-anchor="middle">698 CUT WIDTH = &pi;D 638 + 2 &times; 30 LAP</text>
+
+        <path class="ext" d="M2310 420 L2380 420 M2310 820 L2380 820"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M2360 420 L2360 820"/>
+        <text class="dt" x="2392" y="630" font-size="34" text-anchor="middle" transform="rotate(-90 2392 630)">525 MEAN</text>
+
+        <rect x="1268" y="1080" width="1110" height="74" rx="4" fill="var(--air-soft)" stroke="var(--air)" stroke-width="4"/>
+        <text class="lbk" x="1823" y="1126" font-size="29" text-anchor="middle" style="fill:var(--air)">UNROLLED, A MITRE CUT IS A SINE WAVE &mdash; NOT A STRAIGHT LINE</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 8 &middot; Segmentation and flat pattern</b><span>Amplitude &plusmn;18 = R&nbsp;&middot;&nbsp;tan&nbsp;10&deg;, one full period across the circumference &mdash; exaggerated here for clarity. Number every panel before cutting; they will get mixed up.</span></figcaption>
+  </figure>
+
+  <h3>Stage 2 &mdash; welding <span style="color:var(--muted);font-weight:400">(job shop)</span></h3>
+  <ol class="tight">
+    <li>Longitudinal seam: 30&nbsp;mm lap, HF welded, then a 100&nbsp;mm cover strip welded over it on the outside. Both, not one.</li>
+    <li>Circumferential mitre seams: same lap plus cover strip.</li>
+    <li>End caps: discs with a 25&nbsp;mm flange, welded in and cover-stripped.</li>
+    <li><strong>Test every tube standalone before assembly.</strong> Inflate to 18&nbsp;psi (1.5&times; working) for 30 minutes, soapy water over every seam. Finding a bad weld now costs an hour; finding it after the net is fitted costs a week.</li>
+  </ol>
+
+  <h3>Stage 3 &mdash; fittings <span style="color:var(--muted);font-weight:400">(job shop)</span></h3>
+  <ol class="tight">
+    <li>Weld a foot socket to each arch end &mdash; it carries the check valve and the hose barb.</li>
+    <li>Weld the 60&nbsp;mm land strip along each arch&rsquo;s inner face, full length. Get it straight: this strip sets the diagrid plane, and a wandering strip puts a permanent twist in the membrane.</li>
+    <li>Base rail: pull the 25&nbsp;mm manifold hose through before closing the final seam, and pull a service cord through alongside it.</li>
+    <li>Fit fill valve with gauge, relief valve, dump valve. Torque to the valve maker&rsquo;s figure &mdash; over-torque splits the fabric boss.</li>
+  </ol>
+
+  <h3>Stage 4 &mdash; net assembly <span style="color:var(--muted);font-weight:400">(you, or a canvas shop)</span></h3>
+  <ol class="tight">
+    <li>Lay the diagrid out flat on a clean floor and mark the 45&deg; grid at 600&nbsp;mm.</li>
+    <li>Bar-tack every webbing crossing &mdash; 3-row tack, bonded polyester Tex 90. It is tedious, and it is the structure.</li>
+    <li>Sew the 40&nbsp;mm perimeter webbing around the panel edge, capturing the diagrid ends.</li>
+    <li>Fit the ratchet tensioners captive on the perimeter webbing at the marked positions.</li>
+    <li>Attach the arrest net with toggles at 300&nbsp;mm. <strong>Cut a jig block for the 150&nbsp;mm tether</strong> so every tether is identical &mdash; uneven slack means uneven arrest travel and a net that bags to one side.</li>
+  </ol>
+
+  <h3>Stage 5 &mdash; first inflation and tensioning</h3>
+  <ol class="tight">
+    <li>Inflate all chambers to 6&nbsp;psi. Not 12 &mdash; not yet.</li>
+    <li>Fit the diagrid with every tensioner slack.</li>
+    <li>Raise to 12&nbsp;psi. The arch straightens as it comes up to pressure and takes up most of the slack for you.</li>
+    <li>Tension in a <strong>cross pattern</strong>, like wheel spokes or head bolts &mdash; never sequentially around the perimeter, which racks the panel and locks in a twist you cannot get back out.</li>
+    <li>Target 800&nbsp;N per web. Measure it rather than guessing: pull the taut web sideways at mid-span with a spring scale and read the transverse force at a known deflection.</li>
+    <li>Re-check at 30 minutes. It will have relaxed. Re-tension, and <em>log the numbers</em> &mdash; that log is the data for open risk 1 on Sheet 12.</li>
+  </ol>
+
+  <h3>Stage 6 &mdash; commissioning</h3>
+  <p>Run T1, T3 and T6 from Sheet 12 &mdash; the three structural questions &mdash; <strong>before a ball is ever hit into it.</strong> Then T2.</p>
+
+  <h3>What to hand the fabricator</h3>
+  <ul class="tight">
+    <li>The pattern set: every panel, numbered, with lap allowances included and the sine mitre drawn, not described.</li>
+    <li>The pressure spec: 12&nbsp;psi working, 16&nbsp;psi relief, 60&nbsp;psi minimum burst.</li>
+    <li>The weld spec: 30&nbsp;mm lap plus 100&nbsp;mm cover strip on every seam.</li>
+    <li>The test spec: 18&nbsp;psi for 30&nbsp;min per tube, before assembly, with a soap check &mdash; and make it a condition of acceptance.</li>
+    <li>The fabric purchase order written by <em>number</em> (areal density and tensile), not by trade name.</li>
+  </ul>
+
+  <h3>Prototype budget and schedule</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Line</th><th>Basis</th><th class="n">Cost</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Inflatable fabric</td><td>~35 m&sup2; incl. 40 % overage @ ~$11/m&sup2;</td><td class="n">$385</td></tr>
+      <tr><td class="k">Netting</td><td>33 m&sup2; #42 knotless nylon @ ~$6/m&sup2;</td><td class="n">$200</td></tr>
+      <tr><td class="k">Webbing and tensioners</td><td>88 m polyester + 18 ratchets</td><td class="n">$260</td></tr>
+      <tr><td class="k">Valves, hose, sockets</td><td>Per Sheet 09, items 05&ndash;11</td><td class="n">$220</td></tr>
+      <tr><td class="k">Pump</td><td>12 V two-stage, reversible</td><td class="n">$180</td></tr>
+      <tr><td class="k">HF welding labour</td><td>~30 h @ ~$85/h &mdash; the dominant cost, and the one to negotiate</td><td class="n">$2,550</td></tr>
+      <tr><td class="k">Net sewing labour</td><td>~20 h</td><td class="n">$700</td></tr>
+      <tr><td class="k">Contingency</td><td>25 % &mdash; assume one arch gets re-cut</td><td class="n">$1,125</td></tr>
+      <tr class="hi"><td class="k">Total, first unit</td><td>6&ndash;10 weeks, most of it waiting on the shop queue</td><td class="n">&asymp; $5,620</td></tr>
+      <tr><td class="k">Second unit</td><td>Patterns and setup already exist</td><td class="n">&asymp; $2,800</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key caution">
+    <span class="tag">Sequence that saves a rebuild</span>
+    <p>Build and pressure-test <em>one arch</em> before committing to the full set. It is about a fifth of the welding cost and it proves the patterning, the mitre maths and the shop&rsquo;s weld quality in one article. If the sine amplitude is wrong or the cover strips lift, you find out for $500 instead of $2,500.</p>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 11</span>
+    <h2>Novelty basis</h2>
+    <span class="note">For patent counsel &mdash; not a patentability opinion</span>
+  </div>
+
+  <p>This section exists so counsel can start from something structured rather than from a product photo. It is deliberately blunt about what will not survive a search.</p>
+
+  <h3>What is <em>not</em> novel, and should not be claimed alone</h3>
+  <ul class="tight">
+    <li><strong>The pneumatic arch.</strong> Inflatable arch-beam shelters are decades of well-documented prior art &mdash; military airbeam shelters, event structures, rapid-deploy field hospitals. A claim to &ldquo;an inflatable arch supporting a net&rdquo; will not issue.</li>
+    <li><strong>A tensioned net on a frame.</strong> Rigid-frame golf cages with tensioned nets are old and common.</li>
+    <li><strong>Impact screen in front of a backing net.</strong> Established simulator practice.</li>
+    <li><strong>Sealed-air, unplug-after-inflation construction.</strong> Standard across inflatable SUPs, RIBs and the reference product itself.</li>
+  </ul>
+
+  <h3>Candidate distinguishing features, ranked</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th class="n">#</th><th>Feature</th><th>Technical effect &mdash; the part that matters</th><th>Strength</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="n">1</td><td class="k">Reciprocal arch&ndash;net system</td><td>Arches pre-tension the net; the net braces the arches out of plane and distributes point impact across all of them. The load loop closes arch &rarr; diagrid &rarr; base rail &rarr; arch without reaching the ground. Raises frame margin from SF 1.3 to SF 2.8 at the same tube size and removes all guys and outriggers.</td><td>Strongest &mdash; the reciprocity is the invention</td></tr>
+      <tr class="hi"><td class="n">2</td><td class="k">Two-layer membrane</td><td>Resolves a genuine conflict: a membrane stiff enough to brace cannot arrest a ball gently. A 45&deg;-bias polyester diagrid and a slack nylon arrest net share one mounting and one tensioning system, so the same assembly is stiff in plane and compliant out of plane. The two layers also require opposite fibre properties &mdash; near-zero stretch versus high elongation &mdash; which is an independent reason they cannot be a single layer.</td><td>Strong &mdash; pair with 1 in the independent claim</td></tr>
+      <tr><td class="n">3</td><td class="k">Manifold inside the base rail, per-limb check valves</td><td>One port fills seven chambers in one cycle, yet loss of any single chamber &mdash; including the member that houses the manifold &mdash; leaves the rest inflated. Single-cycle convenience without single-point failure.</td><td>Good dependent; verify against inflatable-boat and airbeam-shelter manifold art</td></tr>
+      <tr><td class="n">4</td><td class="k">Swing-derived three-centred profile</td><td><em>R</em><sub>1</sub>&nbsp;=&nbsp;1.25<em>W</em>, <em>R</em><sub>2</sub>&nbsp;=&nbsp;0.31<em>W</em>, giving a &le;50&nbsp;mm crown band matched to the club-head apex envelope. Delivers portal-equivalent usable height on an arch load path.</td><td>Narrow but clean &mdash; specificity helps allowance, hurts scope</td></tr>
+      <tr><td class="n">5</td><td class="k">Screen laced to the structural diaphragm</td><td>No independent screen frame and no rigid abrasion edge; flatness is inherited from a plane that is already tensioned for structural reasons.</td><td>Good dependent</td></tr>
+      <tr><td class="n">6</td><td class="k">Field-adjustable arrest travel</td><td>Tensioners let the owner trade peak arrest force against required room depth (Sheet 05), so one unit serves a range of rooms.</td><td>Weaker alone; useful as a dependent</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="margin-top:1.3em">The position we would put to counsel: <strong>a single independent claim on (1) combined with (2)</strong> &mdash; a pneumatic arch frame whose out-of-plane stability is supplied by a pre-tensioned two-layer net diaphragm that also serves as the ball-arresting element &mdash; with (3) through (6) as dependents. Feature (1) standing alone risks reading on cable-braced airbeam shelters; it is the dual role of the net, structural <em>and</em> energy-absorbing, that distinguishes it.</p>
+
+  <h3>Prior art counsel must clear</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Reference</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td class="k">InMotion Air AIRCELL GX-6</td><td>The benchmark, marked patent&#8209;pending. Applications publish 18 months after filing, so the relevant documents may not be searchable yet. Counsel should search published applications and continuations under the assignee name, not only granted patents, and re-run the search before filing.</td></tr>
+      <tr><td class="k">US 7,118,487 &mdash; <em>Inflatable sport ball arresting structure</em></td><td>Directly on point and granted. Must be read in full and distinguished claim by claim; assume an examiner will cite it first.</td></tr>
+      <tr><td class="k">Military / event airbeam shelters</td><td>Establishes the pneumatic arch and multi-chamber inflation manifolds as prior art. Search HDT Global, Federal Fabrics-Fibers, Vertigo Inc., Warwick Mills.</td></tr>
+      <tr><td class="k">Cable- and membrane-braced inflatable structures</td><td>The closest art to feature (1). This is where the search will be decided.</td></tr>
+      <tr><td class="k">Rigid-frame golf cages and simulator enclosures</td><td>Establishes net tensioning and screen/backing-net arrangements in the golf context.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key">
+    <span class="tag">Scope of this document</span>
+    <p>This is an engineering design record. It is not a patentability opinion, a freedom-to-operate opinion, or a prior-art search, and nothing here should be treated as one. A registered patent attorney or agent needs to run a formal search and draft the claims. What this document is good for is walking into that meeting with a defined architecture, quantified technical effects, and the search already scoped &mdash; which is the expensive part to produce and the cheap part to hand over.</p>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">SHEET 12</span>
+    <h2>Validation and open risks</h2>
+    <span class="note">Before tooling, before filing</span>
+  </div>
+
+  <p>Every number in this document is a hand calculation &mdash; wrinkling-moment theory for the tubes, funicular analysis for the arch, a linear-spring model for arrest. They are the right calculations for sizing, and they are not sufficient for filing claims that depend on the ratios. Six tests close that gap.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th class="n">Test</th><th>Method</th><th>Pass criterion</th></tr></thead>
+    <tbody>
+      <tr><td class="n">T1</td><td class="k">Arch static load &mdash; apply 3&times; design lateral load at the crown, unbraced then diaphragm-braced</td><td>No visible wrinkling at design load; braced case carries &ge; 2&times; the unbraced case. Validates the whole Sheet 02 argument.</td></tr>
+      <tr><td class="n">T2</td><td class="k">Ball cannon &mdash; 200 mph, 1,000 shots across a 9-point grid</td><td>Arrest travel within &plusmn;15&nbsp;% of prediction at every point; no twine failure; measure force with a load cell in the diagrid.</td></tr>
+      <tr><td class="n">T3</td><td class="k">Diagrid racking &mdash; 2 kN in-plane shear on a full panel</td><td>Racking angle &le; 2&deg;. This is the test that proves the net is structure and not cargo.</td></tr>
+      <tr><td class="n">T4</td><td class="k">Thermal cycle &mdash; 0 &rarr; 50 &deg;C, 20 cycles, sealed</td><td>Relief does not vent below 15.5 psi; pressure recovers on cooling; no seam creep.</td></tr>
+      <tr><td class="n">T5</td><td class="k">Setup cycling &mdash; 50 full setup / teardown cycles</td><td>No seam, valve or land-strip degradation; fold lines show no coating crazing.</td></tr>
+      <tr><td class="n">T6</td><td class="k">Puncture redundancy &mdash; cut one arch, then the base rail, under full net pre-tension</td><td>Remaining chambers hold &ge; 10 min with no progressive collapse. Confirms the Sheet 04 claim rather than assuming it.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Open risks</h3>
+  <ol>
+    <li><strong>Fabric relaxation against net pre-tension.</strong> Coated polyester creeps under sustained load. A membrane tensioned at setup may be measurably slacker three hours in, which changes arrest travel mid-session. Mitigation is ratchet tensioners plus a documented re-check at 30 minutes &mdash; but quantify the creep in T5 before writing that into a manual.</li>
+    <li><strong>Prior-art density on feature (1).</strong> Cable-braced pneumatic structures are the real risk to the strongest claim. Budget for a proper search before tooling, not after.</li>
+    <li><strong>V-9 swing rating.</strong> A 9-foot ceiling constrains any enclosure, ours included. Publishing an honest height rating costs sales and prevents returns; the temptation to round it up should be resisted in writing, now, before marketing sees it.</li>
+    <li><strong>Arrest net fatigue.</strong> 100,000 impacts is an estimate, not a measurement. T2 runs 1,000. Either extend the test or ship the net as a consumable with a stated replacement interval &mdash; the second is cheaper and more honest.</li>
+    <li><strong>Screen life claim.</strong> The 3&ndash;5&times; life improvement from decoupling optical duty from arrest duty is a reasoned expectation with no data behind it. Do not put it in marketing until T2 has screen samples in the rig.</li>
+    <li><strong>Weight estimates.</strong> Built from fabric area and areal density with a 12&nbsp;% allowance for reinforcement, valves and hardware. Real prototypes usually come in heavy. Treat 62&nbsp;lb as a target, not a spec.</li>
+  </ol>
+
+  <h3>Suggested sequence</h3>
+  <ol class="tight">
+    <li>Provisional filing on the Sheet 11 position, drafted by counsel &mdash; establishes a date while the rest proceeds.</li>
+    <li>Prior-art search in parallel; re-scope the claims from what it finds.</li>
+    <li>One V-10 prototype, hand-welded, no tooling. Run T1, T3, T6 &mdash; the three structural questions.</li>
+    <li>T2 ball cannon on the same prototype once the structure is proven.</li>
+    <li>Revise geometry from test data, then commit tooling and file the non-provisional.</li>
+  </ol>
+</section>
+
+<div class="foot">
+  <p style="max-width:74ch">VAULT Arch Enclosure &mdash; design record Rev A, August 2026. Benchmark data for the InMotion Air AIRCELL GX-6 is taken from the manufacturer&rsquo;s published specifications (6&prime; &times; 10&prime; &times; 10&prime;, 60+ lb, $3,500, sealed air-cell construction, modular ganging). Statements about the GX-6&rsquo;s internal architecture are inference from those published specifications and product imagery, not from teardown or from any patent document, and are flagged as inference where they appear.</p>
+  <p style="max-width:74ch">All calculations are first-principles hand analysis and carry the assumptions stated at each point of use. Nothing in this document constitutes legal advice on patentability or freedom to operate.</p>
+</div>
+
+</div>
