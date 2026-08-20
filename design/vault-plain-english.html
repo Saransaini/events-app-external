@@ -179,17 +179,80 @@ svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejo
 </section>
 
 <section>
-  <h2>Which size you&rsquo;d need</h2>
+  <h2>How big is it, actually</h2>
+  <p>I ran three different numbers together earlier, which is why this was confusing. They&rsquo;re separate things:</p>
+  <ol>
+    <li><strong>The cage itself</strong> &mdash; how big the thing is once inflated.</li>
+    <li><strong>The floor you need</strong> &mdash; the cage <em>plus</em> the gap in front, because the net bulges forward when it catches a ball.</li>
+    <li><strong>What it packs down to</strong> &mdash; what you carry and store.</li>
+  </ol>
+
   <div class="tblwrap"><table>
-    <thead><tr><th>Model</th><th>Your ceiling</th><th>Floor it takes</th><th>Weight</th><th>Full driver swing?</th></tr></thead>
+    <thead><tr><th></th><th>V-9 Garage</th><th>V-10 Studio</th><th>V-12 Academy</th></tr></thead>
     <tbody>
-      <tr><td class="k">V-9 Garage</td><td>9 ft</td><td>10 &times; 7 ft</td><td>36 lb</td><td>Irons yes. Driver only if you&rsquo;re under about 5&prime;10&Prime;.</td></tr>
-      <tr class="hi"><td class="k">V-10 Studio</td><td>10 ft</td><td>12 &times; 8 ft</td><td>62 lb</td><td>Yes, anyone. This is the main model.</td></tr>
-      <tr><td class="k">V-12 Academy</td><td>12 ft</td><td>14&frac12; &times; 10 ft</td><td>92 lb</td><td>Yes. Can be lined up side by side in rows.</td></tr>
+      <tr class="hi"><td class="k">The cage, inflated</td><td>10 ft wide<br>7 ft deep<br>8 ft 9 in tall</td><td>12 ft wide<br>8 ft deep<br>9 ft 8 in tall</td><td>14 ft 6 in wide<br>10 ft deep<br>11 ft 6 in tall</td></tr>
+      <tr><td class="k">Headroom inside</td><td>8 ft 3 in</td><td>9 ft 0 in</td><td>10 ft 8 in</td></tr>
+      <tr><td class="k">Ceiling you need</td><td>9 ft</td><td>10 ft</td><td>12 ft</td></tr>
+      <tr class="hi"><td class="k">Floor you need<br><span style="font-family:Newsreader,serif;font-weight:400;font-size:14px;color:var(--muted)">cage + the wall gap</span></td><td>10 ft &times; 8 ft 10 in</td><td>12 ft &times; 10 ft 4 in</td><td>14 ft 6 in &times; 12 ft 10 in</td></tr>
+      <tr><td class="k">Packs into</td><td>one bag<br>26 &times; 16 &times; 16 in</td><td>two bags<br>largest 30 &times; 20 &times; 20 in</td><td>two bags<br>largest 34 &times; 22 &times; 22 in</td></tr>
+      <tr><td class="k">Weight</td><td>36 lb set up<br>44 lb packed</td><td>62 lb set up<br>74 lb packed</td><td>92 lb set up<br>108 lb packed</td></tr>
     </tbody>
   </table></div>
-  <p>Add the 2 ft wall gap to the depth when you&rsquo;re measuring your room. One person can set up the V-9 or V-10; the V-12 wants two people.</p>
-  <p>For comparison, the GX-6 takes 60 sq ft of floor and weighs 60 lb. The V-10 takes <strong>96 sq ft and weighs 62 lb</strong> &mdash; a much bigger bay for the same carry.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 900" role="img" aria-label="Floor plan comparison of the three cage sizes against a typical car, showing the cage footprint and the wall gap in front of each">
+        <defs><pattern id="gapH" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="20" stroke="var(--signal)" stroke-width="3" opacity=".5"/></pattern></defs>
+
+        <path d="M60 100 L1830 100" stroke="var(--ink)" stroke-width="11"/>
+        <text x="60" y="72" font-size="32" fill="var(--ink-2)">YOUR WALL</text>
+
+        <rect x="80" y="100" width="400" height="73" fill="url(#gapH)" stroke="var(--signal)" stroke-width="3"/>
+        <rect x="80" y="173" width="400" height="280" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <text x="280" y="149" font-size="26" text-anchor="middle" fill="var(--signal)">1 ft 10 in gap</text>
+        <text x="280" y="252" font-size="34" text-anchor="middle" fill="var(--ink)">V-9 GARAGE</text>
+        <text x="280" y="304" font-size="29" text-anchor="middle">10 ft wide</text>
+        <text x="280" y="344" font-size="29" text-anchor="middle">7 ft deep</text>
+        <text x="280" y="384" font-size="29" text-anchor="middle">8 ft 9 in tall</text>
+        <text x="280" y="500" font-size="28" text-anchor="middle" fill="var(--air)">needs a 9 ft ceiling</text>
+        <text x="280" y="540" font-size="28" text-anchor="middle">floor: 10 &times; 8 ft 10 in</text>
+
+        <rect x="600" y="100" width="480" height="93" fill="url(#gapH)" stroke="var(--signal)" stroke-width="3"/>
+        <rect x="600" y="193" width="480" height="320" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <text x="840" y="158" font-size="26" text-anchor="middle" fill="var(--signal)">2 ft 4 in gap</text>
+        <text x="840" y="286" font-size="34" text-anchor="middle" fill="var(--ink)">V-10 STUDIO</text>
+        <text x="840" y="338" font-size="29" text-anchor="middle">12 ft wide</text>
+        <text x="840" y="378" font-size="29" text-anchor="middle">8 ft deep</text>
+        <text x="840" y="418" font-size="29" text-anchor="middle">9 ft 8 in tall</text>
+        <text x="840" y="560" font-size="28" text-anchor="middle" fill="var(--air)">needs a 10 ft ceiling</text>
+        <text x="840" y="600" font-size="28" text-anchor="middle">floor: 12 &times; 10 ft 4 in</text>
+
+        <rect x="1200" y="100" width="580" height="113" fill="url(#gapH)" stroke="var(--signal)" stroke-width="3"/>
+        <rect x="1200" y="213" width="580" height="400" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <text x="1490" y="168" font-size="26" text-anchor="middle" fill="var(--signal)">2 ft 10 in gap</text>
+        <text x="1490" y="326" font-size="34" text-anchor="middle" fill="var(--ink)">V-12 ACADEMY</text>
+        <text x="1490" y="378" font-size="29" text-anchor="middle">14 ft 6 in wide</text>
+        <text x="1490" y="418" font-size="29" text-anchor="middle">10 ft deep</text>
+        <text x="1490" y="458" font-size="29" text-anchor="middle">11 ft 6 in tall</text>
+        <text x="1490" y="660" font-size="28" text-anchor="middle" fill="var(--air)">needs a 12 ft ceiling</text>
+        <text x="1490" y="700" font-size="28" text-anchor="middle">floor: 14 ft 6 in &times; 12 ft 10 in</text>
+
+        <rect x="1960" y="150" width="240" height="600" rx="52" fill="none" stroke="var(--ink-2)" stroke-width="5" stroke-dasharray="24 16"/>
+        <text x="2080" y="470" font-size="30" text-anchor="middle" fill="var(--ink-2)">a car</text>
+        <text x="2080" y="812" font-size="27" text-anchor="middle" fill="var(--muted)">6 &times; 15 ft, for scale</text>
+      </svg>
+    </div>
+    <figcaption>Looking down from above, all three at the same scale. The hatched strip is the gap you must leave in front &mdash; that is where the net bulges when it catches a ball.</figcaption>
+  </figure>
+
+  <h3>Will it fit your garage?</h3>
+  <ul>
+    <li><strong>Single-car garage</strong> (usually about 12 ft wide inside) &mdash; <strong>V-9 only.</strong> The V-10 is 12 ft wide and would leave you nothing at the sides.</li>
+    <li><strong>Two-car garage</strong> (20 ft or wider) &mdash; V-9 or V-10, comfortably.</li>
+    <li><strong>Basement or home studio</strong> &mdash; the ceiling decides it, not the floor. Measure the ceiling first.</li>
+    <li><strong>Gym, school hall, commercial bay</strong> &mdash; V-12.</li>
+  </ul>
+  <p>The V-10 is the main model: it takes <strong>96 sq ft</strong> of floor against the GX-6&rsquo;s 60 sq ft, and weighs 62 lb against its 60 lb. Much bigger bay, same carry.</p>
 </section>
 
 <section>
@@ -223,10 +286,28 @@ svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejo
     <li><strong>First inflation:</strong> pump to half pressure, fit the net loose, then bring it up to full &mdash; the arch straightens as it inflates and tightens the net for you. Tighten the straps in a criss-cross order like car wheel nuts, never one after another around the edge.</li>
   </ol>
 
-  <div class="cost">
-    <div><dt>First unit</dt><dd>~$5,600<small>Most of it is welding labour, which is the line to negotiate</small></dd></div>
-    <div><dt>Time</dt><dd>6&ndash;10 weeks<small>Mostly waiting in the shop&rsquo;s queue</small></dd></div>
-    <div><dt>Second unit</dt><dd>~$2,800<small>The patterns already exist by then</small></dd></div>
+  <h3>What it costs</h3>
+  <p>To be clear about what this number is: <strong>it&rsquo;s what you pay a workshop to make one prototype.</strong> It is not a retail price, and it is not what the thing would cost to manufacture at volume.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>What you&rsquo;re paying for</th><th>Roughly</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Materials &mdash; fabric, netting, webbing, valves, pump, bags</td><td>$1,245</td></tr>
+      <tr><td class="k">Welding shop labour &mdash; about 30 hours</td><td>$2,550</td></tr>
+      <tr><td class="k">Net sewing &mdash; about 20 hours</td><td>$700</td></tr>
+      <tr><td class="k">Contingency &mdash; assume one part gets re-made</td><td>$1,125</td></tr>
+      <tr class="hi"><td class="k">Total for the first one</td><td><strong>about $5,600</strong></td></tr>
+      <tr><td class="k">A second one, later</td><td>about $2,800</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Why the second is half price:</strong> most of the first one&rsquo;s cost is figuring it out &mdash; making patterns, setting up the welder, re-doing the part that came out wrong. That work doesn&rsquo;t repeat.</p>
+  <p><strong>Why it costs more than the $3,500 GX-6:</strong> that&rsquo;s normal and not a problem with your design. You&rsquo;re paying a shop by the hour for a one-off; they&rsquo;re making hundreds and spreading the setup across all of them. Materials are only about $1,250 of your $5,600 &mdash; that&rsquo;s the floor that never drops much. The labour is what falls away with volume.</p>
+  <p><strong>How long:</strong> 6&ndash;10 weeks, and most of that is sitting in the shop&rsquo;s queue rather than anyone working on it.</p>
+
+  <div class="warn">
+    <span class="t">Before you budget on this</span>
+    <p>These are estimates built from typical shop hourly rates, not quotes. Send the drawings to <strong>two or three shops and get real numbers</strong> before you commit to anything &mdash; welding labour is the biggest line and it varies a lot between shops.</p>
   </div>
 </section>
 
