@@ -209,8 +209,61 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
         <text x="1678" y="1234" font-size="34">pump (the gauge lives here) + one bag</text>
       </svg>
     </div>
-    <figcaption>Every part of the product and the subsystem it belongs to. Nothing runs inside the tubes &mdash; the frame is a single air volume joined at open ports, so the whole air system is the one valve at C.</figcaption>
+    <figcaption>Every part of the product and the subsystem it belongs to. The three arches are <em>ribs of one enclosure</em>, like the hoops of a covered wagon &mdash; drawn bare they read as three frames, but in use the net skins them into a single volume. Nothing runs inside the tubes: the frame is one air space joined at open ports, so the whole air system is the valve at C.</figcaption>
   </figure>
+
+
+  <h3>How many inflated parts there actually are</h3>
+  <p>Drawn as a bare frame, three full-height arch outlines read as three cages stacked inside each other. They are not. They are three ribs of one enclosure, and the total inflated part count is lower than the box frame it replaces &mdash; not higher.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 880" role="img" aria-label="Part count comparison: this design uses six inflated members against twelve for an equivalent portal box frame">
+        <path d="M1200 60 L1200 810" stroke="var(--rule)" stroke-width="4"/>
+
+        <text x="70" y="76" font-size="40" fill="var(--ink)">THIS DESIGN</text>
+        <g transform="translate(95,135) scale(0.37)">
+          <path class="tubeline" stroke-width="61" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+          <path class="tubecore" stroke-width="50" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+        </g>
+        <rect x="520" y="398" width="300" height="40" rx="20" fill="var(--tube)" stroke="var(--ink)" stroke-width="6"/>
+        <path d="M880 462 L1120 462 L1172 420 L932 420 Z" fill="none" stroke="var(--ink)" stroke-width="24" stroke-linejoin="round"/>
+        <path d="M880 462 L1120 462 L1172 420 L932 420 Z" fill="none" stroke="var(--tube)" stroke-width="15" stroke-linejoin="round"/>
+
+        <text x="276" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">3 &times; ARCH</text>
+        <text x="276" y="574" font-size="31" text-anchor="middle">&Oslash;203, three-centred</text>
+        <text x="670" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">2 &times; PURLIN</text>
+        <text x="670" y="574" font-size="31" text-anchor="middle">&Oslash;102</text>
+        <text x="1026" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">1 &times; BASE RAIL</text>
+        <text x="1026" y="574" font-size="31" text-anchor="middle">&Oslash;152</text>
+
+        <path d="M90 640 L1140 640" stroke="var(--rule)" stroke-width="3"/>
+        <text x="110" y="778" font-size="118" font-weight="700" style="fill:var(--air)">6</text>
+        <text x="270" y="740" font-size="36" fill="var(--ink)">INFLATED MEMBERS</text>
+        <text x="270" y="786" font-size="31">one air space &middot; one valve</text>
+
+        <text x="1290" y="76" font-size="40" fill="var(--ink)">EQUIVALENT PORTAL BOX</text>
+        <g>
+          <path class="tubeline" stroke-width="30" d="M1550 100 L1550 490 M2100 100 L2100 490 M1550 100 L2100 100 M1550 490 L2100 490"/>
+          <path class="tubecore" stroke-width="21" d="M1550 100 L1550 490 M2100 100 L2100 490 M1550 100 L2100 100 M1550 490 L2100 490"/>
+          <path class="tubeline" stroke-width="30" d="M1350 210 L1550 100 M1900 210 L2100 100 M1350 600 L1550 490 M1900 600 L2100 490"/>
+          <path class="tubecore" stroke-width="21" d="M1350 210 L1550 100 M1900 210 L2100 100 M1350 600 L1550 490 M1900 600 L2100 490"/>
+          <path class="tubeline" stroke-width="30" d="M1350 210 L1350 600 M1900 210 L1900 600 M1350 210 L1900 210 M1350 600 L1900 600"/>
+          <path class="tubecore" stroke-width="21" d="M1350 210 L1350 600 M1900 210 L1900 600 M1350 210 L1900 210 M1350 600 L1900 600"/>
+        </g>
+        <path d="M1290 640 L2340 640" stroke="var(--rule)" stroke-width="3"/>
+        <text x="1310" y="778" font-size="118" font-weight="700" style="fill:var(--signal)">12</text>
+        <text x="1530" y="740" font-size="36" fill="var(--ink)">INFLATED MEMBERS</text>
+        <text x="1530" y="786" font-size="31">4 posts + 4 top rails + 4 bottom rails</text>
+      </svg>
+    </div>
+    <figcaption>Both frames enclose the same bay. The arch reads as more because each rib is one big continuous shape; a box hides its complexity in twelve short ones and eight welded corners.</figcaption>
+  </figure>
+
+  <div class="key">
+    <span class="tag">A real inconsistency this exposed</span>
+    <p>The V-9 already ships with <strong>two</strong> arches while the V-10 has three, and no analysis in the design justifies the difference &mdash; it was set by size intuition, not by a calculation. That is a genuine loose end. It is now recorded as open decision O-07 rather than left as an unexplained variation between models.</p>
+  </div>
 
   <div class="key teal">
     <span class="tag">The one sentence version</span>
@@ -385,10 +438,10 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
   <div class="shead">
     <span class="sno">PART 4</span>
     <h2>Still open</h2>
-    <span class="snote">Yours to decide &mdash; not engineering calls</span>
+    <span class="snote">Yours to decide &mdash; mostly not engineering calls</span>
   </div>
 
-  <p>Six decisions the design deliberately leaves unmade, because they are commercial or strategic rather than technical. Each one is stated with what it turns on.</p>
+  <p>Seven decisions the design leaves unmade. Six are commercial or strategic rather than technical; the last (O-07) is an engineering question that should be settled by test data rather than argument.</p>
 
   <article class="adr">
     <header><span class="id">O-01</span><h4>Where to manufacture</h4><span class="pill open">Open</span></header>
@@ -439,6 +492,15 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
       <div><dt>Options</dt><dd>File first, then build &middot; build the $780 arch rig first, then file</dd></div>
       <div><dt>Turns on</dt><dd>Filing first buys a priority date on an architecture that has not been proven. Building first risks someone else filing in the interval, but means you file on something you know works &mdash; and the test may change the claims.</dd></div>
       <div><dt>Note</dt><dd>These are not exclusive. A provisional is cheap and can be filed on the current disclosure while the rig is built, with the non-provisional written from test data within the year.</dd></div>
+    </dl>
+  </article>
+  <article class="adr">
+    <header><span class="id">O-07</span><h4>Two arches instead of three</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>3 &times; &Oslash;203 (current) &middot; 2 &times; &Oslash;229 with a heavier purlin</dd></div>
+      <div><dt>Turns on</dt><dd>Two larger arches reach the same SF 2.77 and drop two joints, two ports and one thing to unfold. But the purlin span doubles, so it must grow from &Oslash;102 to about &Oslash;178 &mdash; which eats most of the fabric saving, leaving roughly 2.3&nbsp;m² and 4&nbsp;lb.</dd></div>
+      <div><dt>Real risk</dt><dd>Impact then shares across two members instead of three, leaning harder on the diagrid to distribute it. That is the least-proven part of the whole design.</dd></div>
+      <div><dt>Note</dt><dd>The V-9 already uses two arches, so the range is inconsistent on this point today. Resolve it with T3 data, not on paper &mdash; and resolve it for the whole family at once.</dd></div>
     </dl>
   </article>
 </section>
