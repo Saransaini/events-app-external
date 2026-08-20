@@ -1,0 +1,478 @@
+<title>VAULT Decision Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --panel:#FBFBF9; --sunk:#E8EAE3;
+  --ink:#171B14; --ink-2:#4A5147; --muted:#787F74;
+  --rule:#CBCFC3; --rule-soft:#E0E3D9;
+  --signal:#B0401B; --air:#2A6857; --air-soft:#DEE9E4; --tube:#E4E7DE;
+  --open:#8A5A08; --open-soft:#F2E7D2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+    --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+    --rule:#2E342B; --rule-soft:#242A22;
+    --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#232A21;
+    --open:#D9A648; --open-soft:#2C2617;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+  --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+  --rule:#2E342B; --rule-soft:#242A22;
+  --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#232A21;
+  --open:#D9A648; --open-soft:#2C2617;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:17.5px; line-height:1.62; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px; margin:0 auto; padding:0 26px 110px}
+h1,h2,h3,.lb,th,.pill,dt{font-family:"Archivo",-apple-system,"Segoe UI",sans-serif}
+p{margin:0 0 1em; max-width:68ch}
+code,.spec{font-family:"IBM Plex Mono",monospace; font-size:.9em; background:var(--sunk); padding:1px 5px; border-radius:2px}
+
+header.top{padding:64px 0 0}
+.eyebrow{display:inline-block; font:600 11px/1 "Archivo"; letter-spacing:.17em; text-transform:uppercase; color:var(--signal); border:1px solid var(--signal); padding:7px 10px; border-radius:2px}
+h1{font-size:clamp(40px,6.6vw,68px); font-weight:700; letter-spacing:-.03em; line-height:1.0; margin:22px 0 0; text-wrap:balance}
+.deck{font-size:19.5px; color:var(--ink-2); max-width:62ch; margin:22px 0 0}
+
+section{margin:70px 0 0; border-top:2px solid var(--ink); padding-top:14px}
+.shead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:22px}
+.sno{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12.5px; color:var(--signal); letter-spacing:.06em; padding-top:5px}
+h2{font-size:clamp(24px,3.6vw,32px); font-weight:700; letter-spacing:-.024em; margin:0; flex:1 1 240px; text-wrap:balance}
+.snote{font:500 12px/1.4 "Archivo"; color:var(--muted); text-align:right}
+h3{font-size:15px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); margin:40px 0 12px}
+
+figure{margin:24px 0 0; border:1px solid var(--rule); background:var(--panel)}
+.dwg{overflow-x:auto; padding:20px 18px 8px}
+.dwg svg{display:block; width:100%; height:auto; min-width:600px}
+figcaption{border-top:1px solid var(--rule-soft); padding:12px 18px; font:500 12.5px/1.5 "Archivo"; color:var(--muted)}
+
+.adr{border:1px solid var(--rule); background:var(--panel); margin:14px 0; padding:0}
+.adr > header{display:flex; align-items:center; gap:14px; padding:14px 20px; border-bottom:1px solid var(--rule-soft); flex-wrap:wrap}
+.adr .id{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:13px; color:var(--signal); letter-spacing:.04em}
+.adr h4{font-family:"Archivo",sans-serif; font-size:18px; font-weight:700; letter-spacing:-.018em; margin:0; flex:1 1 auto; color:var(--ink)}
+.pill{font:600 10px/1 "Archivo"; letter-spacing:.13em; text-transform:uppercase; padding:6px 9px; border-radius:2px; white-space:nowrap}
+.pill.active{background:var(--air-soft); color:var(--air)}
+.pill.super{background:var(--sunk); color:var(--muted)}
+.pill.open{background:var(--open-soft); color:var(--open)}
+.adr dl{margin:0; padding:16px 20px; display:grid; grid-template-columns:96px 1fr; gap:9px 18px; align-items:baseline}
+.adr dt{font:600 10.5px/1.5 "Archivo"; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0}
+.adr dd{margin:0; font-size:16.5px; line-height:1.55}
+.adr.superseded{opacity:.72}
+.adr.superseded h4{text-decoration:line-through; text-decoration-thickness:1px}
+@media(max-width:620px){.adr dl{grid-template-columns:1fr; gap:2px 0} .adr dd{margin-bottom:10px}}
+
+.tblwrap{overflow-x:auto; margin:22px 0 0; border:1px solid var(--rule); background:var(--panel)}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:15.5px}
+th{text-align:left; font:600 10.5px/1.3 "Archivo"; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); padding:13px 15px; border-bottom:1px solid var(--rule); vertical-align:bottom}
+td{padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-family:"Archivo",sans-serif; font-weight:600; font-size:14.5px}
+td.n{font-family:"IBM Plex Mono",monospace; text-align:right; white-space:nowrap}
+
+.key{border-left:3px solid var(--signal); background:var(--panel); border-top:1px solid var(--rule-soft); border-right:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); padding:16px 20px; margin:24px 0}
+.key .tag{display:block; font:600 10.5px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--signal); margin-bottom:9px}
+.key p:last-child{margin-bottom:0}
+.key.teal{border-left-color:var(--air)} .key.teal .tag{color:var(--air)}
+
+ul,ol{max-width:68ch; padding-left:1.2em; margin:0 0 1em}
+li{margin:0 0 .5em}
+li::marker{color:var(--muted)}
+strong{font-family:"Archivo",sans-serif; font-weight:600; font-size:.95em}
+.foot{margin-top:74px; border-top:1px solid var(--rule); padding-top:20px; font:500 12.5px/1.7 "Archivo"; color:var(--muted)}
+:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+
+svg text{font-family:"Archivo",sans-serif; font-weight:600; fill:var(--ink-2)}
+svg .tubeline{fill:none; stroke:var(--ink); stroke-linecap:round; stroke-linejoin:round}
+svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejoin:round}
+svg .lead{fill:none; stroke:var(--ink-2); stroke-width:3}
+svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <span class="eyebrow">Rev B &middot; supersedes the manifold design</span>
+  <h1>VAULT Decision Record</h1>
+  <p class="deck">Every architectural decision behind the enclosure, what it was chosen over, what it costs, and how confident we are in it &mdash; plus the ones still open, and the rules that any future change has to respect. Companion to the full engineering document.</p>
+</header>
+
+<section>
+  <div class="shead">
+    <span class="sno">PART 1</span>
+    <h2>The architecture, on one page</h2>
+    <span class="snote">V-10 Studio shown &middot; no internal plumbing</span>
+  </div>
+
+  <p>Four subsystems, and only four. The frame is a single connected air volume; the membrane is two layers on one tensioning system; the air system is one valve; everything else is an accessory that clips to the first two.</p>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1330" role="img" aria-label="Axonometric of the complete enclosure with its four subsystems labelled, alongside a parts tree listing every component in each subsystem">
+
+        <defs>
+          <clipPath id="sideNet"><path d="M200 1160 L200 816 C200 575, 268 392, 478 363 C583 353, 643 352, 718 352 L1148 102 C1073 102, 1013 103, 908 113 C698 142, 630 325, 630 566 L630 910 Z"/></clipPath>
+          <clipPath id="frontNet"><path d="M232 1160 L232 818 C232 350, 338 168, 512 139 C602 129, 660 128, 718 128 C776 128, 834 129, 924 139 C1098 168, 1204 350, 1204 818 L1204 1160 Z"/></clipPath>
+        </defs>
+        <g transform="scale(0.86)">
+
+        <!-- ============ REAR ARCH A3 ============ -->
+        <g transform="translate(630,10)">
+          <path class="tubeline" stroke-width="61" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+          <path class="tubecore" stroke-width="50" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+        </g>
+        <path class="tubeline" stroke-width="46" d="M630 910 L1666 910"/>
+        <path class="tubecore" stroke-width="36" d="M630 910 L1666 910"/>
+
+        <!-- ============ SIDE MEMBRANE ============ -->
+        <path d="M200 1160 L200 816 C200 575, 268 392, 478 363 C583 353, 643 352, 718 352 L1148 102 C1073 102, 1013 103, 908 113 C698 142, 630 325, 630 566 L630 910 Z" fill="var(--signal)" opacity=".07"/>
+        <g clip-path="url(#sideNet)" stroke="var(--ink-2)" stroke-width="3" opacity=".38" fill="none">
+          <path d="M100 1100 L800 690 M100 960 L800 550 M100 820 L800 410 M100 680 L800 270 M100 540 L800 130 M100 1240 L800 830"/>
+        </g>
+
+        <!-- ============ MID ARCH A2 ============ -->
+        <g transform="translate(415,135)">
+          <path class="tubeline" stroke-width="61" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+          <path class="tubecore" stroke-width="50" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+        </g>
+
+        <!-- ============ CROWN PURLIN ============ -->
+        <path class="tubeline" stroke-width="31" d="M718 352 L1148 102"/>
+        <path class="tubecore" stroke-width="23" d="M718 352 L1148 102"/>
+
+        <!-- ============ SIDE BASE RAILS ============ -->
+        <path class="tubeline" stroke-width="46" d="M200 1160 L630 910 M1236 1160 L1666 910"/>
+        <path class="tubecore" stroke-width="36" d="M200 1160 L630 910 M1236 1160 L1666 910"/>
+
+        <!-- ============ FRONT MEMBRANE ============ -->
+        <path d="M232 1160 L232 818 C232 350, 338 168, 512 139 C602 129, 660 128, 718 128 C776 128, 834 129, 924 139 C1098 168, 1204 350, 1204 818 L1204 1160 Z" fill="var(--signal)" opacity=".10"/>
+        <g clip-path="url(#frontNet)" stroke="var(--ink-2)" stroke-width="3.5" opacity=".42" fill="none">
+          <path d="M232 700 L718 1160 M232 460 L950 1160 M300 250 L1204 1080 M560 132 L1204 700 M860 140 L1204 440 M232 940 L470 1160"/>
+          <path d="M1204 700 L718 1160 M1204 460 L490 1160 M1140 250 L232 1080 M880 132 L232 700 M580 140 L232 440 M1204 940 L970 1160"/>
+        </g>
+
+        <!-- ============ FRONT ARCH A1 ============ -->
+        <g transform="translate(200,260)">
+          <path class="tubeline" stroke-width="61" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+          <path class="tubecore" stroke-width="50" d="M0 900 L0 556 C0 315, 68 132, 278 103 C383 93, 443 92, 518 92 C593 92, 653 93, 758 103 C968 132, 1036 315, 1036 556 L1036 900"/>
+        </g>
+
+        <!-- ============ FRONT BASE RAIL + VALVE ============ -->
+        <path class="tubeline" stroke-width="46" d="M200 1160 L1236 1160"/>
+        <path class="tubecore" stroke-width="36" d="M200 1160 L1236 1160"/>
+        <circle cx="1150" cy="1160" r="34" fill="var(--panel)" stroke="var(--ink)" stroke-width="6"/>
+        <path d="M1134 1176 L1166 1176 L1150 1140 Z" fill="var(--ink-2)"/>
+
+        <!-- ============ CALLOUTS ============ -->
+        <g>
+          <path class="lead" d="M1300 292 L1010 252"/><circle class="bal" cx="1348" cy="286" r="46"/><text x="1348" y="303" font-size="46" text-anchor="middle" fill="var(--ink)">A</text>
+          <path class="lead" d="M1300 640 L1120 640"/><circle class="bal" cx="1348" cy="640" r="46"/><text x="1348" y="657" font-size="46" text-anchor="middle" fill="var(--ink)">B</text>
+          <path class="lead" d="M1300 1090 L1178 1136"/><circle class="bal" cx="1348" cy="1076" r="46"/><text x="1348" y="1093" font-size="46" text-anchor="middle" fill="var(--ink)">C</text>
+          <path class="lead" d="M340 1240 L440 1180"/><circle class="bal" cx="292" cy="1256" r="46"/><text x="292" y="1273" font-size="46" text-anchor="middle" fill="var(--ink)">D</text>
+        </g>
+        <text x="360" y="1300" font-size="34">screen laces onto the front membrane</text>
+
+        </g>
+
+        <!-- ============ PARTS TREE ============ -->
+        <path d="M1548 90 L1548 1250" stroke="var(--rule)" stroke-width="4"/>
+
+        <circle cx="1618" cy="130" r="15" fill="var(--air)"/>
+        <text x="1654" y="144" font-size="42" fill="var(--ink)">A &middot; FRAME</text>
+        <text x="1654" y="192" font-size="32" fill="var(--muted)">one connected air space, 12 psi</text>
+        <text x="1678" y="252" font-size="34">3 &times; three-centred arch, &Oslash;203</text>
+        <text x="1678" y="302" font-size="34">2 &times; crown purlin, &Oslash;102</text>
+        <text x="1678" y="352" font-size="34">1 &times; base rail, &Oslash;152</text>
+        <text x="1678" y="402" font-size="34">&Oslash;50 open port at every joint</text>
+
+        <circle cx="1618" cy="490" r="15" fill="var(--signal)"/>
+        <text x="1654" y="504" font-size="42" fill="var(--ink)">B &middot; MEMBRANE</text>
+        <text x="1654" y="552" font-size="32" fill="var(--muted)">pre-tensioned, two layers, one system</text>
+        <text x="1678" y="612" font-size="34">diagrid &mdash; 25 mm polyester, 45&deg; @ 600</text>
+        <text x="1678" y="662" font-size="34">arrest net &mdash; #42 nylon, 22 mm, 150 slack</text>
+        <text x="1678" y="712" font-size="34">12 &times; ratchet tensioner</text>
+
+        <circle cx="1618" cy="800" r="15" fill="var(--ink-2)"/>
+        <text x="1654" y="814" font-size="42" fill="var(--ink)">C &middot; AIR</text>
+        <text x="1654" y="862" font-size="32" fill="var(--muted)">no hoses, no check valves</text>
+        <text x="1678" y="922" font-size="34">1 &times; fill / dump valve</text>
+        <text x="1678" y="972" font-size="34">relief valve &mdash; optional</text>
+
+        <circle cx="1618" cy="1060" r="15" fill="var(--muted)"/>
+        <text x="1654" y="1074" font-size="42" fill="var(--ink)">D &middot; ACCESSORIES</text>
+        <text x="1678" y="1134" font-size="34">screen module &mdash; laces to the diagrid</text>
+        <text x="1678" y="1184" font-size="34">ballast sleeves &mdash; outdoor only</text>
+        <text x="1678" y="1234" font-size="34">pump (the gauge lives here) + one bag</text>
+      </svg>
+    </div>
+    <figcaption>Every part of the product and the subsystem it belongs to. Nothing runs inside the tubes &mdash; the frame is a single air volume joined at open ports, so the whole air system is the one valve at C.</figcaption>
+  </figure>
+
+  <div class="key teal">
+    <span class="tag">The one sentence version</span>
+    <p>Three inflated arches hold a net tight; the net holds the arches steady. Everything else is a consequence of those two facts.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead">
+    <span class="sno">PART 2</span>
+    <h2>Decisions in force</h2>
+    <span class="snote">Twelve &middot; each one changeable, none of them free</span>
+  </div>
+
+  <p>Confidence is stated plainly on each: <strong>calculated</strong> means hand analysis that has not been tested, <strong>reasoned</strong> means a judgement with no number behind it, <strong>measured</strong> means a rig proved it. Nothing here is measured yet.</p>
+
+  <article class="adr">
+    <header><span class="id">D-01</span><h4>Frame geometry</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Pneumatic arch frame</dd></div>
+      <div><dt>Over</dt><dd>Inflated portal box (the reference architecture) &middot; A-frame hybrid</dd></div>
+      <div><dt>Because</dt><dd>An inflated tube fails by wrinkling in bending but is excellent in axial compression. An arch converts the load into thrust along the tube. Ø203 at SF 2.76 does the work a portal would need Ø332 for &mdash; roughly 38&nbsp;% less frame fabric.</dd></div>
+      <div><dt>Costs</dt><dd>No rectilinear corners to mount anything to, and curved tubes need mitred-segment patterning rather than straight cylinders.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated &mdash; wrinkling-moment and funicular analysis. Test T1 settles it.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-02</span><h4>Arch profile</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Three-centred (basket-handle): <span class="spec">R₁ = 1.25W</span>, <span class="spec">R₂ = 0.31W</span></dd></div>
+      <div><dt>Over</dt><dd>Semicircular &middot; parabolic &middot; single-radius segmental</dd></div>
+      <div><dt>Because</dt><dd>A single-radius arch peaks at a point; a golf club&rsquo;s apex wanders about ±750&nbsp;mm with the player&rsquo;s height and plane, so a point-peaked arch clips the club off centre. The flat crown band holds full height across ±898&nbsp;mm and only drops away at the haunches, where the club is near vertical.</dd></div>
+      <div><dt>Costs</dt><dd>More complex geometry and more mitre joints than a single radius.</dd></div>
+      <div><dt>Confidence</dt><dd>Geometric, and cheap to check &mdash; chalk it full size and swing a driver inside it before cutting anything.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-03</span><h4>Tube section</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Round welded tube at 12 psi</dd></div>
+      <div><dt>Over</dt><dd>Drop-stitch flat panel (D-section) at 15–20 psi</dd></div>
+      <div><dt>Because</dt><dd>For a pressure-stabilised member a circle&rsquo;s effective section modulus (πR³) beats a rectangle&rsquo;s (bh²/6) by about 3× at equal depth. Drop-stitch earns its cost when you need bending capacity &mdash; and the arch is precisely what removes the bending demand.</dd></div>
+      <div><dt>Costs</dt><dd>No flat face to bond hardware to, so the net attachment needs a welded land strip along the arch.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated. Drop-stitch stays on the table for the base rail alone, where a flat top would resist a topped iron better.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-04</span><h4>Role of the net</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Pre-tensioned structural diaphragm</dd></div>
+      <div><dt>Over</dt><dd>Hanging liner carried by the frame (the reference architecture)</dd></div>
+      <div><dt>Because</dt><dd>It braces the arches out of plane, spreads a point impact across all three instead of one (SF 1.3 → 2.8 at the same tube size), gives the screen a flat plane for free, and closes the load loop inside the structure so nothing reaches the floor &mdash; no stakes or ballast indoors.</dd></div>
+      <div><dt>Costs</dt><dd>The frame now carries membrane tension, and the net must be tensioned at setup and re-tensioned once it relaxes.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated. This is the load-bearing idea of the whole design and the least proven &mdash; T1 and T3 exist for it.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-05</span><h4>Net construction</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Two layers &mdash; taut structural diagrid behind, slack arrest net in front</dd></div>
+      <div><dt>Over</dt><dd>A single net doing both jobs</dd></div>
+      <div><dt>Because</dt><dd>The two jobs are irreconcilable in one layer: tight enough to brace the frame is far too tight to catch a ball gently. They also want opposite fibres &mdash; the diagrid must not stretch (polyester), the arrest net must (nylon, where the elongation <em>is</em> the energy absorption).</dd></div>
+      <div><dt>Costs</dt><dd>Two layers to manufacture, fit and service.</dd></div>
+      <div><dt>Confidence</dt><dd>Reasoned, and hard to argue with &mdash; the conflict is real whatever the numbers turn out to be.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-06</span><h4>Diagrid orientation</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>45° bias to the principal tension, 600&nbsp;mm pitch</dd></div>
+      <div><dt>Over</dt><dd>Square grid aligned to the frame</dd></div>
+      <div><dt>Because</dt><dd>A square mesh loaded in its own plane is a mechanism &mdash; it racks into parallelograms and carries nothing until it locks up. On the bias the load runs axially down the webs instead.</dd></div>
+      <div><dt>Costs</dt><dd>More webbing length and more offcut for the same coverage.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated. T3 (2&nbsp;kN in-plane shear, racking ≤ 2°) is the test that proves the net is structure and not cargo.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-07</span><h4>Air distribution</h4><span class="pill active">Active &middot; replaced D-07a</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Ø50 open transfer ports at every joint &mdash; one connected air space, one valve</dd></div>
+      <div><dt>Over</dt><dd>Internal manifold hose with per-limb check valves (D-07a) &middot; a separate valve on every chamber</dd></div>
+      <div><dt>Because</dt><dd>The manifold bought tolerance to a single-chamber puncture, and charged ten parts, about eight pounds, extra weld operations and eight more joints that can leak. Redundancy that adds eight failure points to guard against one is not redundancy.</dd></div>
+      <div><dt>Costs</dt><dd><strong>A puncture anywhere deflates the whole cage.</strong> Accepted: nothing shelters under it, and at 12 psi a small hole sinks it over minutes. Patch and re-inflate.</dd></div>
+      <div><dt>Confidence</dt><dd>Reasoned. T6 now checks port sizing rather than redundancy &mdash; that the far purlin does not lag the valve during inflation.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-08</span><h4>Gauge location</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>On the pump</dd></div>
+      <div><dt>Over</dt><dd>Integral to the fill valve on the product</dd></div>
+      <div><dt>Because</dt><dd>Pressure only needs reading while you are pumping. A gauge on the cage is a permanent leak path bought for no occasion when you would look at it.</dd></div>
+      <div><dt>Costs</dt><dd>You cannot check pressure without getting the pump out.</dd></div>
+      <div><dt>Confidence</dt><dd>Reasoned.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-09</span><h4>Arrest travel</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>500&nbsp;mm design travel, field-adjustable 250–650&nbsp;mm at the tensioners</dd></div>
+      <div><dt>Over</dt><dd>A fixed, factory-set net tension</dd></div>
+      <div><dt>Because</dt><dd>Peak force goes as 1/δ, so travel is the design variable, not a nuisance: 500&nbsp;mm gives 734&nbsp;N and SF 2.76. Making it adjustable lets an owner trade a harder catch for a shallower room.</dd></div>
+      <div><dt>Costs</dt><dd>Requires 700&nbsp;mm of standoff from the wall, and it is possible for an owner to tighten into SF 1.55 without realising.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated on a linear-spring model. T2 measures the real curve.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-10</span><h4>Screen mounting</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>Laced to the structural diagrid on shock cord</dd></div>
+      <div><dt>Over</dt><dd>Its own tensioning frame &middot; direct attachment to the arch</dd></div>
+      <div><dt>Because</dt><dd>The diagrid is already a flat, pre-tensioned plane, so the screen inherits flatness instead of generating it &mdash; and with no rigid frame edge there is no abrasion line, which is where simulator screens normally fail first.</dd></div>
+      <div><dt>Costs</dt><dd>Screen flatness is now hostage to diagrid tension; slack net means a slack picture.</dd></div>
+      <div><dt>Confidence</dt><dd>Reasoned. The claimed screen-life improvement has no data behind it and should stay out of marketing until T2 has screen samples in the rig.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-11</span><h4>Materials</h4><span class="pill active">Active</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>PVC-coated polyester tubes &middot; nylon arrest net &middot; polyester diagrid</dd></div>
+      <div><dt>Over</dt><dd>TPU-coated tubes &middot; HDPE or polyester arrest net &middot; nylon webbing</dd></div>
+      <div><dt>Because</dt><dd>PVC-coated polyester is HF-weldable, so any inflatable-boat shop can build it and any owner can patch it. The two net fibres are chosen for opposite reasons: nylon&rsquo;s stretch is the arrest mechanism, polyester&rsquo;s lack of stretch is the structure.</dd></div>
+      <div><dt>Costs</dt><dd>PVC creeps more than TPU and is heavier for equal strength. A lighter TPU variant is the obvious second-generation move.</dd></div>
+      <div><dt>Confidence</dt><dd>Reasoned, and standard practice across the inflatable industry.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">D-12</span><h4>Packed form</h4><span class="pill active">Active &middot; binding constraint</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>One shoulder-carried bag, every model</dd></div>
+      <div><dt>Over</dt><dd>Two bags split frame / net</dd></div>
+      <div><dt>Because</dt><dd>A portable product that takes two trips from the car is a different and worse product, whatever it weighs. The benchmark packs into one duffel; matching that is the entry ticket, not a bonus.</dd></div>
+      <div><dt>Costs</dt><dd>Constrains every future change &mdash; nothing may be added that pushes the V-10 past one bag.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated on packed volume (~140 L into a ~290 L duffel). Weigh and pack the first prototype before believing it.</dd></div>
+    </dl>
+  </article>
+</section>
+
+<section>
+  <div class="shead">
+    <span class="sno">PART 3</span>
+    <h2>Superseded</h2>
+    <span class="snote">Kept on the record deliberately</span>
+  </div>
+
+  <p>Reversed decisions are recorded rather than deleted, for two reasons. Anyone reading the design later will otherwise re-propose the same idea; and for patent purposes, what was tried and abandoned is part of the development history counsel may want.</p>
+
+  <article class="adr superseded">
+    <header><span class="id">D-07a</span><h4>Internal manifold with per-limb check valves</h4><span class="pill super">Superseded</span></header>
+    <dl>
+      <div><dt>Was</dt><dd>A 25&nbsp;mm hose routed inside the base rail, feeding each arch and purlin through a one-way umbrella check valve, so a puncture drained only the chamber it was in.</dd></div>
+      <div><dt>Dropped</dt><dd>Ten parts against one, ~4.3&nbsp;kg, seven extra socket weld operations, and eight additional joints that can leak &mdash; to protect a garage product against a failure whose consequence is &ldquo;stop hitting balls and patch it&rdquo;.</dd></div>
+      <div><dt>Replaced by</dt><dd>D-07 &mdash; open Ø50 transfer ports.</dd></div>
+      <div><dt>Also lost</dt><dd>It was on the patent novelty list as a dependent claim. Withdrawn there too, and marked so counsel does not search for a feature the product no longer has. No real loss &mdash; multi-chamber inflation manifolds are well covered by inflatable-boat and airbeam-shelter prior art.</dd></div>
+      <div><dt>Revisit if</dt><dd>The product is ever taken outdoors as semi-permanent installation, or scaled to a size where re-inflating is a two-person job.</dd></div>
+    </dl>
+  </article>
+</section>
+
+<section>
+  <div class="shead">
+    <span class="sno">PART 4</span>
+    <h2>Still open</h2>
+    <span class="snote">Yours to decide &mdash; not engineering calls</span>
+  </div>
+
+  <p>Six decisions the design deliberately leaves unmade, because they are commercial or strategic rather than technical. Each one is stated with what it turns on.</p>
+
+  <article class="adr">
+    <header><span class="id">O-01</span><h4>Where to manufacture</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>Offshore at <span class="spec">$662</span> landed &middot; domestic at <span class="spec">~$1,019</span></dd></div>
+      <div><dt>Turns on</dt><dd>Whether a made-domestically story is worth $357 a unit to your market. The entire gap is labour: $42 against $315. Materials are near identical.</dd></div>
+      <div><dt>Note</dt><dd>Domestic manufacture cannot reach an $800 unit cost. If that target is firm, this decision is already made.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">O-02</span><h4>Which model launches first</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>V-9 Garage &middot; V-10 Studio &middot; V-12 Academy</dd></div>
+      <div><dt>Turns on</dt><dd>V-10 is the recommended first article: it is the honest full-driver product, the direct benchmark comparison, and the size the calculations were run at. V-9 reaches the larger market but ships with a swing-height caveat that has to be published honestly.</dd></div>
+      <div><dt>Note</dt><dd>Tooling is shared across the range, so this is a sequencing decision, not a fork.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">O-03</span><h4>Include the pump, or sell it separately</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>In the box &middot; accessory</dd></div>
+      <div><dt>Turns on</dt><dd>$55 a unit &mdash; the single largest cost-down available and the most visible to a buyer. Competitors include one.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">O-04</span><h4>Retail price</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>$1,200 (45&nbsp;% margin) &middot; <strong>$1,500 (56&nbsp;%)</strong> &middot; $1,900 (65&nbsp;%, room for dealers)</dd></div>
+      <div><dt>Turns on</dt><dd>Whether you sell direct or through retail. $800 is not viable as a selling price at a $662 cost &mdash; 17&nbsp;% gross does not survive returns, warranty and freight damage.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">O-05</span><h4>Relief valve: keep or delete</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>Fit it &middot; delete it and rely on the burst margin</dd></div>
+      <div><dt>Turns on</dt><dd>Physics does not need it &mdash; thermal rise takes 12 psi to about 14.7, against 60 psi minimum burst. It exists to protect against a customer who pumps to 20 and parks it in the sun. $6 at volume.</dd></div>
+      <div><dt>Note</dt><dd>Inflatable paddleboards ship without one. This is a product-liability judgement, not an engineering one.</dd></div>
+    </dl>
+  </article>
+
+  <article class="adr">
+    <header><span class="id">O-06</span><h4>File the provisional before or after the test rig</h4><span class="pill open">Open</span></header>
+    <dl>
+      <div><dt>Options</dt><dd>File first, then build &middot; build the $780 arch rig first, then file</dd></div>
+      <div><dt>Turns on</dt><dd>Filing first buys a priority date on an architecture that has not been proven. Building first risks someone else filing in the interval, but means you file on something you know works &mdash; and the test may change the claims.</dd></div>
+      <div><dt>Note</dt><dd>These are not exclusive. A provisional is cheap and can be filed on the current disclosure while the rig is built, with the non-provisional written from test data within the year.</dd></div>
+    </dl>
+  </article>
+</section>
+
+<section>
+  <div class="shead">
+    <span class="sno">PART 5</span>
+    <h2>Rules any future change must respect</h2>
+    <span class="snote">The constraints, not the preferences</span>
+  </div>
+
+  <p>Everything above can be revisited. These cannot be quietly traded away &mdash; each one is either a safety floor or the thing that makes the product a product. If a proposed change breaks one, the change is wrong, not the rule.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Constraint</th><th class="n">Limit</th><th>Why it is a floor</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Combined arch safety factor</td><td class="n">≥ 2.5</td><td>Wrinkling is a sudden loss of stiffness, not a gradual one. Below about 2 the frame has no reserve for a mis-hit or a lean.</td></tr>
+      <tr><td class="k">Fabric burst margin</td><td class="n">≥ 4:1</td><td>Industry norm for pressurised fabric structures. Currently 5.7:1 &mdash; the headroom that lets you consider lighter fabric later.</td></tr>
+      <tr><td class="k">Packed form</td><td class="n">1 bag, 1 person</td><td>Two trips from the car makes it a different product. D-12.</td></tr>
+      <tr><td class="k">Wall standoff</td><td class="n">travel + 200 mm</td><td>If the net can reach the wall, the wall arrests the ball. Non-negotiable and must be printed in the manual.</td></tr>
+      <tr><td class="k">Frame clear of the swing</td><td class="n">no member inside the club envelope</td><td>A club strike on a pressurised tube at 100 mph is a burst, not a scuff.</td></tr>
+      <tr><td class="k">Arrest net</td><td class="n">field-replaceable</td><td>It is a consumable at 100,000 impacts. If replacing it means replacing the cage, the product has a one-season life.</td></tr>
+      <tr><td class="k">Published swing rating</td><td class="n">honest per model</td><td>The V-9 is height-limited and saying so costs sales. Overstating it costs returns and reviews, which cost more.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="key">
+    <span class="tag">Status of this record</span>
+    <p>Rev B. Nothing here has been physically tested &mdash; every &ldquo;calculated&rdquo; entry is hand analysis awaiting the rig on Sheet&nbsp;13 of the engineering document. Update this record when a decision changes, and move the old one to Part&nbsp;3 rather than deleting it.</p>
+  </div>
+</section>
+
+<div class="foot">
+  <p>VAULT Decision Record, Rev B. Companion to the VAULT Arch Enclosure engineering document (14 sheets, 8 drawings) and the plain-English summary. Benchmark figures for the InMotion Air AIRCELL GX-6 are from published manufacturer specifications; statements about its internal architecture are inference, not teardown. Nothing here is legal advice on patentability.</p>
+</div>
+
+</div>
