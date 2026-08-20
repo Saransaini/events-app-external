@@ -96,7 +96,7 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
 <div class="wrap">
 
 <header class="top">
-  <span class="eyebrow">Rev B &middot; supersedes the manifold design</span>
+  <span class="eyebrow">Rev C &middot; depth and arch count revised</span>
   <h1>VAULT Decision Record</h1>
   <p class="deck">Every architectural decision behind the enclosure, what it was chosen over, what it costs, and how confident we are in it &mdash; plus the ones still open, and the rules that any future change has to respect. Companion to the full engineering document.</p>
 </header>
@@ -105,10 +105,11 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
   <div class="shead">
     <span class="sno">PART 1</span>
     <h2>The architecture, on one page</h2>
-    <span class="snote">V-10 Studio shown &middot; no internal plumbing</span>
+    <span class="snote">V-10 Studio &middot; 2 arches, 6&prime;-6&Prime; deep</span>
   </div>
 
   <p>Four subsystems, and only four. The frame is a single connected air volume; the membrane is two layers on one tensioning system; the air system is one valve; everything else is an accessory that clips to the first two.</p>
+  <div class="key"><span class="tag">Drawing is one revision behind</span><p>The axonometric below still shows the pre-revision three-arch, 8&prime;-deep geometry. The current V-10 is <strong>two arches at 6&prime;-6&Prime;</strong> &mdash; see D-13. The subsystem breakdown and the parts tree beside it are current.</p></div>
 
   <figure>
     <div class="dwg">
@@ -184,8 +185,8 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
         <circle cx="1618" cy="130" r="15" fill="var(--air)"/>
         <text x="1654" y="144" font-size="42" fill="var(--ink)">A &middot; FRAME</text>
         <text x="1654" y="192" font-size="32" fill="var(--muted)">one connected air space, 12 psi</text>
-        <text x="1678" y="252" font-size="34">3 &times; three-centred arch, &Oslash;203</text>
-        <text x="1678" y="302" font-size="34">2 &times; crown purlin, &Oslash;102</text>
+        <text x="1678" y="252" font-size="34">2 &times; three-centred arch, &Oslash;229</text>
+        <text x="1678" y="302" font-size="34">2 &times; crown purlin, &Oslash;127</text>
         <text x="1678" y="352" font-size="34">1 &times; base rail, &Oslash;152</text>
         <text x="1678" y="402" font-size="34">&Oslash;50 open port at every joint</text>
 
@@ -214,7 +215,7 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
 
 
   <h3>How many inflated parts there actually are</h3>
-  <p>Drawn as a bare frame, three full-height arch outlines read as three cages stacked inside each other. They are not. They are three ribs of one enclosure, and the total inflated part count is lower than the box frame it replaces &mdash; not higher.</p>
+  <p>Drawn as a bare frame, arch outlines read as cages stacked inside each other. They are not &mdash; they are ribs of one enclosure. Since the depth revision (D-13) there are two of them, and the inflated part count is well under half the box frame it replaces.</p>
 
   <figure>
     <div class="dwg">
@@ -230,15 +231,15 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
         <path d="M880 462 L1120 462 L1172 420 L932 420 Z" fill="none" stroke="var(--ink)" stroke-width="24" stroke-linejoin="round"/>
         <path d="M880 462 L1120 462 L1172 420 L932 420 Z" fill="none" stroke="var(--tube)" stroke-width="15" stroke-linejoin="round"/>
 
-        <text x="276" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">3 &times; ARCH</text>
-        <text x="276" y="574" font-size="31" text-anchor="middle">&Oslash;203, three-centred</text>
+        <text x="276" y="530" font-size="36" text-anchor="middle" style="fill:var(--ink)">2 &times; ARCH</text>
+        <text x="276" y="574" font-size="31" text-anchor="middle">&Oslash;229, three-centred</text>
         <text x="670" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">2 &times; PURLIN</text>
-        <text x="670" y="574" font-size="31" text-anchor="middle">&Oslash;102</text>
+        <text x="670" y="574" font-size="31" text-anchor="middle">&Oslash;127</text>
         <text x="1026" y="530" font-size="36" text-anchor="middle" fill="var(--ink)">1 &times; BASE RAIL</text>
         <text x="1026" y="574" font-size="31" text-anchor="middle">&Oslash;152</text>
 
         <path d="M90 640 L1140 640" stroke="var(--rule)" stroke-width="3"/>
-        <text x="110" y="778" font-size="118" font-weight="700" style="fill:var(--air)">6</text>
+        <text x="110" y="778" font-size="118" font-weight="700" style="fill:var(--air)">5</text>
         <text x="270" y="740" font-size="36" fill="var(--ink)">INFLATED MEMBERS</text>
         <text x="270" y="786" font-size="31">one air space &middot; one valve</text>
 
@@ -275,7 +276,7 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
   <div class="shead">
     <span class="sno">PART 2</span>
     <h2>Decisions in force</h2>
-    <span class="snote">Twelve &middot; each one changeable, none of them free</span>
+    <span class="snote">Thirteen &middot; each one changeable, none of them free</span>
   </div>
 
   <p>Confidence is stated plainly on each: <strong>calculated</strong> means hand analysis that has not been tested, <strong>reasoned</strong> means a judgement with no number behind it, <strong>measured</strong> means a rig proved it. Nothing here is measured yet.</p>
@@ -408,7 +409,19 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
       <div><dt>Over</dt><dd>Two bags split frame / net</dd></div>
       <div><dt>Because</dt><dd>A portable product that takes two trips from the car is a different and worse product, whatever it weighs. The benchmark packs into one duffel; matching that is the entry ticket, not a bonus.</dd></div>
       <div><dt>Costs</dt><dd>Constrains every future change &mdash; nothing may be added that pushes the V-10 past one bag.</dd></div>
-      <div><dt>Confidence</dt><dd>Now calculated on a folded-strip model: 82 L of content into a 132 L bag (36 &times; 16 &times; 14 in). An earlier 288 L bag spec was sized by eye from the reference product&rsquo;s photo and was more than three times too large. Weigh and pack the first prototype before believing even the corrected figure.</dd></div>
+      <div><dt>Confidence</dt><dd>Now calculated on a folded-strip model: 70 L of content into a 109 L bag (34 &times; 15 &times; 13 in) after the depth revision. An earlier 288 L bag spec was sized by eye from the reference product&rsquo;s photo and was more than three times too large. Weigh and pack the first prototype before believing even the corrected figure.</dd></div>
+    </dl>
+  </article>
+  <article class="adr">
+    <header><span class="id">D-13</span><h4>Bay depth &mdash; and the arch count it decides</h4><span class="pill active">Active &middot; closes O-07</span></header>
+    <dl>
+      <div><dt>Chose</dt><dd>V-10 at <strong>6&prime;-6&Prime; deep with two arches</strong> (V-9 6&prime;/two, V-12 8&prime;/three)</dd></div>
+      <div><dt>Over</dt><dd>8&prime; deep with three arches &mdash; the previous spec</dd></div>
+      <div><dt>Because</dt><dd>The earlier depth was set to beat the reference product on a number, with no analysis of what depth is <em>for</em>. It does not help containment: a ball drifts laterally as it travels, so a more distant net catches a <em>narrower</em> cone &mdash; &plusmn;43&deg; from a 6&prime;-5&Prime; tee against &plusmn;53&deg; from 4&prime;-7&Prime;. And the depth is what forced the third arch: at 8&prime; the crown purlin spans 2.24&nbsp;m between two arches and needs &Oslash;169, so a third arch was the cheaper fix. At 6&prime;-6&Prime; the span is 1.48&nbsp;m, &Oslash;127 covers it, and two arches at &Oslash;229 carry the load at SF 2.78 &mdash; the same margin as three at &Oslash;203.</dd></div>
+      <div><dt>Gains</dt><dd>10&nbsp;lb (54 &rarr; 44), 18&nbsp;ft&sup2; of floor (96 &rarr; 78), 20&nbsp;% of frame fabric, 12&nbsp;L packed, two joints and one member.</dd></div>
+      <div><dt>Costs</dt><dd>No room behind the tee for behind-ball radar on V-9 or V-10 &mdash; those take overhead or side-mounted launch monitors. V-12 keeps the depth and the third arch for exactly that reason.</dd></div>
+      <div><dt>Rule</dt><dd><strong>Two arches up to 7&prime; deep, three beyond.</strong> This resolves the V-9/V-10 inconsistency O-07 recorded, for a stated reason rather than by size intuition.</dd></div>
+      <div><dt>Confidence</dt><dd>Calculated. The containment geometry is solid; two-arch load sharing rests on T3, which is now more load-bearing than before.</dd></div>
     </dl>
   </article>
 </section>
@@ -441,7 +454,7 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
     <span class="snote">Yours to decide &mdash; mostly not engineering calls</span>
   </div>
 
-  <p>Seven decisions the design leaves unmade. Six are commercial or strategic rather than technical; the last (O-07) is an engineering question that should be settled by test data rather than argument.</p>
+  <p>Six decisions the design leaves unmade, all commercial or strategic rather than technical. A seventh (O-07, the arch count) has since been closed by D-13 and is kept here with its resolution.</p>
 
   <article class="adr">
     <header><span class="id">O-01</span><h4>Where to manufacture</h4><span class="pill open">Open</span></header>
@@ -495,12 +508,12 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
     </dl>
   </article>
   <article class="adr">
-    <header><span class="id">O-07</span><h4>Two arches instead of three</h4><span class="pill open">Open</span></header>
+    <header><span class="id">O-07</span><h4>Two arches instead of three</h4><span class="pill super">Closed by D-13</span></header>
     <dl>
       <div><dt>Options</dt><dd>3 &times; &Oslash;203 (current) &middot; 2 &times; &Oslash;229 with a heavier purlin</dd></div>
       <div><dt>Turns on</dt><dd>Two larger arches reach the same SF 2.77 and drop two joints, two ports and one thing to unfold. But the purlin span doubles, so it must grow from &Oslash;102 to about &Oslash;178 &mdash; which eats most of the fabric saving, leaving roughly 2.3&nbsp;m² and 4&nbsp;lb.</dd></div>
       <div><dt>Real risk</dt><dd>Impact then shares across two members instead of three, leaning harder on the diagrid to distribute it. That is the least-proven part of the whole design.</dd></div>
-      <div><dt>Note</dt><dd>The V-9 already uses two arches, so the range is inconsistent on this point today. Resolve it with T3 data, not on paper &mdash; and resolve it for the whole family at once.</dd></div>
+      <div><dt>Resolved</dt><dd>Answered by the depth decision rather than on its own terms: reducing the bay to 6&prime;-6&Prime; shortened the purlin span enough that the middle arch had no job left. See D-13.</dd></div>
     </dl>
   </article>
 </section>
@@ -529,12 +542,12 @@ svg .bal{fill:var(--panel); stroke:var(--ink-2); stroke-width:4}
 
   <div class="key">
     <span class="tag">Status of this record</span>
-    <p>Rev B. Nothing here has been physically tested &mdash; every &ldquo;calculated&rdquo; entry is hand analysis awaiting the rig on Sheet&nbsp;13 of the engineering document. Update this record when a decision changes, and move the old one to Part&nbsp;3 rather than deleting it.</p>
+    <p>Rev C. Nothing here has been physically tested &mdash; every &ldquo;calculated&rdquo; entry is hand analysis awaiting the rig on Sheet&nbsp;13 of the engineering document. Update this record when a decision changes, and move the old one to Part&nbsp;3 rather than deleting it.</p>
   </div>
 </section>
 
 <div class="foot">
-  <p>VAULT Decision Record, Rev B. Companion to the VAULT Arch Enclosure engineering document (14 sheets, 8 drawings) and the plain-English summary. Benchmark figures for the InMotion Air AIRCELL GX-6 are from published manufacturer specifications; statements about its internal architecture are inference, not teardown. Nothing here is legal advice on patentability.</p>
+  <p>VAULT Decision Record, Rev C. Companion to the VAULT Arch Enclosure engineering document (14 sheets, 8 drawings) and the plain-English summary. Benchmark figures for the InMotion Air AIRCELL GX-6 are from published manufacturer specifications; statements about its internal architecture are inference, not teardown. Nothing here is legal advice on patentability.</p>
 </div>
 
 </div>
