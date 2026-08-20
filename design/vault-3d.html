@@ -1,0 +1,265 @@
+<title>VAULT in 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --panel:#FBFBF9; --sunk:#E8EAE3;
+  --ink:#171B14; --ink-2:#4A5147; --muted:#787F74;
+  --rule:#CBCFC3; --rule-soft:#E0E3D9;
+  --signal:#B0401B; --air:#2A6857; --air-soft:#DEE9E4; --tube:#D9DDD1;
+  --warnbg:#F2E7D2; --warnfg:#8A5A08;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+    --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+    --rule:#2E342B; --rule-soft:#242A22;
+    --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#394234;
+    --warnbg:#2C2617; --warnfg:#D9A648;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+  --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+  --rule:#2E342B; --rule-soft:#242A22;
+  --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#394234;
+  --warnbg:#2C2617; --warnfg:#D9A648;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:18px; line-height:1.62; -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px; margin:0 auto; padding:0 24px 100px}
+h1,h2,h3,th,button,.lb{font-family:"Archivo",-apple-system,"Segoe UI",sans-serif}
+p{margin:0 0 1em; max-width:66ch}
+
+header{padding:60px 0 0}
+.eyebrow{font:600 11px/1 "Archivo"; letter-spacing:.17em; text-transform:uppercase; color:var(--signal)}
+h1{font-size:clamp(38px,6.4vw,60px); font-weight:700; letter-spacing:-.03em; line-height:1; margin:18px 0 0}
+.deck{font-size:20px; color:var(--ink-2); margin:20px 0 0}
+
+section{margin:58px 0 0; border-top:2px solid var(--ink); padding-top:14px}
+h2{font-size:clamp(23px,3.4vw,30px); font-weight:700; letter-spacing:-.022em; margin:0 0 18px}
+h3{font-size:15px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); margin:32px 0 10px}
+
+.viewer{border:1px solid var(--rule); background:var(--panel); margin:22px 0 0}
+canvas{display:block; width:100%; height:auto; touch-action:none; cursor:grab}
+canvas.drag{cursor:grabbing}
+.bar{display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding:12px 14px; border-top:1px solid var(--rule-soft)}
+button{font:600 11.5px/1 "Archivo"; letter-spacing:.06em; text-transform:uppercase; padding:9px 13px;
+  background:var(--panel); color:var(--ink-2); border:1px solid var(--rule); border-radius:2px; cursor:pointer}
+button:hover{background:var(--sunk); color:var(--ink)}
+button[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.hint{margin-left:auto; font:500 12px/1 "Archivo"; color:var(--muted)}
+@media(max-width:560px){.hint{margin-left:0; width:100%; padding-top:4px}}
+
+.tblwrap{overflow-x:auto; margin:20px 0 0; border:1px solid var(--rule); background:var(--panel)}
+table{border-collapse:collapse; width:100%; min-width:540px; font-size:15.5px}
+th{text-align:left; font:600 10.5px/1.3 "Archivo"; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); padding:13px 14px; border-bottom:1px solid var(--rule); vertical-align:bottom}
+td{padding:12px 14px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:500; white-space:nowrap; color:var(--ink)}
+.tier{display:inline-block; font:600 9.5px/1 "Archivo"; letter-spacing:.11em; text-transform:uppercase; padding:5px 7px; border-radius:2px; white-space:nowrap}
+.t1{background:var(--air-soft); color:var(--air)}
+.t2{background:var(--sunk); color:var(--ink-2)}
+.t3{background:var(--warnbg); color:var(--warnfg)}
+
+.key{border-left:3px solid var(--signal); background:var(--panel); border-top:1px solid var(--rule-soft); border-right:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); padding:16px 20px; margin:24px 0}
+.key .tag{display:block; font:600 10.5px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--signal); margin-bottom:9px}
+.key p:last-child{margin-bottom:0}
+strong{font-family:"Archivo",sans-serif; font-weight:600; font-size:.95em}
+ul{max-width:66ch; padding-left:1.2em; margin:0 0 1em}
+li{margin:0 0 .45em} li::marker{color:var(--muted)}
+.foot{margin-top:64px; border-top:1px solid var(--rule); padding-top:18px; font:500 12.5px/1.7 "Archivo"; color:var(--muted)}
+:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">V-10 Studio &middot; two arches &middot; 6&prime;-6&Prime; deep</span>
+  <h1>VAULT in 3D</h1>
+  <p class="deck">Drag to spin it. Toggle the net off to see the frame on its own. Below the model, every number the design rests on and where it actually came from.</p>
+</header>
+
+<div class="viewer">
+  <canvas id="cv" aria-label="Interactive three-dimensional model of the enclosure: two pneumatic arches, two crown purlins, a base rail and the net surfaces, with a six-foot figure for scale"></canvas>
+  <div class="bar">
+    <button id="bIso" aria-pressed="true">Iso</button>
+    <button id="bFront">Front</button>
+    <button id="bSide">Side</button>
+    <button id="bTop">Top</button>
+    <button id="bNet" aria-pressed="true">Net</button>
+    <button id="bSpin" aria-pressed="false">Spin</button>
+    <span class="hint">drag to rotate</span>
+  </div>
+</div>
+<p style="font-size:15px;color:var(--muted);margin-top:10px">12&nbsp;ft wide &times; 6&nbsp;ft 6&nbsp;in deep &times; 9&nbsp;ft 8&nbsp;in tall. Figure is 6&nbsp;ft, standing at the open back where you actually stand.</p>
+
+<section>
+  <h2>Where every number came from</h2>
+  <p>Three tiers. <strong>Measured</strong> means a published fact or established theory. <strong>Chosen</strong> means a defensible engineering pick. <strong>Guessed</strong> means I made it up and it needs a test.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Number</th><th>Where it came from</th><th>Tier</th></tr></thead>
+    <tbody>
+      <tr><td class="k">45.93 g ball</td><td>USGA / R&amp;A maximum. A rule, not a choice.</td><td><span class="tier t1">Measured</span></td></tr>
+      <tr><td class="k">M = &pi;pR&sup3;</td><td>Standard inflated-beam wrinkling theory. Real, though it assumes an inextensible membrane, so real tubes wrinkle slightly earlier.</td><td><span class="tier t1">Measured</span></td></tr>
+      <tr><td class="k">60 kN/m fabric</td><td>Published spec for 1100 dtex PVC-coated polyester. Verify against your actual supplier&rsquo;s data sheet.</td><td><span class="tier t1">Measured</span></td></tr>
+      <tr><td class="k">200 mph ball</td><td>My pick, above tour driver speed. <strong>Assumes you are not a long-drive competitor</strong> &mdash; those reach 220+.</td><td><span class="tier t2">Chosen</span></td></tr>
+      <tr><td class="k">12 psi</td><td>My pick. Standard working pressure for welded inflatable-boat tubes.</td><td><span class="tier t2">Chosen</span></td></tr>
+      <tr><td class="k">80&#37; weld strength</td><td>Typical HF weld efficiency from industry practice.</td><td><span class="tier t2">Chosen</span></td></tr>
+      <tr><td class="k">500 mm travel</td><td>My pick, balancing arrest force against how far off the wall it has to stand.</td><td><span class="tier t2">Chosen</span></td></tr>
+      <tr><td class="k">734 N peak</td><td>Follows from the above &mdash; but <strong>assumes the net behaves like a linear spring</strong>. Real nets stiffen as they stretch, so the true peak is probably higher.</td><td><span class="tier t3">Guessed</span></td></tr>
+      <tr><td class="k">Safety factor 2.5</td><td>I chose it. See below.</td><td><span class="tier t3">Guessed</span></td></tr>
+      <tr><td class="k">800 N pre-tension</td><td>I chose it. Enough to keep the membrane taut; not derived from anything.</td><td><span class="tier t3">Guessed</span></td></tr>
+      <tr><td class="k">100 N/m on the purlin</td><td>I chose it, to size the crown tube. Not derived.</td><td><span class="tier t3">Guessed</span></td></tr>
+      <tr><td class="k">45&#37; load sharing</td><td>I made this up. It is how much of a ball strike I assumed reaches the worst-loaded arch. <strong>The single most important number in the design.</strong></td><td><span class="tier t3">Guessed</span></td></tr>
+      <tr><td class="k">All costs</td><td>Typical shop and factory rates, not quotes. &plusmn;25&#37; until you have real numbers.</td><td><span class="tier t3">Guessed</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The safety factor, specifically</h3>
+  <p>You asked where 2.5 came from. <strong>From me.</strong> There is no standard for inflatable golf cages. The nearest ones &mdash; EN 14960 and ASTM F2374 &mdash; cover bouncy castles and don&rsquo;t apply.</p>
+  <p>The reasoning: fabric structures normally use 4:1 or 5:1 against <em>bursting</em>, because a burst is sudden and dangerous. This design has 5.1:1 there. But 2.5 is against <em>wrinkling</em> &mdash; a different failure where the tube goes soft and sags rather than exploding. A lower number is defensible for a gentler failure mode, and 2.5 is a common range in inflatable-structure practice.</p>
+  <p>But it is a judgement, not a requirement. If you told an engineer &ldquo;use 3.0&rdquo; they could not point to a rule saying you&rsquo;re wrong &mdash; the tubes would just get bigger.</p>
+
+  <div class="key">
+    <span class="tag">The one that should worry you</span>
+    <p>That <strong>45&#37; load sharing</strong> figure. When a ball hits the net, the net spreads the shock between the two arches &mdash; and I assumed the worse-loaded one takes 45&#37; of it. I have no evidence for that number. If it&rsquo;s really 70&#37;, the safety factor drops from 2.8 to about 1.6 and the arches need to grow.</p>
+    <p>Everything structural rests on it, and it is exactly what test T3 measures. <strong>Do not commit to tooling before that test.</strong> It is also most of why the single-arch rig is the right first $780 to spend.</p>
+  </div>
+</section>
+
+<div class="foot">
+  <p>VAULT V-10, Rev C. Companion to the engineering document, the plain-English summary, and the decision record. Model is dimensionally accurate; tube diameters are drawn to scale.</p>
+</div>
+</div>
+
+<script>
+(function(){
+var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+var W=3658,D=1981,H=2946,TUBE=229,HALF=(W-TUBE)/2, BR=152, PUR=127;
+var Z1=250, Z2=1731;
+
+function bez(out,p0,p1,p2,p3,n){for(var i=1;i<=n;i++){var t=i/n,u=1-t;
+ out.push([u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],
+           u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]);}}
+function profile(){
+ var p=[[-HALF,0],[-HALF,1267]];
+ bez(p,[-HALF,1267],[-HALF,1980],[-1280,2790],[-700,2831],14);
+ bez(p,[-700,2831],[-450,2831],[-220,2831],[0,2831],7);
+ for(var i=p.length-2;i>=0;i--) p.push([-p[i][0],p[i][1]]);
+ return p;
+}
+var PROF=profile();
+
+var yaw=-0.62, pitch=0.30, spin=false, showNet=true;
+function rot(p){
+ var cx=Math.cos(yaw),sx=Math.sin(yaw),cy=Math.cos(pitch),sy=Math.sin(pitch);
+ var x=p[0], y=p[1]-H/2, z=p[2]-D/2;
+ var x1=x*cx+z*sx, z1=-x*sx+z*cx;
+ var y1=y*cy-z1*sy, z2=y*sy+z1*cy;
+ return [x1,y1,z2];
+}
+var Wd=1,Ht=1,SC=1,OX=0,OY=0;
+function raw(p){var r=rot(p),f=9000,k=f/(f+r[2]);return [r[0]*k, -r[1]*k, r[2]];}
+function proj(p){var r=raw(p);return [Wd/2+(r[0]-OX)*SC, Ht/2+(r[1]-OY)*SC, r[2]];}
+function fit(pts){var x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+ for(var i=0;i<pts.length;i++){var r=raw(pts[i]);
+  if(r[0]<x0)x0=r[0]; if(r[0]>x1)x1=r[0]; if(r[1]<y0)y0=r[1]; if(r[1]>y1)y1=r[1];}
+ OX=(x0+x1)/2; OY=(y0+y1)/2;
+ SC=Math.min(Wd*0.88/Math.max(x1-x0,1), Ht*0.86/Math.max(y1-y0,1));}
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+function draw(){
+ var dpr=Math.min(window.devicePixelRatio||1,2);
+ Wd=cv.clientWidth; Ht=Math.round(Wd*0.66);
+ cv.width=Wd*dpr; cv.height=Ht*dpr; cv.style.height=Ht+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,Wd,Ht);
+ var bb=[];
+ PROF.forEach(function(q){bb.push([q[0],q[1],0]);bb.push([q[0],q[1],D]);});
+ bb.push([-W/2,0,0],[W/2,0,0],[-W/2,0,D],[W/2,0,D]);
+ fit(bb);
+ var ink=css('--ink'), ink2=css('--ink-2'), tube=css('--tube'), air=css('--air'), sig=css('--signal'), mut=css('--muted');
+ var items=[];
+ function push(z,fn){items.push([z,fn]);}
+ function avg(pts){var s=0;for(var i=0;i<pts.length;i++)s+=proj(pts[i])[2];return s/pts.length;}
+ function poly(pts,w,col,cap){var pr=pts.map(proj);
+   push(avg(pts),function(){ctx.beginPath();ctx.moveTo(pr[0][0],pr[0][1]);
+   for(var i=1;i<pr.length;i++)ctx.lineTo(pr[i][0],pr[i][1]);
+   ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineCap=cap||'round';ctx.lineJoin='round';ctx.stroke();});}
+
+ // ground grid
+ for(var g=-2200;g<=2200;g+=550) poly([[g,0,-700],[g,0,D+700]],1,mut);
+ for(var g2=-700;g2<=D+700;g2+=550) poly([[-2200,0,g2],[2200,0,g2]],1,mut);
+
+ // net: hoops + longitudinals
+ if(showNet){
+  for(var k=0;k<=4;k++){var zz=k*D/4, hp=PROF.map(function(q){return [q[0],q[1],zz];});
+    poly(hp,k===0?2.2:1.2,ink2);}
+  for(var i=0;i<PROF.length;i+=2){
+    poly([[PROF[i][0],PROF[i][1],0],[PROF[i][0],PROF[i][1],D]],1.2,ink2);}
+  var face=PROF.map(function(q){return [q[0],q[1],0];});
+  var fp=face.map(proj);
+  push(avg(face)+40,function(){ctx.beginPath();ctx.moveTo(fp[0][0],fp[0][1]);
+    for(var i=1;i<fp.length;i++)ctx.lineTo(fp[i][0],fp[i][1]);ctx.closePath();
+    ctx.fillStyle=sig;ctx.globalAlpha=.09;ctx.fill();ctx.globalAlpha=1;});
+ }
+
+ // base rail
+ var rail=[[-W/2+BR/2,BR/2,BR/2],[W/2-BR/2,BR/2,BR/2],[W/2-BR/2,BR/2,D-BR/2],[-W/2+BR/2,BR/2,D-BR/2],[-W/2+BR/2,BR/2,BR/2]];
+ for(var r=0;r<4;r++){var seg=[rail[r],rail[r+1]];
+   poly(seg,Math.max(3,BR*SC*0.9),ink); poly(seg,Math.max(1.5,BR*SC*0.62),tube);}
+
+ // arches
+ [Z1,Z2].forEach(function(z){
+   var a=PROF.map(function(q){return [q[0],q[1],z];});
+   poly(a,Math.max(4,TUBE*SC*0.95),ink); poly(a,Math.max(2,TUBE*SC*0.68),tube);
+ });
+ // crown purlins
+ [-520,520].forEach(function(px){
+   var y=null;
+   for(var i=1;i<PROF.length;i++){var A=PROF[i-1],B=PROF[i];
+     if((A[0]-px)*(B[0]-px)<=0 && B[1]>2400){var t=(px-A[0])/((B[0]-A[0])||1); y=A[1]+t*(B[1]-A[1]); break;}}
+   if(y===null) y=2790;
+   var seg=[[px,y,Z1],[px,y,Z2]];
+   poly(seg,Math.max(3,PUR*SC*0.95),ink); poly(seg,Math.max(1.5,PUR*SC*0.66),tube);
+ });
+
+ // 6 ft figure at the open back
+ var fx=520, fz=D-120, sh=1500, hd=1720;
+ poly([[fx,70,fz],[fx,sh,fz]],Math.max(4,210*SC),air,'butt');
+ push(proj([fx,hd,fz])[2],function(){var c=proj([fx,hd,fz]);
+   ctx.beginPath();ctx.arc(c[0],c[1],Math.max(3,105*SC),0,6.3);ctx.fillStyle=air;ctx.fill();});
+ poly([[fx-300,1180,fz],[fx+300,1180,fz]],Math.max(2,70*SC),air);
+
+ items.sort(function(a,b){return b[0]-a[0];});
+ items.forEach(function(it){it[1]();});
+}
+
+var down=false,lx=0,ly=0;
+function pd(e){down=true;cv.classList.add('drag');lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);}
+function pm(e){if(!down)return;yaw+=(e.clientX-lx)*0.008;pitch=Math.max(-0.5,Math.min(1.35,pitch+(e.clientY-ly)*0.006));
+ lx=e.clientX;ly=e.clientY;draw();}
+function pu(e){down=false;cv.classList.remove('drag');}
+cv.addEventListener('pointerdown',pd);cv.addEventListener('pointermove',pm);
+cv.addEventListener('pointerup',pu);cv.addEventListener('pointercancel',pu);
+
+function setView(y,p,btn){yaw=y;pitch=p;spin=false;
+ ['bIso','bFront','bSide','bTop'].forEach(function(id){document.getElementById(id).setAttribute('aria-pressed', id===btn?'true':'false');});
+ document.getElementById('bSpin').setAttribute('aria-pressed','false');draw();}
+document.getElementById('bIso').onclick=function(){setView(-0.62,0.30,'bIso');};
+document.getElementById('bFront').onclick=function(){setView(0,0.02,'bFront');};
+document.getElementById('bSide').onclick=function(){setView(-1.5708,0.02,'bSide');};
+document.getElementById('bTop').onclick=function(){setView(0,1.32,'bTop');};
+document.getElementById('bNet').onclick=function(){showNet=!showNet;this.setAttribute('aria-pressed',showNet);draw();};
+var sb=document.getElementById('bSpin');
+sb.onclick=function(){spin=!spin;this.setAttribute('aria-pressed',spin);if(spin)loop();};
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function loop(){if(!spin)return;yaw+=0.006;draw();requestAnimationFrame(loop);}
+if(reduce) sb.disabled=true;
+window.addEventListener('resize',draw);
+draw();
+})();
+</script>
