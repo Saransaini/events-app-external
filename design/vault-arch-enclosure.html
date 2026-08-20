@@ -186,7 +186,7 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
   <dl class="tb">
     <div><dt>Architecture</dt><dd>3-centred pneumatic arch<br>+ tensioned net diaphragm</dd></div>
     <div><dt>Models</dt><dd>V-9 / V-10 / V-12<br>9&prime; &middot; 10&prime; &middot; 12&prime; ceilings</dd></div>
-    <div><dt>Design impact</dt><dd>183.5 J @ 200 mph<br>734 N peak, 11 ms</dd></div>
+    <div><dt>Air system</dt><dd>1 valve, 0 hoses<br>all chambers connected</dd></div>
     <div><dt>Benchmark</dt><dd>InMotion Air GX-6<br>10&times;6&times;10&prime;, 60 lb, $3,500</dd></div>
   </dl>
 </header>
@@ -312,7 +312,7 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
     </div>
     <div class="dwgkey">
       <div><b>1</b><span>Three-centred pneumatic arch, &Oslash;203 @ 12&nbsp;psi</span></div>
-      <div><b>2</b><span>Base-rail plenum, &Oslash;152 &mdash; manifold + anchor</span></div>
+      <div><b>2</b><span>Base rail, &Oslash;152 &mdash; open ports to every limb</span></div>
       <div><b>3</b><span>Structural diagrid, 25&nbsp;mm PET web, 45&deg; bias @ 600</span></div>
       <div><b>4</b><span>Arrest net, #42 knotless, 22&nbsp;mm mesh, 150 slack</span></div>
       <div><b>5</b><span>Ratchet tensioner &mdash; 6 per face</span></div>
@@ -636,89 +636,101 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
   <div class="sheet-head">
     <span class="sheet-no">SHEET 04</span>
     <h2>Pneumatic system</h2>
-    <span class="note">7 chambers &middot; 1 fill port &middot; sealed, no continuous blower</span>
+    <span class="note">One air space &middot; one valve &middot; no plumbing</span>
   </div>
 
-  <p>Sealed-air, like the reference product: pump it, unplug it, walk away. Two things are done differently, and both come from the same idea &mdash; <strong>route the manifold inside the base rail rather than making the base rail the manifold.</strong></p>
-  <p>A 25&nbsp;mm hose runs the length of the base-rail tube, feeding every arch and purlin through a one-way check valve at its foot, and teeing off to inflate the base rail itself. One port fills seven chambers in one pump cycle; but because each limb is check-valved, a puncture anywhere &mdash; including in the base rail, the member most likely to meet a dropped wedge &mdash; drains only that chamber. The rest of the structure stays up.</p>
+  <p>Deliberately dumb. Every chamber opens into every other chamber through a hole in the shared wall where two tubes are welded together &mdash; a <span class="spec">&Oslash;50&nbsp;mm</span> port at each arch foot and each purlin end. Air distributes itself. <strong>One valve fills the whole structure and the same valve dumps it.</strong> That is the entire system.</p>
+
+  <div class="key">
+    <span class="tag">This replaced a more complicated design, on purpose</span>
+    <p>An earlier revision routed a 25&nbsp;mm manifold hose inside the base rail with a one-way check valve at every limb, so a puncture in one chamber left the rest inflated. The redundancy was real. It was not worth what it cost: <strong>seven check valves, twelve metres of hose, about eight pounds, extra weld operations, and eight more joints that can leak</strong> &mdash; on a product whose whole appeal is that you pump it up and hit balls. Redundancy that adds eight failure points to protect against one is not redundancy.</p>
+  </div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th></th><th>Open ports <em>(this design)</em></th><th>Manifold + check valves <em>(dropped)</em></th></tr></thead>
+    <tbody>
+      <tr><td class="k">Parts in the air system</td><td class="n">1&ndash;2</td><td class="n">10</td></tr>
+      <tr><td class="k">Weight of the air system</td><td class="n">~0.6 kg [1.3 lb]</td><td class="n">~4.3 kg [9.5 lb]</td></tr>
+      <tr><td class="k">Extra weld operations</td><td class="n">0 &mdash; the port is the absence of a weld</td><td class="n">7 sockets + hose routing</td></tr>
+      <tr><td class="k">Fill time</td><td class="n">~7 min, one cycle</td><td class="n">~7 min, one cycle</td></tr>
+      <tr class="hi"><td class="k">Puncture in one chamber</td><td class="n">Whole cage comes down</td><td class="n">Rest stays inflated</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="margin-top:1.2em"><strong>What you give up, stated plainly:</strong> a puncture anywhere takes the whole cage down. That is an acceptable trade here. Nobody shelters under this, nothing falls on anyone, and a 12&nbsp;psi structure with a small puncture sinks over minutes rather than seconds. You patch it like a bicycle tyre and pump it back up. If this were a shelter people slept in, the answer would be different.</p>
 
   <figure>
     <div class="dwg">
-      <svg viewBox="0 0 2400 1080" role="img" aria-label="Pneumatic schematic showing a single fill port feeding seven check-valved chambers through a manifold hose routed inside the base rail">
-        <!-- chambers -->
+      <svg viewBox="0 0 2400 1000" role="img" aria-label="Pneumatic schematic: all chambers form a single connected air space fed by one valve, and a detail of what a transfer port is">
+        <path d="M1440 70 L1440 940" stroke="var(--rule)" stroke-width="4"/>
+
+        <rect x="100" y="160" width="1260" height="640" rx="36" fill="var(--air-soft)" stroke="var(--air)" stroke-width="5" stroke-dasharray="26 18"/>
+        <text class="lbk" x="730" y="226" font-size="36" text-anchor="middle" style="fill:var(--air)">ONE CONNECTED AIR SPACE &mdash; 12 psi</text>
+
         <g>
-          <g><rect class="tube" x="605" y="170" width="190" height="150" rx="10"/><text class="lbk" x="700" y="265" font-size="48" text-anchor="middle">A1</text></g>
-          <g><rect class="tube" x="865" y="170" width="190" height="150" rx="10"/><text class="lbk" x="960" y="265" font-size="48" text-anchor="middle">A2</text></g>
-          <g><rect class="tube" x="1125" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1220" y="265" font-size="48" text-anchor="middle">A3</text></g>
-          <g><rect class="tube" x="1385" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1480" y="265" font-size="48" text-anchor="middle">P1</text></g>
-          <g><rect class="tube" x="1645" y="170" width="190" height="150" rx="10"/><text class="lbk" x="1740" y="265" font-size="48" text-anchor="middle">P2</text></g>
-          <g><rect class="tube" x="1905" y="170" width="190" height="150" rx="10"/><text class="lbk" x="2000" y="265" font-size="48" text-anchor="middle">BR</text></g>
-          <g><rect class="tube" x="2165" y="170" width="190" height="150" rx="10" stroke-dasharray="20 14"/><text class="lbk" x="2260" y="265" font-size="48" text-anchor="middle">GL</text></g>
+          <g><rect class="tube" x="225" y="290" width="150" height="130" rx="8"/><text class="lbk" x="300" y="374" font-size="42" text-anchor="middle">A1</text></g>
+          <g><rect class="tube" x="445" y="290" width="150" height="130" rx="8"/><text class="lbk" x="520" y="374" font-size="42" text-anchor="middle">A2</text></g>
+          <g><rect class="tube" x="665" y="290" width="150" height="130" rx="8"/><text class="lbk" x="740" y="374" font-size="42" text-anchor="middle">A3</text></g>
+          <g><rect class="tube" x="885" y="290" width="150" height="130" rx="8"/><text class="lbk" x="960" y="374" font-size="42" text-anchor="middle">P1</text></g>
+          <g><rect class="tube" x="1105" y="290" width="150" height="130" rx="8"/><text class="lbk" x="1180" y="374" font-size="42" text-anchor="middle">P2</text></g>
         </g>
-        <text class="lb" x="700" y="140" font-size="32" text-anchor="middle">ARCH 1</text>
-        <text class="lb" x="960" y="140" font-size="32" text-anchor="middle">ARCH 2</text>
-        <text class="lb" x="1220" y="140" font-size="32" text-anchor="middle">ARCH 3</text>
-        <text class="lb" x="1480" y="140" font-size="32" text-anchor="middle">PURLIN</text>
-        <text class="lb" x="1740" y="140" font-size="32" text-anchor="middle">PURLIN</text>
-        <text class="lb" x="2000" y="140" font-size="32" text-anchor="middle">BASE RAIL</text>
-        <text class="lb" x="2260" y="140" font-size="32" text-anchor="middle">GANG LINK</text>
-        <text class="lb" x="2260" y="98" font-size="30" text-anchor="middle" style="fill:var(--muted)">(V-12 only)</text>
+        <text class="lb" x="730" y="272" font-size="28" text-anchor="middle">3 ARCHES &nbsp;+&nbsp; 2 PURLINS</text>
 
-        <!-- branches + check valves -->
-        <g stroke="var(--ink)" stroke-width="10" fill="none">
-          <path d="M700 320 L700 720"/><path d="M960 320 L960 720"/><path d="M1220 320 L1220 720"/>
-          <path d="M1480 320 L1480 720"/><path d="M1740 320 L1740 720"/><path d="M2000 320 L2000 720"/>
+        <g stroke="var(--ink)" stroke-width="7" fill="none">
+          <path d="M265 420 L265 480 M335 420 L335 480 M265 550 L265 620 M335 550 L335 620"/>
+          <path d="M485 420 L485 480 M555 420 L555 480 M485 550 L485 620 M555 550 L555 620"/>
+          <path d="M705 420 L705 480 M775 420 L775 480 M705 550 L705 620 M775 550 L775 620"/>
+          <path d="M925 420 L925 480 M995 420 L995 480 M925 550 L925 620 M995 550 L995 620"/>
+          <path d="M1145 420 L1145 480 M1215 420 L1215 480 M1145 550 L1145 620 M1215 550 L1215 620"/>
         </g>
-        <path d="M2260 320 L2260 720" stroke="var(--ink-2)" stroke-width="10" fill="none" stroke-dasharray="20 14"/>
-        <g>
-          <circle class="bal" cx="700" cy="470" r="46"/><path d="M682 490 L718 490 L700 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="960" cy="470" r="46"/><path d="M942 490 L978 490 L960 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="1220" cy="470" r="46"/><path d="M1202 490 L1238 490 L1220 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="1480" cy="470" r="46"/><path d="M1462 490 L1498 490 L1480 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="1740" cy="470" r="46"/><path d="M1722 490 L1758 490 L1740 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="2000" cy="470" r="46"/><path d="M1982 490 L2018 490 L2000 452 Z" fill="var(--signal)"/>
-          <circle class="bal" cx="2260" cy="470" r="46"/><path d="M2242 490 L2278 490 L2260 452 Z" fill="var(--signal)"/>
+        <g stroke="var(--air)" stroke-width="9" fill="none" marker-end="url(#kE)">
+          <path d="M300 470 L300 560"/><path d="M520 470 L520 560"/><path d="M740 470 L740 560"/><path d="M960 470 L960 560"/><path d="M1180 470 L1180 560"/>
         </g>
-        <path class="lead" d="M618 642 L668 512"/><text class="dt" x="602" y="664" font-size="34" text-anchor="end">CHECK VALVE, TYP 7</text>
 
-        <!-- base rail with internal manifold -->
-        <rect class="tube" x="470" y="640" width="1930" height="180" rx="90"/>
-        <path d="M540 730 L2330 730" stroke="var(--air)" stroke-width="16" stroke-dasharray="36 20" fill="none"/>
-        <text class="lb" x="1420" y="900" font-size="36" text-anchor="middle">BASE RAIL &Oslash;152 &mdash; 25 mm MANIFOLD HOSE ROUTED INSIDE</text>
+        <rect class="tube" x="160" y="620" width="1140" height="140" rx="70"/>
+        <text class="lb" x="730" y="708" font-size="32" text-anchor="middle">BASE RAIL</text>
 
-        <!-- pump / port / gauge / relief -->
-        <rect class="airfill" x="90" y="655" width="180" height="150" rx="12"/>
-        <text class="lb" x="180" y="722" font-size="32" text-anchor="middle" style="fill:var(--air)">12 V</text>
-        <text class="lb" x="180" y="762" font-size="32" text-anchor="middle" style="fill:var(--air)">2-STAGE</text>
-        <text class="lb" x="180" y="866" font-size="32" text-anchor="middle" style="fill:var(--air)">PUMP</text>
-        <path d="M270 730 L400 730" stroke="var(--ink)" stroke-width="10"/>
-        <circle class="bal" cx="450" cy="730" r="56"/><path d="M424 758 L476 758 L450 700 Z" fill="var(--ink-2)"/>
-        <text class="lb" x="450" y="960" font-size="32" text-anchor="middle">FILL PORT</text>
-        <text class="lb" x="450" y="1000" font-size="32" text-anchor="middle">HR 1.5&Prime;</text>
+        <circle class="bal" cx="160" cy="690" r="46"/><path d="M138 712 L182 712 L160 662 Z" fill="var(--ink-2)"/>
+        <text class="lb" x="160" y="838" font-size="30" text-anchor="middle">ONE VALVE</text>
+        <text class="lb" x="160" y="876" font-size="30" text-anchor="middle">fills it, dumps it</text>
 
-        <path d="M450 674 L450 560" stroke="var(--ink)" stroke-width="8"/>
-        <circle class="bal" cx="450" cy="500" r="60"/><path d="M450 500 L482 462" stroke="var(--signal)" stroke-width="8"/><circle cx="450" cy="500" r="8" fill="var(--signal)"/>
-        <text class="lb" x="524" y="512" font-size="32">GAUGE</text>
+        <text class="dt" x="770" y="946" font-size="32" text-anchor="middle">OPEN PORT AT EVERY JOINT &mdash; NO VALVE, NO HOSE</text>
 
-        <path d="M310 730 L310 560" stroke="var(--ink)" stroke-width="8"/>
-        <path d="M262 560 L358 560 L310 470 Z" fill="none" stroke="var(--signal)" stroke-width="8"/>
-        <text class="dt" x="310" y="398" font-size="34" text-anchor="middle">RELIEF</text>
-        <text class="dt" x="310" y="356" font-size="34" text-anchor="middle">16 psi</text>
-
-        <!-- dump -->
-        <path d="M2400 730 L2340 730" stroke="var(--ink)" stroke-width="10"/>
-        <text class="lb" x="2380" y="990" font-size="32" text-anchor="end">3&Prime; DUMP VALVE, REAR CORNER</text>
-        <path d="M2200 820 L2200 950" stroke="var(--ink-2)" stroke-width="8"/>
-
-        <rect x="90" y="1010" width="2220" height="2" fill="var(--rule)"/>
+        <text class="lbk" x="1500" y="112" font-size="40">WHAT A PORT IS</text>
+        <circle class="tube" cx="1740" cy="470" r="200"/>
+        <circle class="tube" cx="2090" cy="470" r="200"/>
+        <path d="M1915 300 L1915 400 M1915 540 L1915 640" stroke="var(--ink)" stroke-width="9" fill="none"/>
+        <g stroke="var(--air)" stroke-width="12" fill="none" marker-end="url(#kE)"><path d="M1810 470 L2010 470"/></g>
+        <path class="ext" d="M1955 400 L2050 400 M1955 540 L2050 540"/>
+        <path class="dim" marker-start="url(#bS)" marker-end="url(#bE)" d="M2030 400 L2030 540"/>
+        <text class="dt" x="2068" y="482" font-size="34">&Oslash;50</text>
+        <text class="lb" x="1660" y="740" font-size="32" text-anchor="middle">ARCH FOOT</text>
+        <text class="lb" x="2150" y="740" font-size="32" text-anchor="middle">BASE RAIL</text>
+        <text class="lb" x="1900" y="836" font-size="31" text-anchor="middle">No hose. No check valve.</text>
+        <text class="lb" x="1900" y="878" font-size="31" text-anchor="middle">Just a hole where the two tubes</text>
+        <text class="lb" x="1900" y="920" font-size="31" text-anchor="middle">are welded to each other.</text>
       </svg>
     </div>
-    <figcaption><b>Fig. 6 &middot; Pneumatic schematic</b><span>Working 12 psi, relief 16 psi, dump 3&Prime;. Inflation 7.2 min for the V-10 (1,663 L of free air at 12 psi through a 500/120 L&middot;min two-stage pump).</span></figcaption>
+    <figcaption><b>Fig. 6 &middot; Air system</b><span>V-10 shown: six chambers, one air space, one valve. Inflation 7.2 min (1,663 L of free air at 12 psi through a 500/120 L&middot;min two-stage pump) &mdash; marginally quicker than the manifold version, which had seven check-valve pressure drops in the path.</span></figcaption>
   </figure>
 
+  <h3>The whole parts list</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Part</th><th>Spec</th><th>Why it stays</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="k">Fill / dump valve</td><td>Halkey-Roberts 1.5&Prime; or equivalent, in the rear corner of the base rail</td><td>Standard inflatable-boat valve. The same valve inflates and, twisted to its open position, dumps. One part, not two.</td></tr>
+      <tr><td class="k">Pressure gauge</td><td>0&ndash;20 psi</td><td><strong>On the pump, not on the product.</strong> You only need to read pressure while you are pumping, and every decent inflatable pump already has one. A gauge on the cage is a part that can leak for no benefit.</td></tr>
+      <tr><td class="k">Relief valve <em>(optional)</em></td><td>Spring poppet, 16 &plusmn; 0.5 psi</td><td>See below &mdash; genuinely optional.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>On the relief valve &mdash; the one part worth arguing about</h4>
+  <p>Sealed at 12&nbsp;psi and 20&nbsp;&deg;C, a cage left in a garage that reaches 50&nbsp;&deg;C rises to (12&nbsp;+&nbsp;14.7)&nbsp;&times;&nbsp;323/293&nbsp;&minus;&nbsp;14.7&nbsp;=&nbsp;<span class="spec">14.7 psi</span>. If someone over-inflated to 15 to begin with, that becomes about 18. Against a minimum burst of 60&nbsp;psi that is still better than 3:1, so <em>the fabric does not care</em> &mdash; which is why inflatable paddleboards ship without one.</p>
+  <p>Keep it anyway, but know why: it is a $20 part that protects against the customer who reads &ldquo;12&nbsp;psi&rdquo; as a suggestion, pumps to 20, and leaves it in a hot car. It is insurance against user behaviour, not against physics. If cost or part count becomes critical, this is the first thing to delete.</p>
+
   <div class="key caution">
-    <span class="tag">Failure mode worth naming</span>
-    <p>Per-limb check valves change what a puncture <em>means</em>. In a single-plenum structure a leak is a collapse; here it is a limp member in a diaphragm-braced frame that still stands. Test T6 on Sheet 12 exists to prove this rather than assume it &mdash; specifically, that a fully deflated arch does not let the diagrid unload and drop the remaining arches.</p>
+    <span class="tag">One small consequence to check on test</span>
+    <p>With every chamber connected, air can shuttle between them when a ball strikes. That makes the frame marginally softer than isolated chambers would be, because the pressure rise from a deflected arch bleeds into the rest of the volume instead of being contained. The effect should be negligible &mdash; a pressurised tube gets nearly all its stiffness from fabric pre-tension, not from air compressibility &mdash; but it is a real difference, and T1 on Sheet 12 should measure the deflection rather than assume it.</p>
   </div>
 </section>
 
@@ -810,10 +822,11 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
       <tr><td class="k">Crown band (&le;50 drop)</td><td class="n">&plusmn;753</td><td class="n">&plusmn;898</td><td class="n">&plusmn;1083</td></tr>
       <tr><td class="k">Arch tube</td><td class="n">&Oslash;152 &nbsp;[6&Prime;] &times;2</td><td class="n">&Oslash;203 &nbsp;[8&Prime;] &times;3</td><td class="n">&Oslash;254 &nbsp;[10&Prime;] &times;3</td></tr>
       <tr><td class="k">Base rail</td><td class="n">&Oslash;127 &nbsp;[5&Prime;]</td><td class="n">&Oslash;152 &nbsp;[6&Prime;]</td><td class="n">&Oslash;203 &nbsp;[8&Prime;]</td></tr>
-      <tr><td class="k">Chambers</td><td class="n">4</td><td class="n">6</td><td class="n">7 (incl. gang link)</td></tr>
+      <tr><td class="k">Chambers</td><td class="n">4, all connected</td><td class="n">6, all connected</td><td class="n">7, all connected</td></tr>
       <tr><td class="k">Fabric</td><td class="n">750 g/m&sup2;</td><td class="n">750 g/m&sup2;</td><td class="n">900 g/m&sup2;</td></tr>
-      <tr class="hi"><td class="k">Weight, erected</td><td class="n">36 lb &nbsp;16.3 kg</td><td class="n">62 lb &nbsp;28.1 kg</td><td class="n">92 lb &nbsp;41.7 kg</td></tr>
-      <tr><td class="k">Weight, packed</td><td class="n">44 lb</td><td class="n">74 lb</td><td class="n">108 lb</td></tr>
+      <tr class="hi"><td class="k">Weight, erected</td><td class="n">32 lb &nbsp;14.5 kg</td><td class="n">54 lb &nbsp;24.5 kg</td><td class="n">82 lb &nbsp;37.2 kg</td></tr>
+      <tr><td class="k">Weight, packed</td><td class="n">38 lb, one bag</td><td class="n">66 lb, one bag</td><td class="n">96 lb, one bag</td></tr>
+      <tr><td class="k">Bag</td><td class="n">36&times;18&times;18&Prime;</td><td class="n">44&times;20&times;20&Prime;</td><td class="n">50&times;24&times;24&Prime;</td></tr>
       <tr><td class="k">Inflation / total setup</td><td class="n">4.5 / 9 min</td><td class="n">7.2 / 13 min</td><td class="n">16 / 21 min</td></tr>
       <tr><td class="k">Crew</td><td class="n">1</td><td class="n">1</td><td class="n">2</td></tr>
       <tr><td class="k">Default arrest travel</td><td class="n">350 mm</td><td class="n">500 mm</td><td class="n">650 mm</td></tr>
@@ -825,7 +838,8 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
   </table></div>
 
   <h3>Against the benchmark</h3>
-  <p>The GX-6 is 10&prime;&times;6&prime;&times;10&prime; at 60+&nbsp;lb and $3,500. The V-10 is the closest comparison: <strong>96&nbsp;ft&sup2; of floor against 60&nbsp;ft&sup2;, and roughly 36&nbsp;% more enclosed volume, at 62&nbsp;lb erected against 60&nbsp;lb.</strong> It gives up 4&nbsp;in of nominal height and gains a two-foot-deeper hitting bay, a pre-tensioned screen plane, and a model below it that actually fits a 9-foot garage. Volume figures are calculated from the vault section, not the bounding box, so they are conservative.</p>
+  <p>The GX-6 is 10&prime;&times;6&prime;&times;10&prime; at 60+&nbsp;lb and $3,500, and it packs into a single shoulder-carried duffel. The V-10 is the closest comparison: <strong>96&nbsp;ft&sup2; of floor against 60&nbsp;ft&sup2;, roughly 36&nbsp;% more enclosed volume, at 54&nbsp;lb erected against 60&nbsp;lb &mdash; also in one bag, also one person.</strong> It gives up 4&nbsp;in of nominal height and gains a two-foot-deeper hitting bay, a pre-tensioned screen plane, and a model below it that actually fits a 9-foot garage. Volume figures are calculated from the vault section, not the bounding box, so they are conservative.</p>
+  <p><strong>Single-bag packing is a hard requirement, not an outcome.</strong> A portable product that needs two trips from the car is a different and worse product, whatever it weighs. If a design change pushes the V-10 past one bag, the change is wrong.</p>
 
   <h3>Ballast &mdash; outdoor only</h3>
   <p>Indoors, the pre-tension loop closes inside the structure and nothing is transmitted to the floor. Outdoors, wind governs. Frontal area of the arches on a V-10 is about 25&nbsp;ft&sup2; at <em>C</em><sub>d</sub>&nbsp;1.2; the net itself is ~70&nbsp;% open and contributes little.</p>
@@ -942,22 +956,19 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
       <tr><td class="n">02</td><td class="k">Base rail fabric</td><td>as 01</td><td class="n">5.9 m&sup2;</td></tr>
       <tr><td class="n">03</td><td class="k">Purlin fabric</td><td>as 01</td><td class="n">1.6 m&sup2;</td></tr>
       <tr><td class="n">04</td><td class="k">Seam cover strip</td><td>100 mm, matching compound, HF welded both sides of every lap</td><td class="n">42 m</td></tr>
-      <tr><td class="n">05</td><td class="k">Arch foot socket</td><td>Moulded TPU, bonded, integral check-valve seat and hose barb</td><td class="n">6</td></tr>
+      <tr><td class="n">05</td><td class="k">Arch foot socket</td><td>Moulded TPU, bonded, with a &Oslash;50 open transfer port to the base rail</td><td class="n">6</td></tr>
       <tr><td class="n">06</td><td class="k">Land strip</td><td>60 mm PVC webbing, HF welded to arch inner face full length</td><td class="n">18 m</td></tr>
-      <tr><td class="n">07</td><td class="k">Manifold hose</td><td>25 mm reinforced PVC, 16 psi working, routed inside base rail</td><td class="n">12 m</td></tr>
-      <tr><td class="n">08</td><td class="k">Check valve</td><td>Umbrella, 25 mm, cracking pressure &le; 0.3 psi, reverse-seal &ge; 20 psi</td><td class="n">7</td></tr>
-      <tr><td class="n">09</td><td class="k">Fill valve</td><td>Halkey-Roberts 1.5&Prime; with integral 0&ndash;20 psi gauge</td><td class="n">1</td></tr>
-      <tr><td class="n">10</td><td class="k">Relief valve</td><td>Spring poppet, 16 &plusmn; 0.5 psi, 200 L/min discharge</td><td class="n">1</td></tr>
-      <tr><td class="n">11</td><td class="k">Dump valve</td><td>76 mm bayonet, rear corner of base rail</td><td class="n">1</td></tr>
-      <tr><td class="n">12</td><td class="k">Diagrid webbing</td><td>25 mm polyester, MBS 11 kN, 600 mm pitch on 45&deg; bias &mdash; polyester, not nylon (Sheet 08)</td><td class="n">62 m</td></tr>
-      <tr><td class="n">13</td><td class="k">Perimeter webbing</td><td>40 mm polyester, MBS 22 kN</td><td class="n">26 m</td></tr>
-      <tr><td class="n">14</td><td class="k">Ratchet tensioner</td><td>25 mm, 400 daN lashing capacity, captive on the webbing</td><td class="n">18</td></tr>
-      <tr><td class="n">15</td><td class="k">Arrest net</td><td>#42 knotless nylon, 22 mm square mesh, UV-stabilised, field-replaceable &mdash; nylon, not polyester (Sheet 08)</td><td class="n">33 m&sup2;</td></tr>
-      <tr><td class="n">16</td><td class="k">Net toggle</td><td>Nylon toggle, 150 mm tether &mdash; sets the controlled slack</td><td class="n">220</td></tr>
-      <tr><td class="n">17</td><td class="k">Ballast sleeve</td><td>210D nylon, 5 gal, on base rail; outdoor use</td><td class="n">4</td></tr>
-      <tr><td class="n">18</td><td class="k">Pump</td><td>12 V two-stage, 500 L/min to 1.5 psi then 120 L/min to 12 psi, auto shut-off, reversible for deflation</td><td class="n">1</td></tr>
-      <tr><td class="n">19</td><td class="k">Bags</td><td>600D, wheeled; frame bag 30&times;20&times;20&Prime;, net bag 20&times;16&times;16&Prime;</td><td class="n">2</td></tr>
-      <tr><td class="n">20</td><td class="k">Repair kit</td><td>Fabric patches, HF-compatible adhesive, spare check valve, 20 spare toggles</td><td class="n">1</td></tr>
+      <tr><td class="n">07</td><td class="k">Fill / dump valve</td><td>Halkey-Roberts 1.5&Prime; or equivalent &mdash; inflates and dumps, rear corner of base rail</td><td class="n">1</td></tr>
+      <tr><td class="n">08</td><td class="k">Relief valve <em>(optional)</em></td><td>Spring poppet, 16 &plusmn; 0.5 psi, 200 L/min discharge</td><td class="n">1</td></tr>
+      <tr><td class="n">09</td><td class="k">Diagrid webbing</td><td>25 mm polyester, MBS 11 kN, 600 mm pitch on 45&deg; bias &mdash; polyester, not nylon (Sheet 08)</td><td class="n">62 m</td></tr>
+      <tr><td class="n">10</td><td class="k">Perimeter webbing</td><td>40 mm polyester, MBS 22 kN</td><td class="n">26 m</td></tr>
+      <tr><td class="n">11</td><td class="k">Ratchet tensioner</td><td>25 mm, 400 daN lashing capacity, captive on the webbing</td><td class="n">18</td></tr>
+      <tr><td class="n">12</td><td class="k">Arrest net</td><td>#42 knotless nylon, 22 mm square mesh, UV-stabilised, field-replaceable &mdash; nylon, not polyester (Sheet 08)</td><td class="n">33 m&sup2;</td></tr>
+      <tr><td class="n">13</td><td class="k">Net toggle</td><td>Nylon toggle, 150 mm tether &mdash; sets the controlled slack</td><td class="n">220</td></tr>
+      <tr><td class="n">14</td><td class="k">Ballast sleeve</td><td>210D nylon, 5 gal, on base rail; outdoor use</td><td class="n">4</td></tr>
+      <tr><td class="n">15</td><td class="k">Pump</td><td>12 V two-stage, 500 L/min to 1.5 psi then 120 L/min to 12 psi, auto shut-off, reversible for deflation, <strong>with integral 0&ndash;20 psi gauge</strong></td><td class="n">1</td></tr>
+      <tr><td class="n">16</td><td class="k">Bag</td><td>600D roll-top duffel, shoulder strap, 44&times;20&times;20&Prime; &mdash; <strong>one bag, one person</strong></td><td class="n">1</td></tr>
+      <tr><td class="n">17</td><td class="k">Repair kit</td><td>Fabric patches, HF-compatible adhesive, spare valve core, 20 spare toggles</td><td class="n">1</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -1047,10 +1058,10 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
 
   <h3>Stage 3 &mdash; fittings <span style="color:var(--muted);font-weight:400">(job shop)</span></h3>
   <ol class="tight">
-    <li>Weld a foot socket to each arch end &mdash; it carries the check valve and the hose barb.</li>
+    <li>Weld a foot socket to each arch end, with a &Oslash;50 open port through into the base rail. The port is the <em>absence</em> of a weld &mdash; mask it before welding rather than cutting it afterwards.</li>
     <li>Weld the 60&nbsp;mm land strip along each arch&rsquo;s inner face, full length. Get it straight: this strip sets the diagrid plane, and a wandering strip puts a permanent twist in the membrane.</li>
-    <li>Base rail: pull the 25&nbsp;mm manifold hose through before closing the final seam, and pull a service cord through alongside it.</li>
-    <li>Fit fill valve with gauge, relief valve, dump valve. Torque to the valve maker&rsquo;s figure &mdash; over-torque splits the fabric boss.</li>
+    <li>Base rail: nothing goes inside it. It is a plain welded tube with six port openings and one valve boss.</li>
+    <li>Fit the one fill/dump valve, plus the relief valve if you are using it. Torque to the valve maker&rsquo;s figure &mdash; over-torque splits the fabric boss.</li>
   </ol>
 
   <h3>Stage 4 &mdash; net assembly <span style="color:var(--muted);font-weight:400">(you, or a canvas shop)</span></h3>
@@ -1073,7 +1084,7 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
   </ol>
 
   <h3>Stage 6 &mdash; commissioning</h3>
-  <p>Run T1, T3 and T6 from Sheet 12 &mdash; the three structural questions &mdash; <strong>before a ball is ever hit into it.</strong> Then T2.</p>
+  <p>Run T1, T3 and T6 from Sheet 12 <strong>before a ball is ever hit into it.</strong> Then T2.</p>
 
   <h3>What to hand the fabricator</h3>
   <ul class="tight">
@@ -1091,12 +1102,12 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
       <tr><td class="k">Inflatable fabric</td><td>~35 m&sup2; incl. 40 % overage @ ~$11/m&sup2;</td><td class="n">$385</td></tr>
       <tr><td class="k">Netting</td><td>33 m&sup2; #42 knotless nylon @ ~$6/m&sup2;</td><td class="n">$200</td></tr>
       <tr><td class="k">Webbing and tensioners</td><td>88 m polyester + 18 ratchets</td><td class="n">$260</td></tr>
-      <tr><td class="k">Valves, hose, sockets</td><td>Per Sheet 09, items 05&ndash;11</td><td class="n">$220</td></tr>
+      <tr><td class="k">Valves and sockets</td><td>Per Sheet 09 &mdash; two valves and six foot sockets, no hose, no check valves</td><td class="n">$95</td></tr>
       <tr><td class="k">Pump</td><td>12 V two-stage, reversible</td><td class="n">$180</td></tr>
       <tr><td class="k">HF welding labour</td><td>~30 h @ ~$85/h &mdash; the dominant cost, and the one to negotiate</td><td class="n">$2,550</td></tr>
       <tr><td class="k">Net sewing labour</td><td>~20 h</td><td class="n">$700</td></tr>
-      <tr><td class="k">Contingency</td><td>25 % &mdash; assume one arch gets re-cut</td><td class="n">$1,125</td></tr>
-      <tr class="hi"><td class="k">Total, first unit</td><td>6&ndash;10 weeks, most of it waiting on the shop queue</td><td class="n">&asymp; $5,620</td></tr>
+      <tr><td class="k">Contingency</td><td>25 % &mdash; assume one arch gets re-cut</td><td class="n">$1,090</td></tr>
+      <tr class="hi"><td class="k">Total, first unit</td><td>6&ndash;10 weeks, most of it waiting on the shop queue</td><td class="n">&asymp; $5,460</td></tr>
       <tr><td class="k">Second unit</td><td>Patterns and setup already exist</td><td class="n">&asymp; $2,800</td></tr>
     </tbody>
   </table></div>
@@ -1130,14 +1141,14 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
     <tbody>
       <tr class="hi"><td class="n">1</td><td class="k">Reciprocal arch&ndash;net system</td><td>Arches pre-tension the net; the net braces the arches out of plane and distributes point impact across all of them. The load loop closes arch &rarr; diagrid &rarr; base rail &rarr; arch without reaching the ground. Raises frame margin from SF 1.3 to SF 2.8 at the same tube size and removes all guys and outriggers.</td><td>Strongest &mdash; the reciprocity is the invention</td></tr>
       <tr class="hi"><td class="n">2</td><td class="k">Two-layer membrane</td><td>Resolves a genuine conflict: a membrane stiff enough to brace cannot arrest a ball gently. A 45&deg;-bias polyester diagrid and a slack nylon arrest net share one mounting and one tensioning system, so the same assembly is stiff in plane and compliant out of plane. The two layers also require opposite fibre properties &mdash; near-zero stretch versus high elongation &mdash; which is an independent reason they cannot be a single layer.</td><td>Strong &mdash; pair with 1 in the independent claim</td></tr>
-      <tr><td class="n">3</td><td class="k">Manifold inside the base rail, per-limb check valves</td><td>One port fills seven chambers in one cycle, yet loss of any single chamber &mdash; including the member that houses the manifold &mdash; leaves the rest inflated. Single-cycle convenience without single-point failure.</td><td>Good dependent; verify against inflatable-boat and airbeam-shelter manifold art</td></tr>
+      <tr><td class="n">3</td><td class="k"><s>Manifold with per-limb check valves</s> &mdash; withdrawn</td><td>Dropped from the design (Sheet 04) in favour of open transfer ports. Recorded here so counsel is not searching for a feature the product no longer has. It was the weakest of the six in any case &mdash; multi-chamber inflation manifolds are well covered by inflatable-boat and airbeam-shelter art.</td><td>Gone. Do not claim.</td></tr>
       <tr><td class="n">4</td><td class="k">Swing-derived three-centred profile</td><td><em>R</em><sub>1</sub>&nbsp;=&nbsp;1.25<em>W</em>, <em>R</em><sub>2</sub>&nbsp;=&nbsp;0.31<em>W</em>, giving a &le;50&nbsp;mm crown band matched to the club-head apex envelope. Delivers portal-equivalent usable height on an arch load path.</td><td>Narrow but clean &mdash; specificity helps allowance, hurts scope</td></tr>
       <tr><td class="n">5</td><td class="k">Screen laced to the structural diaphragm</td><td>No independent screen frame and no rigid abrasion edge; flatness is inherited from a plane that is already tensioned for structural reasons.</td><td>Good dependent</td></tr>
       <tr><td class="n">6</td><td class="k">Field-adjustable arrest travel</td><td>Tensioners let the owner trade peak arrest force against required room depth (Sheet 05), so one unit serves a range of rooms.</td><td>Weaker alone; useful as a dependent</td></tr>
     </tbody>
   </table></div>
 
-  <p style="margin-top:1.3em">The position we would put to counsel: <strong>a single independent claim on (1) combined with (2)</strong> &mdash; a pneumatic arch frame whose out-of-plane stability is supplied by a pre-tensioned two-layer net diaphragm that also serves as the ball-arresting element &mdash; with (3) through (6) as dependents. Feature (1) standing alone risks reading on cable-braced airbeam shelters; it is the dual role of the net, structural <em>and</em> energy-absorbing, that distinguishes it.</p>
+  <p style="margin-top:1.3em">The position we would put to counsel: <strong>a single independent claim on (1) combined with (2)</strong> &mdash; a pneumatic arch frame whose out-of-plane stability is supplied by a pre-tensioned two-layer net diaphragm that also serves as the ball-arresting element &mdash; with (4), (5) and (6) as dependents. Feature (1) standing alone risks reading on cable-braced airbeam shelters; it is the dual role of the net, structural <em>and</em> energy-absorbing, that distinguishes it.</p>
 
   <h3>Prior art counsel must clear</h3>
   <div class="tblwrap"><table>
@@ -1174,7 +1185,7 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
       <tr><td class="n">T3</td><td class="k">Diagrid racking &mdash; 2 kN in-plane shear on a full panel</td><td>Racking angle &le; 2&deg;. This is the test that proves the net is structure and not cargo.</td></tr>
       <tr><td class="n">T4</td><td class="k">Thermal cycle &mdash; 0 &rarr; 50 &deg;C, 20 cycles, sealed</td><td>Relief does not vent below 15.5 psi; pressure recovers on cooling; no seam creep.</td></tr>
       <tr><td class="n">T5</td><td class="k">Setup cycling &mdash; 50 full setup / teardown cycles</td><td>No seam, valve or land-strip degradation; fold lines show no coating crazing.</td></tr>
-      <tr><td class="n">T6</td><td class="k">Puncture redundancy &mdash; cut one arch, then the base rail, under full net pre-tension</td><td>Remaining chambers hold &ge; 10 min with no progressive collapse. Confirms the Sheet 04 claim rather than assuming it.</td></tr>
+      <tr><td class="n">T6</td><td class="k">Port sizing &mdash; inflate from cold with pressure logged at the valve and at the furthest purlin</td><td>Furthest chamber within 0.5 psi of the valve throughout, and full pressure inside 8 min. Confirms &Oslash;50 ports are large enough that the far end does not lag.</td></tr>
     </tbody>
   </table></div>
 
@@ -1185,14 +1196,14 @@ hr{border:0; border-top:1px solid var(--rule-soft); margin:34px 0}
     <li><strong>V-9 swing rating.</strong> A 9-foot ceiling constrains any enclosure, ours included. Publishing an honest height rating costs sales and prevents returns; the temptation to round it up should be resisted in writing, now, before marketing sees it.</li>
     <li><strong>Arrest net fatigue.</strong> 100,000 impacts is an estimate, not a measurement. T2 runs 1,000. Either extend the test or ship the net as a consumable with a stated replacement interval &mdash; the second is cheaper and more honest.</li>
     <li><strong>Screen life claim.</strong> The 3&ndash;5&times; life improvement from decoupling optical duty from arrest duty is a reasoned expectation with no data behind it. Do not put it in marketing until T2 has screen samples in the rig.</li>
-    <li><strong>Weight estimates.</strong> Built from fabric area and areal density with a 12&nbsp;% allowance for reinforcement, valves and hardware. Real prototypes usually come in heavy. Treat 62&nbsp;lb as a target, not a spec.</li>
+    <li><strong>Weight estimates.</strong> Built from fabric area and areal density with a 12&nbsp;% allowance for reinforcement, valves and hardware. Real prototypes usually come in heavy. Treat 54&nbsp;lb as a target, not a spec &mdash; and weigh the first one before printing anything.</li>
   </ol>
 
   <h3>Suggested sequence</h3>
   <ol class="tight">
     <li>Provisional filing on the Sheet 11 position, drafted by counsel &mdash; establishes a date while the rest proceeds.</li>
     <li>Prior-art search in parallel; re-scope the claims from what it finds.</li>
-    <li>One V-10 prototype, hand-welded, no tooling. Run T1, T3, T6 &mdash; the three structural questions.</li>
+    <li>One V-10 prototype, hand-welded, no tooling. Run T1, T3 and T6.</li>
     <li>T2 ball cannon on the same prototype once the structure is proven.</li>
     <li>Revise geometry from test data, then commit tooling and file the non-provisional.</li>
   </ol>
