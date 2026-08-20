@@ -1,0 +1,255 @@
+<title>VAULT in Plain English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --panel:#FBFBF9; --sunk:#E8EAE3;
+  --ink:#171B14; --ink-2:#4A5147; --muted:#787F74;
+  --rule:#CBCFC3; --rule-soft:#E0E3D9;
+  --signal:#B0401B; --air:#2A6857; --air-soft:#DEE9E4; --tube:#E4E7DE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+    --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+    --rule:#2E342B; --rule-soft:#242A22;
+    --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#232A21;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111410; --panel:#181C16; --sunk:#1E231C;
+  --ink:#E9EBE2; --ink-2:#AFB5A8; --muted:#7C8377;
+  --rule:#2E342B; --rule-soft:#242A22;
+  --signal:#E37544; --air:#5EAF97; --air-soft:#1B2E28; --tube:#232A21;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:20px; line-height:1.66; -webkit-font-smoothing:antialiased}
+.wrap{max-width:760px; margin:0 auto; padding:0 26px 110px}
+h1,h2,h3,.lbl,th{font-family:"Archivo",-apple-system,"Segoe UI",sans-serif}
+p{margin:0 0 1.05em}
+a{color:var(--signal)}
+
+header{padding:66px 0 0}
+.eyebrow{font:600 11px/1 "Archivo"; letter-spacing:.17em; text-transform:uppercase; color:var(--signal)}
+h1{font-size:clamp(40px,7vw,64px); font-weight:700; letter-spacing:-.03em; line-height:1.0; margin:18px 0 0; text-wrap:balance}
+.deck{font-size:22px; color:var(--ink-2); margin:22px 0 0}
+
+h2{font-size:clamp(25px,4vw,32px); font-weight:700; letter-spacing:-.022em; margin:0; text-wrap:balance}
+section{margin:64px 0 0; border-top:2px solid var(--ink); padding-top:16px}
+h3{font-size:20px; font-weight:600; letter-spacing:-.01em; margin:32px 0 6px}
+
+.idea{background:var(--panel); border:1px solid var(--rule); padding:24px 26px; margin:26px 0}
+.idea .n{font:700 11px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--signal); display:block; margin-bottom:12px}
+.idea h3{margin:0 0 10px; font-size:23px; font-weight:700; letter-spacing:-.02em}
+.idea p:last-child{margin-bottom:0}
+
+.big{background:var(--air-soft); border-left:3px solid var(--air); padding:20px 24px; margin:28px 0; font-size:20px}
+.big p:last-child{margin-bottom:0}
+.big b{font-family:"Archivo",sans-serif; font-weight:600; font-size:.94em}
+
+.warn{background:var(--panel); border-left:3px solid var(--signal); border-top:1px solid var(--rule-soft); border-right:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); padding:20px 24px; margin:28px 0}
+.warn p:last-child{margin-bottom:0}
+.warn .t{font:600 11px/1 "Archivo"; letter-spacing:.15em; text-transform:uppercase; color:var(--signal); display:block; margin-bottom:10px}
+
+figure{margin:30px 0; border:1px solid var(--rule); background:var(--panel)}
+.dwg{overflow-x:auto; padding:18px 16px 6px}
+.dwg svg{display:block; width:100%; height:auto; min-width:520px}
+figcaption{border-top:1px solid var(--rule-soft); padding:12px 18px; font:500 13.5px/1.5 "Archivo"; color:var(--muted)}
+
+.tblwrap{overflow-x:auto; margin:26px 0; border:1px solid var(--rule); background:var(--panel)}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:16px; font-family:"Newsreader",serif}
+th{text-align:left; font:600 10.5px/1.3 "Archivo"; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); padding:14px 15px; border-bottom:1px solid var(--rule); vertical-align:bottom}
+td{padding:13px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-family:"Archivo",sans-serif; font-weight:600; font-size:15px; white-space:nowrap}
+.hi td{background:var(--air-soft)}
+
+.cost{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:28px 0}
+.cost div{background:var(--panel); padding:20px 18px}
+.cost dt{font:600 10.5px/1 "Archivo"; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 9px}
+.cost dd{margin:0; font-family:"Archivo",sans-serif; font-weight:700; font-size:26px; letter-spacing:-.02em}
+.cost small{display:block; font-family:"Newsreader",serif; font-weight:400; font-size:15px; color:var(--ink-2); margin-top:5px; letter-spacing:0}
+@media(max-width:620px){.cost{grid-template-columns:1fr}}
+
+ul,ol{padding-left:1.2em; margin:0 0 1.1em}
+li{margin:0 0 .55em}
+li::marker{color:var(--muted)}
+strong{font-family:"Archivo",sans-serif; font-weight:600; font-size:.95em}
+.num{font-family:"IBM Plex Mono",monospace; font-size:.9em; background:var(--sunk); padding:1px 6px; border-radius:2px}
+.foot{margin-top:70px; border-top:1px solid var(--rule); padding-top:20px; font:500 14px/1.7 "Archivo"; color:var(--muted)}
+:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+
+svg text{font-family:"Archivo",sans-serif; font-weight:600; fill:var(--ink-2)}
+svg .tubeline{fill:none; stroke:var(--ink); stroke-linecap:round; stroke-linejoin:round}
+svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejoin:round}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="pA" markerUnits="userSpaceOnUse" markerWidth="52" markerHeight="32" refX="50" refY="16" orient="auto"><path d="M0 2 L52 16 L0 30 Z" fill="var(--air)"/></marker>
+  <marker id="pO" markerUnits="userSpaceOnUse" markerWidth="52" markerHeight="32" refX="50" refY="16" orient="auto"><path d="M0 2 L52 16 L0 30 Z" fill="var(--signal)"/></marker>
+</defs></svg>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">The short version</span>
+  <h1>VAULT in Plain English</h1>
+  <p class="deck">An inflatable golf cage that stands up because the net and the frame hold each other up. Here is the whole idea without the engineering.</p>
+</header>
+
+<section>
+  <h2>What it is</h2>
+  <p>A golf practice cage you inflate with a pump in about ten minutes, hit balls into, then deflate and put in a bag. It comes in three sizes so it fits a normal garage, a home studio, or a school gym.</p>
+  <p>The one on the market you asked me to work around &mdash; the InMotion Air GX-6 &mdash; is basically an <strong>inflatable box</strong>: straight fat tubes making a rectangle, with a net hanging inside it. Yours is built a completely different way, which is the whole point.</p>
+</section>
+
+<section>
+  <h2>The two ideas that make it different</h2>
+
+  <div class="idea">
+    <span class="n">Idea one</span>
+    <h3>Bend the tubes into an arch instead of a box</h3>
+    <p>Think of a pool noodle. Push down on the middle of a straight one and it folds in half. Now bend that same noodle into an arch, feet on the ground, and push down &mdash; it barely moves, because the force runs <em>along</em> the tube instead of trying to fold it. That is exactly why old stone bridges are arches.</p>
+    <p>Same trick here. Because the shape is doing the work, the arch version can be built from <strong>8-inch tubes where a boxy frame would need about 13-inch tubes</strong> to survive the same hit. That is roughly <strong>a third less fabric</strong> &mdash; lighter to carry, cheaper to make, smaller to pack.</p>
+    <p>One refinement: the arch is flattened across the top rather than pointed, so you get full height across the whole area where the club actually swings, and it only drops away out at the sides where the club is near vertical anyway.</p>
+  </div>
+
+  <div class="idea">
+    <span class="n">Idea two</span>
+    <h3>Make the net part of the structure</h3>
+    <p>In a normal cage the net just hangs there. It is dead weight the frame has to carry.</p>
+    <p>Here the net is pulled tight like a drum skin between the arches. The arches push outward, the net pulls inward, and neither one can move &mdash; the same way the strings and the frame of a tennis racket hold each other in shape. The net stops the arches wobbling sideways, and it spreads the shock of a ball across all three arches instead of one.</p>
+    <p>The nice consequence: <strong>indoors it needs no stakes, no guy ropes and no sandbags.</strong> All the pulling is between parts of the cage itself, so nothing gets transmitted to your floor. Weights are only needed outdoors, for wind.</p>
+  </div>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 2400 1090" role="img" aria-label="Two simple diagrams: the arch and net pulling against each other, and the three layers a ball passes through">
+        <path d="M1210 70 L1210 1010" stroke="var(--rule)" stroke-width="4"/>
+
+        <text x="70" y="86" font-size="44" fill="var(--ink)">THEY HOLD EACH OTHER UP</text>
+        <g opacity=".3" stroke="var(--ink-2)" stroke-width="4" fill="none">
+          <path d="M300 830 L840 300 M300 620 L1010 300 M480 830 L1020 300 M660 830 L1020 470 M300 410 L640 300 M840 830 L1020 660"/>
+          <path d="M1020 830 L480 300 M1020 620 L310 300 M840 830 L300 300 M660 830 L300 470 M1020 410 L680 300 M480 830 L300 660"/>
+        </g>
+        <path class="tubeline" stroke-width="48" d="M270 850 L270 570 C270 410, 360 322, 480 308 C560 299, 610 297, 650 297 C690 297, 740 299, 820 308 C940 322, 1030 410, 1030 570 L1030 850"/>
+        <path class="tubecore" stroke-width="38" d="M270 850 L270 570 C270 410, 360 322, 480 308 C560 299, 610 297, 650 297 C690 297, 740 299, 820 308 C940 322, 1030 410, 1030 570 L1030 850"/>
+        <path d="M240 850 L1060 850" stroke="var(--ink)" stroke-width="8"/>
+        <g stroke="var(--air)" stroke-width="13" fill="none" marker-end="url(#pA)">
+          <path d="M420 600 L318 600"/><path d="M880 600 L982 600"/>
+        </g>
+        <g stroke="var(--signal)" stroke-width="13" fill="none" marker-end="url(#pO)">
+          <path d="M258 760 L150 760"/><path d="M1042 760 L1150 760"/>
+        </g>
+        <text x="650" y="640" font-size="38" text-anchor="middle" fill="var(--air)">net pulls in</text>
+        <text x="650" y="930" font-size="38" text-anchor="middle" fill="var(--signal)">arch pushes out</text>
+        <text x="650" y="1000" font-size="36" text-anchor="middle">Nothing moves. No stakes, no sandbags.</text>
+
+        <text x="1270" y="86" font-size="44" fill="var(--ink)">WHAT A BALL HITS</text>
+        <path d="M1900 360 L1900 800" stroke="var(--air)" stroke-width="13" stroke-dasharray="34 22"/>
+        <path d="M1720 360 Q1758 420 1720 480 Q1682 540 1720 600 Q1758 660 1720 720 Q1758 770 1720 800" fill="none" stroke="var(--ink-2)" stroke-width="10"/>
+        <path d="M1560 360 L1560 800" stroke="var(--ink)" stroke-width="18"/>
+        <path d="M1560 370 C1300 470, 1300 690, 1560 790" fill="none" stroke="var(--signal)" stroke-width="7" stroke-dasharray="30 20"/>
+        <g stroke="var(--air)" stroke-width="13" fill="none" marker-end="url(#pA)"><path d="M2320 580 L1990 580"/></g>
+        <circle cx="2345" cy="580" r="26" fill="var(--ink)"/>
+        <g>
+          <circle cx="1900" cy="292" r="34" fill="var(--panel)" stroke="var(--ink-2)" stroke-width="5"/><text x="1900" y="306" font-size="38" text-anchor="middle" fill="var(--ink)">1</text>
+          <circle cx="1720" cy="292" r="34" fill="var(--panel)" stroke="var(--ink-2)" stroke-width="5"/><text x="1720" y="306" font-size="38" text-anchor="middle" fill="var(--ink)">2</text>
+          <circle cx="1560" cy="292" r="34" fill="var(--panel)" stroke="var(--ink-2)" stroke-width="5"/><text x="1560" y="306" font-size="38" text-anchor="middle" fill="var(--ink)">3</text>
+        </g>
+        <text x="1272" y="866" font-size="34" fill="var(--signal)">net bulges forward ~20 in</text>
+        <text x="1272" y="936" font-size="34" fill="var(--air)">1 &middot; screen &mdash; optional, for a simulator</text>
+        <text x="1272" y="988" font-size="34">2 &middot; loose net catches the ball</text>
+        <text x="1272" y="1040" font-size="34">3 &middot; tight straps hold the frame</text>
+      </svg>
+    </div>
+    <figcaption>Left: the arch and the net pull against each other, so the whole thing is self-supporting. Right: a ball passes the screen, gets caught by the loose net, and the tight straps behind take the load.</figcaption>
+  </figure>
+
+  <h3>Why there are two nets, not one</h3>
+  <p>This trips people up, so: a net pulled tight enough to hold the frame steady would be like hitting into a drum-tight trampoline &mdash; the ball would come straight back at you. A net loose enough to catch a ball gently can&rsquo;t hold anything up. You can&rsquo;t have both in one net.</p>
+  <p>So there are two layers. A <strong>tight web of straps</strong> at the back does the structural job. A <strong>loose net</strong> in front does the catching. They even need opposite materials: the straps must not stretch, and the catching net must stretch, because the stretch is what softens the hit.</p>
+
+  <div class="warn">
+    <span class="t">The number people get wrong</span>
+    <p>When the net catches a driver, it bulges forward about <strong>20 inches</strong>. So you need roughly <strong>2 feet of empty space between the front of the cage and your garage wall</strong> &mdash; otherwise the wall stops the ball, not the net. You can tighten the straps to shrink that gap if you&rsquo;re cramped, but the ball then hits harder.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Which size you&rsquo;d need</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Model</th><th>Your ceiling</th><th>Floor it takes</th><th>Weight</th><th>Full driver swing?</th></tr></thead>
+    <tbody>
+      <tr><td class="k">V-9 Garage</td><td>9 ft</td><td>10 &times; 7 ft</td><td>36 lb</td><td>Irons yes. Driver only if you&rsquo;re under about 5&prime;10&Prime;.</td></tr>
+      <tr class="hi"><td class="k">V-10 Studio</td><td>10 ft</td><td>12 &times; 8 ft</td><td>62 lb</td><td>Yes, anyone. This is the main model.</td></tr>
+      <tr><td class="k">V-12 Academy</td><td>12 ft</td><td>14&frac12; &times; 10 ft</td><td>92 lb</td><td>Yes. Can be lined up side by side in rows.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Add the 2 ft wall gap to the depth when you&rsquo;re measuring your room. One person can set up the V-9 or V-10; the V-12 wants two people.</p>
+  <p>For comparison, the GX-6 takes 60 sq ft of floor and weighs 60 lb. The V-10 takes <strong>96 sq ft and weighs 62 lb</strong> &mdash; a much bigger bay for the same carry.</p>
+</section>
+
+<section>
+  <h2>What to make it out of</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Part</th><th>Buy this</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">The tubes</td><td>PVC-coated polyester fabric, 750&ndash;900 g/m&sup2; &mdash; the material inflatable boats are made from. Brands: Mehler Valmex, Heytex, Sioen, Serge Ferrari.</td><td>Tough, holds pressure, and any inflatable shop already knows how to weld it.</td></tr>
+      <tr class="hi"><td class="k">Catching net</td><td>#42 <strong>knotless</strong> nylon, 7/8&Prime; mesh &mdash; the same netting used in driving-range barriers and batting cages.</td><td>Nylon stretches, and the stretch is what softens the hit. Knotless because knots slowly saw through the net over thousands of shots.</td></tr>
+      <tr><td class="k">Structural straps</td><td>1&Prime; <strong>polyester</strong> webbing, the flat woven kind used for cargo straps.</td><td>Polyester barely stretches, so it holds the frame tight. Nylon here would slowly go slack.</td></tr>
+      <tr><td class="k">Screen</td><td>A ready-made 4-ply simulator impact screen.</td><td>Not worth making yourself.</td></tr>
+      <tr><td class="k">Thread</td><td>Bonded polyester, V-92.</td><td>Nylon thread breaks down in sunlight much faster.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="warn">
+    <span class="t">The mistake that will cost you a prototype</span>
+    <p>Searching for fabric will turn up <strong>banner and billboard PVC</strong> first. It looks identical, welds beautifully, and costs a third as much. It is far too thin: it will hold about 3 psi and yours needs 12. When you order, specify the <em>weight per square metre and the strength</em>, not the fabric name.</p>
+  </div>
+</section>
+
+<section>
+  <h2>How you&rsquo;d actually get one built</h2>
+  <p>You can&rsquo;t do the welding at home &mdash; airtight tubes need a radio-frequency welding machine, which is workshop equipment. Everything either side of it you can do yourself.</p>
+  <ol>
+    <li><strong>Chalk the arch shape full-size on your driveway</strong> and stand inside it with a driver. Catches shape mistakes for free.</li>
+    <li><strong>Find a shop.</strong> Inflatable boat builders and repairers, inflatable advertising or event-tent makers, truck-tarp and awning shops. Search &ldquo;HF welding PVC fabric&rdquo; or &ldquo;inflatable fabrication&rdquo;.</li>
+    <li><strong>Have them build one arch first</strong>, not all three. It&rsquo;s about a fifth of the cost and it proves the patterns and their weld quality. Test it at 18 psi for half an hour with soapy water on the seams before going further.</li>
+    <li><strong>Then the rest of the frame.</strong> Every tube gets leak-tested on its own before anything is assembled.</li>
+    <li><strong>Net assembly</strong> is sewing work &mdash; you or a canvas shop. Tedious but not skilled.</li>
+    <li><strong>First inflation:</strong> pump to half pressure, fit the net loose, then bring it up to full &mdash; the arch straightens as it inflates and tightens the net for you. Tighten the straps in a criss-cross order like car wheel nuts, never one after another around the edge.</li>
+  </ol>
+
+  <div class="cost">
+    <div><dt>First unit</dt><dd>~$5,600<small>Most of it is welding labour, which is the line to negotiate</small></dd></div>
+    <div><dt>Time</dt><dd>6&ndash;10 weeks<small>Mostly waiting in the shop&rsquo;s queue</small></dd></div>
+    <div><dt>Second unit</dt><dd>~$2,800<small>The patterns already exist by then</small></dd></div>
+  </div>
+</section>
+
+<section>
+  <h2>Can you patent it?</h2>
+  <p>Honest answer: <strong>maybe, but not on the arch alone.</strong> Inflatable arches have been used in military and event tents for decades, so &ldquo;an inflatable arch holding a net&rdquo; is not new and won&rsquo;t get you a patent.</p>
+  <p>What might be new is the <strong>combination</strong>: the arch and the net holding each other up, plus splitting the net into a tight structural layer and a loose catching layer. That pairing is the thing worth putting in front of an attorney.</p>
+  <p>Two things they need to look at closely: the GX-6&rsquo;s own pending applications (which may not be publicly searchable yet &mdash; applications stay hidden for 18 months), and an existing granted patent, <strong>US 7,118,487, &ldquo;Inflatable sport ball arresting structure&rdquo;</strong>, which is close enough that an examiner will almost certainly raise it.</p>
+  <p>I&rsquo;m not able to tell you whether it&rsquo;s patentable &mdash; that needs a proper search by a registered patent attorney. What the full document does is get you into that meeting with the design defined and the search already scoped, which is the expensive part to produce.</p>
+</section>
+
+<section>
+  <h2>What to watch out for</h2>
+  <ul>
+    <li><strong>Every number in the design is calculated, not measured.</strong> The maths is the right maths, but nothing has been built or tested yet. Build the prototype before you spend money on tooling or file the full patent.</li>
+    <li><strong>The V-9 is honestly limited.</strong> A 9-foot ceiling constrains <em>any</em> cage, including this one. Publish the real height rating even though it costs sales &mdash; it prevents returns and angry customers.</li>
+    <li><strong>The net will loosen.</strong> Fabric relaxes over the first half hour. Plan on re-tightening, and write it into the instructions.</li>
+    <li><strong>Don&rsquo;t bolt a projector to the frame.</strong> An inflatable moves a few millimetres as it warms up, and your picture will drift. Floor stand or ceiling mount only.</li>
+  </ul>
+</section>
+
+<div class="foot">
+  <p>This is the summary. The full engineering document &mdash; drawings, calculations, full bill of materials, step-by-step build, and the patent write-up for your attorney &mdash; is the companion to this page, and that is the version to hand to a fabricator or a lawyer.</p>
+</div>
+
+</div>
