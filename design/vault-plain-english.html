@@ -207,7 +207,7 @@ svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejo
       <tr><td class="k">Headroom inside</td><td>8 ft 3 in</td><td>9 ft 0 in</td><td>10 ft 8 in</td></tr>
       <tr><td class="k">Ceiling you need</td><td>9 ft</td><td>10 ft</td><td>12 ft</td></tr>
       <tr class="hi"><td class="k">Floor you need<br><span style="font-family:Newsreader,serif;font-weight:400;font-size:14px;color:var(--muted)">cage + the wall gap</span></td><td>10 ft &times; 8 ft 10 in</td><td>12 ft &times; 10 ft 4 in</td><td>14 ft 6 in &times; 12 ft 10 in</td></tr>
-      <tr class="hi"><td class="k">Packs into</td><td><strong>one bag</strong><br>36 &times; 18 &times; 18 in</td><td><strong>one bag</strong><br>44 &times; 20 &times; 20 in</td><td><strong>one bag</strong><br>50 &times; 24 &times; 24 in</td></tr>
+      <tr class="hi"><td class="k">Packs into</td><td><strong>one bag</strong><br>30 &times; 14 &times; 12 in</td><td><strong>one bag</strong><br>36 &times; 16 &times; 14 in</td><td><strong>one bag</strong><br>42 &times; 18 &times; 16 in</td></tr>
       <tr><td class="k">Weight</td><td>32 lb set up<br>38 lb packed</td><td>54 lb set up<br>66 lb packed</td><td>82 lb set up<br>96 lb packed</td></tr>
     </tbody>
   </table></div>
@@ -266,6 +266,74 @@ svg .tubecore{fill:none; stroke:var(--tube); stroke-linecap:round; stroke-linejo
     <li><strong>Gym, school hall, commercial bay</strong> &mdash; V-12.</li>
   </ul>
   <p>The V-10 is the main model: it takes <strong>96 sq ft</strong> of floor against the GX-6&rsquo;s 60 sq ft, and weighs <strong>54 lb against its 60 lb</strong>. Bigger bay, lighter, and like the GX-6 it goes in one bag over one shoulder &mdash; which is the whole point of a portable product, so it&rsquo;s treated as a hard rule rather than a nice-to-have.</p>
+</section>
+
+<section>
+  <h2>Do three arches make it bulky?</h2>
+  <p>You pushed on this, so I stopped estimating and actually calculated it &mdash; and it turned up a mistake of mine, though not the one you were expecting.</p>
+  <p><strong>The arches are not what makes it big.</strong> Deflated, a tube is just a flat strip: a &Oslash;203 arch flattens to a 12-inch-wide ribbon and folds down to about 9 litres. All three together are 26 litres, under a third of the packed volume. The net and webbing alone take more room than the entire frame.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>What goes in the bag (V-10)</th><th>Volume</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="k">3 &times; arch</td><td>26 L &mdash; 32&#37;</td></tr>
+      <tr><td class="k">Base rail</td><td>11 L</td></tr>
+      <tr><td class="k">2 &times; crown purlin</td><td>3 L</td></tr>
+      <tr class="hi"><td class="k">Net, diagrid and webbing</td><td>29 L &mdash; 35&#37;</td></tr>
+      <tr><td class="k">Tensioners and hardware</td><td>5 L</td></tr>
+      <tr><td class="k">Pump</td><td>4 L</td></tr>
+      <tr><td class="k">Repair kit, ground pad</td><td>4 L</td></tr>
+      <tr class="hi"><td class="k">Total</td><td><strong>82 L</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="margin-top:1.2em">Removing one arch saves 9 litres &mdash; and because the crown purlin then has to grow from 4 inches to 7 to span the wider gap, you hand a third of that straight back. <strong>Net saving: about 6 litres, or 8&#37; of the pack.</strong> That is not the lever, and it is not worth spending your one unverified safety margin on.</p>
+
+  <div class="warn">
+    <span class="t">Where I was wrong</span>
+    <p>I had specced the V-10 bag at 44 &times; 20 &times; 20 in. That is 288 litres holding 82 litres of kit &mdash; <strong>more than three times too big</strong>. I sized it to look like the reference product&rsquo;s bag instead of working it out. Corrected to <strong>36 &times; 16 &times; 14 in</strong>, which still leaves 60&#37; slack for real-world sloppy folding, and the other two models are corrected with it.</p>
+  </div>
+
+  <figure>
+    <div class="dwg">
+      <svg viewBox="0 0 1520 880" role="img" aria-label="The three packed bags drawn to scale beside a six-foot person, with the reference product bag estimated from its photo for comparison">
+        <g fill="var(--ink-2)" opacity=".28">
+          <circle cx="200" cy="158" r="44"/>
+          <path d="M160 215 L240 215 L246 330 L236 442 L164 442 L154 330 Z"/>
+          <path d="M166 442 L196 442 L200 700 L172 700 Z"/>
+          <path d="M204 442 L234 442 L228 700 L200 700 Z"/>
+          <path d="M156 226 L172 226 L168 412 L150 412 Z"/>
+          <path d="M228 226 L244 226 L250 412 L232 412 Z"/>
+        </g>
+        <path d="M108 116 L108 700" stroke="var(--ink-2)" stroke-width="3" fill="none"/>
+        <path d="M96 116 L120 116 M96 700 L120 700" stroke="var(--ink-2)" stroke-width="3"/>
+        <text x="88" y="416" font-size="30" text-anchor="middle" transform="rotate(-90 88 416)">6 ft</text>
+
+        <rect x="400" y="460" width="112" height="240" rx="16" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <path d="M400 500 Q456 476 512 500" fill="none" stroke="var(--ink-2)" stroke-width="5"/>
+        <rect x="600" y="412" width="128" height="288" rx="18" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <path d="M600 456 Q664 430 728 456" fill="none" stroke="var(--ink-2)" stroke-width="5"/>
+        <rect x="840" y="364" width="144" height="336" rx="20" fill="var(--tube)" stroke="var(--ink)" stroke-width="5"/>
+        <path d="M840 412 Q912 384 984 412" fill="none" stroke="var(--ink-2)" stroke-width="5"/>
+        <rect x="1100" y="332" width="176" height="368" rx="24" fill="none" stroke="var(--muted)" stroke-width="5" stroke-dasharray="22 14"/>
+
+        <path d="M60 700 L1420 700" stroke="var(--ink)" stroke-width="6"/>
+
+        <text x="456" y="746" font-size="34" text-anchor="middle" style="fill:var(--ink)">V-9</text>
+        <text x="456" y="784" font-size="28" text-anchor="middle">30 &times; 14 in</text>
+        <text x="664" y="746" font-size="34" text-anchor="middle" style="fill:var(--ink)">V-10</text>
+        <text x="664" y="784" font-size="28" text-anchor="middle">36 &times; 16 in</text>
+        <text x="912" y="746" font-size="34" text-anchor="middle" style="fill:var(--ink)">V-12</text>
+        <text x="912" y="784" font-size="28" text-anchor="middle">42 &times; 18 in</text>
+        <text x="1188" y="746" font-size="34" text-anchor="middle" style="fill:var(--muted)">GX-6</text>
+        <text x="1188" y="784" font-size="28" text-anchor="middle" style="fill:var(--muted)">~46 &times; 22 in</text>
+        <text x="1188" y="838" font-size="26" text-anchor="middle" style="fill:var(--muted)">estimated from the photo</text>
+      </svg>
+    </div>
+    <figcaption>Packed bags to scale against a six-foot person. The V-10 carries a bay 60&#37; larger than the GX-6 in roughly half its packed volume &mdash; the reference bag is estimated from your photo, so treat that one as approximate.</figcaption>
+  </figure>
+
+  <p>The honest summary: the frame is a third of the pack, the soft goods are half, and the arch count moves the total by single-digit percentages. If bulk ever becomes the binding problem, the levers in order are thinner fabric, then fewer tensioners, then the arch count &mdash; and only the first two are free.</p>
 </section>
 
 <section>
